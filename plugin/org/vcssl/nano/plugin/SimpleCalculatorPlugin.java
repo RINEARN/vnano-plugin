@@ -9,6 +9,7 @@ import org.vcssl.connect.ConnectorException;
 import org.vcssl.connect.ExternalFunctionConnector1;
 import org.vcssl.connect.ExternalNamespaceConnector1;
 import org.vcssl.connect.ExternalVariableConnector1;
+import org.vcssl.nano.plugin.simplecalculator.SinFunctionPlugin;
 
 public class SimpleCalculatorPlugin implements ExternalNamespaceConnector1 {
 
@@ -30,6 +31,7 @@ public class SimpleCalculatorPlugin implements ExternalNamespaceConnector1 {
 	@Override
 	public ExternalFunctionConnector1[] getFunctions() {
 		List<ExternalFunctionConnector1> functionList = new LinkedList<ExternalFunctionConnector1>();
+		functionList.add(new SinFunctionPlugin());
 		return functionList.toArray(new ExternalFunctionConnector1[0]);
 	}
 

@@ -3,6 +3,7 @@ package org.vcssl.nano.plugin;
 import org.vcssl.connect.ConnectorPermission;
 import org.vcssl.connect.ExternalFunctionConnector1;
 import org.vcssl.connect.ExternalVariableConnector1;
+import org.vcssl.nano.plugin.simplecalculator.SinFunctionPlugin;
 
 import static org.junit.Assert.*;
 
@@ -38,7 +39,8 @@ public class SimpleCalculatorPluginTest {
 
 		// Check functions
 		ExternalFunctionConnector1[] functions = plugin.getFunctions();
-		assertEquals(0, functions.length);
+		assertEquals(1, functions.length);
+		assertTrue(functions[0] instanceof SinFunctionPlugin);
 	}
 
 }

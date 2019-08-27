@@ -51,30 +51,23 @@ public class SinFunctionPlugin implements ExternalFunctionConnector1 {
 			throw new ConnectorException("The type of the data container is not supported by this plug-in.");
 		}
 
-		// Check types of data in data containers.
+		// Check types of data in data containers, and cast data.
 		Object inputDataObject = ( (ArrayDataContainer1<?>)arguments[1] ).getData();
 		if (!(inputDataObject instanceof double[])) {
 			throw new ConnectorException("The data type of the argument of \"sin\" function should be \"float\" or \"double\".");
 		}
-		Object outputDataObject = ( (ArrayDataContainer1<?>)arguments[0] ).getData();
-		if (!(outputDataObject instanceof double[])) {
-			throw new ConnectorException("The data type of the return value of \"sin\" function should be \"float\" or \"double\".");
-		}
-
-		// Cast data containers
-		@SuppressWarnings("unchecked")
-		ArrayDataContainer1<double[]> outputDataContainer = (ArrayDataContainer1<double[]>)arguments[0];
 		@SuppressWarnings("unchecked")
 		ArrayDataContainer1<double[]> inputDataContainer = (ArrayDataContainer1<double[]>)arguments[1];
-
-		// Cast data in data containers.
 		double[] inputData = (double[])inputDataObject;
-		double[] outputData = (double[])outputDataObject;
-
-		// Reallocate output data if necessary.
 		int dataLength = inputData.length;
-		if (outputData.length != dataLength) {
-			outputData = new double[dataLength];
+
+		// Get or allocate output data
+		Object outputDataObject = ( (ArrayDataContainer1<?>)arguments[0] ).getData();
+		double[] outputData = null;
+		if (outputDataObject instanceof double[] && ((double[])outputDataObject).length == dataLength) {
+			outputData = (double[])outputDataObject;
+		} else {
+			outputData = new double[ dataLength ];
 		}
 
 		// Operate data
@@ -83,6 +76,8 @@ public class SinFunctionPlugin implements ExternalFunctionConnector1 {
 		}
 
 		// Store result data
+		@SuppressWarnings("unchecked")
+		ArrayDataContainer1<double[]> outputDataContainer = (ArrayDataContainer1<double[]>)arguments[0];
 		outputDataContainer.setData(outputData, inputDataContainer.getLengths());
 
 		return null;

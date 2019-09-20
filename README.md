@@ -19,7 +19,7 @@ This package is released under <a href="https://creativecommons.org/publicdomain
 ## How to Use - 使用方法
 
 
-## Step-1. Build the Vnano Engine - Vnanoエンジンのビルド
+## Step-1. Build the Script Engine of the Vnano - Vnano のスクリプトエンジンのビルド
 
 At first, get and build source code of the script engine of the Vnano: 
 
@@ -60,14 +60,14 @@ For Microsoft&reg; Windows&reg; :
 Microsoft&reg; Windows&reg; をご使用の場合は：
 
     cd plugin
-    javac -classpath ".;Vnano.jar" @org/vcssl/nano/plugin/sorcelist.txt
+    javac -classpath ".;../Vnano.jar" -encoding UTF-8 @org/vcssl/nano/plugin/sourcelist.txt
 
 For Other OSes (e.g. Linux&reg; ) :
 
 その他のOS（ Linux&reg; など）をご使用の場合は：
 
     cd plugin
-    javac -classpath ".:Vnano.jar" @org/vcssl/nano/plugin/sorcelist.txt
+    javac -classpath ".:../Vnano.jar" -encoding UTF-8 @org/vcssl/nano/plugin/sourcelist.txt
 
 Please note that separator-characters in contents of the "-classpaths" option ( ; or : ) are different between OSes.
 

@@ -1,17 +1,17 @@
 package org.vcssl.nano.plugin;
 
-import org.vcssl.connect.ConnectorPermission;
+import org.vcssl.connect.ConnectorPermissionName;
 
 import java.util.LinkedList;
 import java.util.List;
 
 import org.vcssl.connect.ConnectorException;
-import org.vcssl.connect.ExternalFunctionConnector1;
-import org.vcssl.connect.ExternalNamespaceConnector1;
-import org.vcssl.connect.ExternalVariableConnector1;
+import org.vcssl.connect.ExternalFunctionConnectorInterface1;
+import org.vcssl.connect.ExternalNamespaceConnectorInterface1;
+import org.vcssl.connect.ExternalVariableConnectorInterface1;
 import org.vcssl.nano.plugin.simplecalculator.SinFunctionPlugin;
 
-public class SimpleCalculatorPlugin implements ExternalNamespaceConnector1 {
+public class SimpleCalculatorPlugin implements ExternalNamespaceConnectorInterface1 {
 
 	@Override
 	public String getNamespaceName() {
@@ -19,26 +19,26 @@ public class SimpleCalculatorPlugin implements ExternalNamespaceConnector1 {
 	}
 
 	@Override
-	public String[] getNecessaryPermissions() {
-		return new String[]{ ConnectorPermission.NONE };
+	public String[] getNecessaryPermissionNames() {
+		return new String[]{ ConnectorPermissionName.NONE };
 	}
 
 	@Override
-	public String[] getUnnecessaryPermissions() {
-		return new String[]{ ConnectorPermission.ALL };
+	public String[] getUnnecessaryPermissionNames() {
+		return new String[]{ ConnectorPermissionName.ALL };
 	}
 
 	@Override
-	public ExternalFunctionConnector1[] getFunctions() {
-		List<ExternalFunctionConnector1> functionList = new LinkedList<ExternalFunctionConnector1>();
+	public ExternalFunctionConnectorInterface1[] getFunctions() {
+		List<ExternalFunctionConnectorInterface1> functionList = new LinkedList<ExternalFunctionConnectorInterface1>();
 		functionList.add(new SinFunctionPlugin());
-		return functionList.toArray(new ExternalFunctionConnector1[0]);
+		return functionList.toArray(new ExternalFunctionConnectorInterface1[0]);
 	}
 
 	@Override
-	public ExternalVariableConnector1[] getVariables() {
-		List<ExternalVariableConnector1> variableList = new LinkedList<ExternalVariableConnector1>();
-		return variableList.toArray(new ExternalVariableConnector1[0]);
+	public ExternalVariableConnectorInterface1[] getVariables() {
+		List<ExternalVariableConnectorInterface1> variableList = new LinkedList<ExternalVariableConnectorInterface1>();
+		return variableList.toArray(new ExternalVariableConnectorInterface1[0]);
 	}
 
 	@Override

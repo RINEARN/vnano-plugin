@@ -8,7 +8,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.vcssl.connect.ConnectorException;
-import org.vcssl.connect.ExternalFunctionConnector1;
+import org.vcssl.connect.ExternalFunctionConnectorInterface1;
 
 public class SinFunctionPluginTest {
 
@@ -25,7 +25,7 @@ public class SinFunctionPluginTest {
 
 	@Test
 	public void testSettings() {
-		ExternalFunctionConnector1 function = new SinFunctionPlugin();
+		ExternalFunctionConnectorInterface1 function = new SinFunctionPlugin();
 
 		// Check function name
 		// 関数名を検査
@@ -44,7 +44,7 @@ public class SinFunctionPluginTest {
 
 	@Test
 	public void testDoubleScalar() throws ConnectorException {
-		ExternalFunctionConnector1 function = new SinFunctionPlugin();
+		ExternalFunctionConnectorInterface1 function = new SinFunctionPlugin();
 
 		// Prepare input/output data
 		// 入出力データを用意
@@ -77,7 +77,7 @@ public class SinFunctionPluginTest {
 
 	@Test
 	public void testDoubleArray1D() throws ConnectorException {
-		ExternalFunctionConnector1 function = new SinFunctionPlugin();
+		ExternalFunctionConnectorInterface1 function = new SinFunctionPlugin();
 
 		// Prepare input/output data
 		// 入出力データを用意
@@ -128,7 +128,7 @@ public class SinFunctionPluginTest {
 
 	@Test
 	public void testDoubleArray2D() throws ConnectorException {
-		ExternalFunctionConnector1 function = new SinFunctionPlugin();
+		ExternalFunctionConnectorInterface1 function = new SinFunctionPlugin();
 
 		// Prepare input/output data
 		// 入出力データを用意

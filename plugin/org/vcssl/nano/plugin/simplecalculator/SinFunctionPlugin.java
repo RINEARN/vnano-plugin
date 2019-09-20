@@ -1,12 +1,12 @@
 package org.vcssl.nano.plugin.simplecalculator;
 
-import org.vcssl.connect.ExternalFunctionConnector1;
+import org.vcssl.connect.ExternalFunctionConnectorInterface1;
 
-import org.vcssl.connect.ArrayDataContainer1;
+import org.vcssl.connect.ArrayDataContainerInterface1;
 import org.vcssl.connect.ConnectorException;
-import org.vcssl.connect.ConnectorPermission;
+import org.vcssl.connect.ConnectorPermissionName;
 
-public class SinFunctionPlugin implements ExternalFunctionConnector1 {
+public class SinFunctionPlugin implements ExternalFunctionConnectorInterface1 {
 
 	@Override
 	public String getFunctionName() {
@@ -15,7 +15,7 @@ public class SinFunctionPlugin implements ExternalFunctionConnector1 {
 
 	@Override
 	public Class<?>[] getParameterClasses() {
-		return new Class<?>[] { Object.class };
+		return new Class<?>[] { double.class };
 	}
 
 	@Override
@@ -34,6 +34,18 @@ public class SinFunctionPlugin implements ExternalFunctionConnector1 {
 	}
 
 	@Override
+	public boolean[] getParameterClassArbitrarinesses() {
+		return new boolean[]{ false };
+	}
+
+
+	@Override
+	public boolean[] getParameterRankArbitrarinesses() {
+		return new boolean[]{ true };
+	}
+
+
+	@Override
 	public boolean isVariadic() {
 		return false;
 	}
@@ -47,22 +59,22 @@ public class SinFunctionPlugin implements ExternalFunctionConnector1 {
 	public Object invoke(Object[] arguments) throws ConnectorException {
 
 		// Check types of data containers.
-		if (!(arguments[0] instanceof ArrayDataContainer1) || !(arguments[1] instanceof ArrayDataContainer1)) {
+		if (!(arguments[0] instanceof ArrayDataContainerInterface1) || !(arguments[1] instanceof ArrayDataContainerInterface1)) {
 			throw new ConnectorException("The type of the data container is not supported by this plug-in.");
 		}
 
 		// Check types of data in data containers, and cast data.
-		Object inputDataObject = ( (ArrayDataContainer1<?>)arguments[1] ).getData();
+		Object inputDataObject = ( (ArrayDataContainerInterface1<?>)arguments[1] ).getData();
 		if (!(inputDataObject instanceof double[])) {
 			throw new ConnectorException("The data type of the argument of \"sin\" function should be \"float\" or \"double\".");
 		}
 		@SuppressWarnings("unchecked")
-		ArrayDataContainer1<double[]> inputDataContainer = (ArrayDataContainer1<double[]>)arguments[1];
+		ArrayDataContainerInterface1<double[]> inputDataContainer = (ArrayDataContainerInterface1<double[]>)arguments[1];
 		double[] inputData = (double[])inputDataObject;
 		int dataLength = inputData.length;
 
 		// Get or allocate output data
-		Object outputDataObject = ( (ArrayDataContainer1<?>)arguments[0] ).getData();
+		Object outputDataObject = ( (ArrayDataContainerInterface1<?>)arguments[0] ).getData();
 		double[] outputData = null;
 		if (outputDataObject instanceof double[] && ((double[])outputDataObject).length == dataLength) {
 			outputData = (double[])outputDataObject;
@@ -77,7 +89,7 @@ public class SinFunctionPlugin implements ExternalFunctionConnector1 {
 
 		// Store result data
 		@SuppressWarnings("unchecked")
-		ArrayDataContainer1<double[]> outputDataContainer = (ArrayDataContainer1<double[]>)arguments[0];
+		ArrayDataContainerInterface1<double[]> outputDataContainer = (ArrayDataContainerInterface1<double[]>)arguments[0];
 		outputDataContainer.setData(outputData, inputDataContainer.getLengths());
 
 		return null;
@@ -85,9 +97,9 @@ public class SinFunctionPlugin implements ExternalFunctionConnector1 {
 
 
 	@Override
-	public String[] getNecessaryPermissions() { return new String[] { ConnectorPermission.NONE }; }
+	public String[] getNecessaryPermissionNames() { return new String[] { ConnectorPermissionName.NONE }; }
 	@Override
-	public String[] getUnnecessaryPermissions() { return new String[] { ConnectorPermission.ALL }; }
+	public String[] getUnnecessaryPermissionNames() { return new String[] { ConnectorPermissionName.ALL }; }
 	@Override
 	public void initializeForConnection(Object engineConnector) throws ConnectorException { }
 	@Override

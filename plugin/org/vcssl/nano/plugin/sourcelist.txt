@@ -1,4 +1,5 @@
 org/vcssl/nano/plugin/calc/xci1/function/CosFunctionPlugin.java
+org/vcssl/nano/plugin/calc/xci1/function/ExpFunctionPlugin.java
 org/vcssl/nano/plugin/calc/xci1/function/LnFunctionPlugin.java
 org/vcssl/nano/plugin/calc/xci1/function/Log10FunctionPlugin.java
 org/vcssl/nano/plugin/calc/xci1/function/PowFunctionPlugin.java

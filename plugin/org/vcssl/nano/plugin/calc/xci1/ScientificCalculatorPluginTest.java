@@ -4,6 +4,7 @@ import org.vcssl.connect.ConnectorPermissionName;
 import org.vcssl.connect.ExternalFunctionConnectorInterface1;
 import org.vcssl.connect.ExternalVariableConnectorInterface1;
 import org.vcssl.nano.plugin.calc.xci1.function.CosFunctionPlugin;
+import org.vcssl.nano.plugin.calc.xci1.function.ExpFunctionPlugin;
 import org.vcssl.nano.plugin.calc.xci1.function.LnFunctionPlugin;
 import org.vcssl.nano.plugin.calc.xci1.function.Log10FunctionPlugin;
 import org.vcssl.nano.plugin.calc.xci1.function.PowFunctionPlugin;
@@ -45,7 +46,7 @@ public class ScientificCalculatorPluginTest {
 
 		// Check functions
 		ExternalFunctionConnectorInterface1[] functions = plugin.getFunctions();
-		assertEquals(7, functions.length);
+		assertEquals(8, functions.length);
 		assertTrue(functions[0] instanceof SinFunctionPlugin);
 		assertTrue(functions[1] instanceof CosFunctionPlugin);
 		assertTrue(functions[2] instanceof TanFunctionPlugin);
@@ -53,6 +54,7 @@ public class ScientificCalculatorPluginTest {
 		assertTrue(functions[4] instanceof LnFunctionPlugin);
 		assertTrue(functions[5] instanceof Log10FunctionPlugin);
 		assertTrue(functions[6] instanceof PowFunctionPlugin);
+		assertTrue(functions[7] instanceof ExpFunctionPlugin);
 	}
 
 }

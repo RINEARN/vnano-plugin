@@ -11,6 +11,7 @@ import org.vcssl.nano.plugin.calc.xci1.function.Log10FunctionPlugin;
 import org.vcssl.nano.plugin.calc.xci1.function.PowFunctionPlugin;
 import org.vcssl.nano.plugin.calc.xci1.function.SinFunctionPlugin;
 import org.vcssl.nano.plugin.calc.xci1.function.SqrtFunctionPlugin;
+import org.vcssl.nano.plugin.calc.xci1.function.SumFunctionPlugin;
 import org.vcssl.nano.plugin.calc.xci1.function.TanFunctionPlugin;
 
 import static org.junit.Assert.*;
@@ -47,16 +48,18 @@ public class ScientificCalculatorPluginTest {
 
 		// Check functions
 		ExternalFunctionConnectorInterface1[] functions = plugin.getFunctions();
-		assertEquals(9, functions.length);
-		assertTrue(functions[0] instanceof SinFunctionPlugin);
-		assertTrue(functions[1] instanceof CosFunctionPlugin);
-		assertTrue(functions[2] instanceof TanFunctionPlugin);
-		assertTrue(functions[3] instanceof SqrtFunctionPlugin);
-		assertTrue(functions[4] instanceof LnFunctionPlugin);
-		assertTrue(functions[5] instanceof Log10FunctionPlugin);
-		assertTrue(functions[6] instanceof PowFunctionPlugin);
-		assertTrue(functions[7] instanceof ExpFunctionPlugin);
-		assertTrue(functions[8] instanceof AbsFunctionPlugin);
+		assertEquals(10, functions.length);
+		int index = 0;
+		assertTrue(functions[index++] instanceof SinFunctionPlugin);
+		assertTrue(functions[index++] instanceof CosFunctionPlugin);
+		assertTrue(functions[index++] instanceof TanFunctionPlugin);
+		assertTrue(functions[index++] instanceof SqrtFunctionPlugin);
+		assertTrue(functions[index++] instanceof LnFunctionPlugin);
+		assertTrue(functions[index++] instanceof Log10FunctionPlugin);
+		assertTrue(functions[index++] instanceof PowFunctionPlugin);
+		assertTrue(functions[index++] instanceof ExpFunctionPlugin);
+		assertTrue(functions[index++] instanceof AbsFunctionPlugin);
+		assertTrue(functions[index++] instanceof SumFunctionPlugin);
 	}
 
 }

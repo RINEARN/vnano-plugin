@@ -8,6 +8,7 @@ import org.vcssl.nano.plugin.calc.xci1.function.CosFunctionPlugin;
 import org.vcssl.nano.plugin.calc.xci1.function.ExpFunctionPlugin;
 import org.vcssl.nano.plugin.calc.xci1.function.LnFunctionPlugin;
 import org.vcssl.nano.plugin.calc.xci1.function.Log10FunctionPlugin;
+import org.vcssl.nano.plugin.calc.xci1.function.MeanFunctionPlugin;
 import org.vcssl.nano.plugin.calc.xci1.function.PowFunctionPlugin;
 import org.vcssl.nano.plugin.calc.xci1.function.SinFunctionPlugin;
 import org.vcssl.nano.plugin.calc.xci1.function.SqrtFunctionPlugin;
@@ -48,7 +49,6 @@ public class ScientificCalculatorPluginTest {
 
 		// Check functions
 		ExternalFunctionConnectorInterface1[] functions = plugin.getFunctions();
-		assertEquals(10, functions.length);
 		int index = 0;
 		assertTrue(functions[index++] instanceof SinFunctionPlugin);
 		assertTrue(functions[index++] instanceof CosFunctionPlugin);
@@ -60,6 +60,8 @@ public class ScientificCalculatorPluginTest {
 		assertTrue(functions[index++] instanceof ExpFunctionPlugin);
 		assertTrue(functions[index++] instanceof AbsFunctionPlugin);
 		assertTrue(functions[index++] instanceof SumFunctionPlugin);
+		assertTrue(functions[index++] instanceof MeanFunctionPlugin);
+		assertEquals(functions.length, index);
 	}
 
 }

@@ -5,6 +5,7 @@ org/vcssl/nano/plugin/calc/xci1/function/Float64VectorizableOperationFunctionPlu
 org/vcssl/nano/plugin/calc/xci1/function/Float64VectorToScalarOperationFunctionPlugin.java
 org/vcssl/nano/plugin/calc/xci1/function/LnFunctionPlugin.java
 org/vcssl/nano/plugin/calc/xci1/function/Log10FunctionPlugin.java
+org/vcssl/nano/plugin/calc/xci1/function/MeanFunctionPlugin.java
 org/vcssl/nano/plugin/calc/xci1/function/PowFunctionPlugin.java
 org/vcssl/nano/plugin/calc/xci1/function/SinFunctionPlugin.java
 org/vcssl/nano/plugin/calc/xci1/function/SqrtFunctionPlugin.java

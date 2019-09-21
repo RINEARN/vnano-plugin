@@ -9,54 +9,54 @@ import org.vcssl.connect.ConnectorPermissionName;
 public class PowFunctionPlugin implements ExternalFunctionConnectorInterface1 {
 
 	@Override
-	public String getFunctionName() {
+	public final String getFunctionName() {
 		return "pow";
 	}
 
 	@Override
-	public Class<?>[] getParameterClasses() {
+	public final Class<?>[] getParameterClasses() {
 		return new Class<?>[] { double.class, double.class };
 	}
 
 	@Override
-	public boolean hasParameterNames() {
+	public final boolean hasParameterNames() {
 		return true;
 	}
 
 	@Override
-	public String[] getParameterNames() {
+	public final String[] getParameterNames() {
 		return new String[] { "arg", "exponent" };
 	}
 
 	@Override
-	public Class<?> getReturnClass(Class<?>[] parameterClasses) {
+	public final Class<?> getReturnClass(Class<?>[] parameterClasses) {
 		return parameterClasses[0];
 	}
 
 	@Override
-	public boolean[] getParameterClassArbitrarinesses() {
+	public final boolean[] getParameterClassArbitrarinesses() {
 		return new boolean[]{ false, false };
 	}
 
 
 	@Override
-	public boolean[] getParameterRankArbitrarinesses() {
+	public final boolean[] getParameterRankArbitrarinesses() {
 		return new boolean[]{ true, false };
 	}
 
 
 	@Override
-	public boolean isVariadic() {
+	public final boolean isVariadic() {
 		return false;
 	}
 
 	@Override
-	public boolean isDataConversionNecessary() {
+	public final boolean isDataConversionNecessary() {
 		return false;
 	}
 
 	@Override
-	public Object invoke(Object[] arguments) throws ConnectorException {
+	public final Object invoke(Object[] arguments) throws ConnectorException {
 
 		// Check types of data containers.
 		if (!(arguments[0] instanceof ArrayDataContainerInterface1)
@@ -101,21 +101,21 @@ public class PowFunctionPlugin implements ExternalFunctionConnectorInterface1 {
 
 
 	// Overridden on subclasses
-	public void operate(double[] outputData, double[] inputData, int dataLength) {
+	public final void operate(double[] outputData, double[] inputData, int dataLength) {
 
 	}
 
 
 	@Override
-	public String[] getNecessaryPermissionNames() { return new String[] { ConnectorPermissionName.NONE }; }
+	public final String[] getNecessaryPermissionNames() { return new String[] { ConnectorPermissionName.NONE }; }
 	@Override
-	public String[] getUnnecessaryPermissionNames() { return new String[] { ConnectorPermissionName.ALL }; }
+	public final String[] getUnnecessaryPermissionNames() { return new String[] { ConnectorPermissionName.ALL }; }
 	@Override
-	public void initializeForConnection(Object engineConnector) throws ConnectorException { }
+	public final void initializeForConnection(Object engineConnector) throws ConnectorException { }
 	@Override
-	public void initializeForExecution(Object engineConnector) throws ConnectorException { }
+	public final void initializeForExecution(Object engineConnector) throws ConnectorException { }
 	@Override
-	public void finalizeForDisconnection(Object engineConnector) throws ConnectorException { }
+	public final void finalizeForDisconnection(Object engineConnector) throws ConnectorException { }
 	@Override
-	public void finalizeForTermination(Object engineConnector) throws ConnectorException { }
+	public final void finalizeForTermination(Object engineConnector) throws ConnectorException { }
 }

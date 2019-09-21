@@ -1,4 +1,4 @@
-package org.vcssl.nano.plugin.simplecalculator;
+package org.vcssl.nano.plugin.calc.xci1.function;
 
 import org.vcssl.nano.vm.memory.DataContainer;
 
@@ -34,7 +34,7 @@ public class SinFunctionPluginTest {
 		// Check number and types of arguments
 		// 引数の個数と型を検査
 		assertEquals(1, function.getParameterClasses().length);
-		assertTrue(function.getParameterClasses()[0] instanceof Object);
+		assertTrue(function.getParameterClasses()[0] == double.class);
 
 		// Check type of return value
 		// 戻り値の型を検査

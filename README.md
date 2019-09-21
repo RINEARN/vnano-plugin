@@ -11,9 +11,9 @@ This repository provides/manages plug-ins to extend build-in functions and varia
 
 ## License - ライセンス
 
-This package is released under <a href="https://creativecommons.org/publicdomain/zero/1.0/deed">CC0</a>.
+This package is released under [CC0](https://creativecommons.org/publicdomain/zero/1.0/deed).
 
-このパッケージは <a href="https://creativecommons.org/publicdomain/zero/1.0/deed.ja">CC0</a> で公開されています。
+このパッケージは [CC0](https://creativecommons.org/publicdomain/zero/1.0/deed.ja) で公開されています。
 
 
 ## How to Use - 使用方法

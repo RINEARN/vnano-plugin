@@ -1,4 +1,4 @@
-package org.vcssl.nano.plugin.simplecalculator;
+package org.vcssl.nano.plugin.calc.xci1.function;
 
 import org.vcssl.connect.ExternalFunctionConnectorInterface1;
 
@@ -6,11 +6,11 @@ import org.vcssl.connect.ArrayDataContainerInterface1;
 import org.vcssl.connect.ConnectorException;
 import org.vcssl.connect.ConnectorPermissionName;
 
-public class SinFunctionPlugin implements ExternalFunctionConnectorInterface1 {
+public class VectorizableFloat64OperationFunctionPlugin implements ExternalFunctionConnectorInterface1 {
 
 	@Override
 	public String getFunctionName() {
-		return "sin";
+		return "this_function_name_should_be_overridden";
 	}
 
 	@Override
@@ -83,9 +83,7 @@ public class SinFunctionPlugin implements ExternalFunctionConnectorInterface1 {
 		}
 
 		// Operate data
-		for (int i=0; i<dataLength; i++) {
-			outputData[i] = Math.sin(inputData[i]);
-		}
+		this.operate(outputData, inputData, dataLength);
 
 		// Store result data
 		@SuppressWarnings("unchecked")
@@ -93,6 +91,12 @@ public class SinFunctionPlugin implements ExternalFunctionConnectorInterface1 {
 		outputDataContainer.setData(outputData, inputDataContainer.getLengths());
 
 		return null;
+	}
+
+
+	// Overridden on subclasses
+	public void operate(double[] outputData, double[] inputData, int dataLength) {
+
 	}
 
 

@@ -1,4 +1,4 @@
-package org.vcssl.nano.plugin;
+package org.vcssl.nano.plugin.calc.xci1;
 
 import org.vcssl.connect.ConnectorPermissionName;
 
@@ -9,9 +9,17 @@ import org.vcssl.connect.ConnectorException;
 import org.vcssl.connect.ExternalFunctionConnectorInterface1;
 import org.vcssl.connect.ExternalNamespaceConnectorInterface1;
 import org.vcssl.connect.ExternalVariableConnectorInterface1;
-import org.vcssl.nano.plugin.simplecalculator.SinFunctionPlugin;
+import org.vcssl.nano.plugin.calc.xci1.function.SinFunctionPlugin;
+import org.vcssl.nano.plugin.calc.xci1.function.SqrtFunctionPlugin;
+import org.vcssl.nano.plugin.calc.xci1.function.TanFunctionPlugin;
+import org.vcssl.nano.plugin.calc.xci1.function.AbsFunctionPlugin;
+import org.vcssl.nano.plugin.calc.xci1.function.CosFunctionPlugin;
+import org.vcssl.nano.plugin.calc.xci1.function.ExpFunctionPlugin;
+import org.vcssl.nano.plugin.calc.xci1.function.LnFunctionPlugin;
+import org.vcssl.nano.plugin.calc.xci1.function.Log10FunctionPlugin;
+import org.vcssl.nano.plugin.calc.xci1.function.PowFunctionPlugin;
 
-public class SimpleCalculatorPlugin implements ExternalNamespaceConnectorInterface1 {
+public class ScientificCalculatorPlugin implements ExternalNamespaceConnectorInterface1 {
 
 	@Override
 	public String getNamespaceName() {
@@ -32,6 +40,14 @@ public class SimpleCalculatorPlugin implements ExternalNamespaceConnectorInterfa
 	public ExternalFunctionConnectorInterface1[] getFunctions() {
 		List<ExternalFunctionConnectorInterface1> functionList = new LinkedList<ExternalFunctionConnectorInterface1>();
 		functionList.add(new SinFunctionPlugin());
+		functionList.add(new CosFunctionPlugin());
+		functionList.add(new TanFunctionPlugin());
+		functionList.add(new SqrtFunctionPlugin());
+		functionList.add(new LnFunctionPlugin());
+		functionList.add(new Log10FunctionPlugin());
+		functionList.add(new PowFunctionPlugin());
+		functionList.add(new ExpFunctionPlugin());
+		functionList.add(new AbsFunctionPlugin());
 		return functionList.toArray(new ExternalFunctionConnectorInterface1[0]);
 	}
 

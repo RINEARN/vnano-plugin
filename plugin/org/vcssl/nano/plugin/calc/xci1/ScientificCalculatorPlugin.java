@@ -10,6 +10,7 @@ import org.vcssl.connect.ExternalFunctionConnectorInterface1;
 import org.vcssl.connect.ExternalNamespaceConnectorInterface1;
 import org.vcssl.connect.ExternalVariableConnectorInterface1;
 import org.vcssl.nano.plugin.calc.xci1.function.SinFunctionPlugin;
+import org.vcssl.nano.plugin.calc.xci1.function.CosFunctionPlugin;
 
 public class ScientificCalculatorPlugin implements ExternalNamespaceConnectorInterface1 {
 
@@ -32,6 +33,7 @@ public class ScientificCalculatorPlugin implements ExternalNamespaceConnectorInt
 	public ExternalFunctionConnectorInterface1[] getFunctions() {
 		List<ExternalFunctionConnectorInterface1> functionList = new LinkedList<ExternalFunctionConnectorInterface1>();
 		functionList.add(new SinFunctionPlugin());
+		functionList.add(new CosFunctionPlugin());
 		return functionList.toArray(new ExternalFunctionConnectorInterface1[0]);
 	}
 

@@ -3,6 +3,7 @@ package org.vcssl.nano.plugin.calc.xci1;
 import org.vcssl.connect.ConnectorPermissionName;
 import org.vcssl.connect.ExternalFunctionConnectorInterface1;
 import org.vcssl.connect.ExternalVariableConnectorInterface1;
+import org.vcssl.nano.plugin.calc.xci1.function.CosFunctionPlugin;
 import org.vcssl.nano.plugin.calc.xci1.function.SinFunctionPlugin;
 
 import static org.junit.Assert.*;
@@ -39,8 +40,9 @@ public class ScientificCalculatorPluginTest {
 
 		// Check functions
 		ExternalFunctionConnectorInterface1[] functions = plugin.getFunctions();
-		assertEquals(1, functions.length);
+		assertEquals(2, functions.length);
 		assertTrue(functions[0] instanceof SinFunctionPlugin);
+		assertTrue(functions[1] instanceof CosFunctionPlugin);
 	}
 
 }

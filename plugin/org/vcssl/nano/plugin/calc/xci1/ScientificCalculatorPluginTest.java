@@ -14,6 +14,7 @@ import org.vcssl.nano.plugin.calc.xci1.function.SinFunctionPlugin;
 import org.vcssl.nano.plugin.calc.xci1.function.SqrtFunctionPlugin;
 import org.vcssl.nano.plugin.calc.xci1.function.SumFunctionPlugin;
 import org.vcssl.nano.plugin.calc.xci1.function.TanFunctionPlugin;
+import org.vcssl.nano.plugin.calc.xci1.function.VanFunctionPlugin;
 
 import static org.junit.Assert.*;
 
@@ -61,6 +62,7 @@ public class ScientificCalculatorPluginTest {
 		assertTrue(functions[index++] instanceof AbsFunctionPlugin);
 		assertTrue(functions[index++] instanceof SumFunctionPlugin);
 		assertTrue(functions[index++] instanceof MeanFunctionPlugin);
+		assertTrue(functions[index++] instanceof VanFunctionPlugin);
 		assertEquals(functions.length, index);
 	}
 

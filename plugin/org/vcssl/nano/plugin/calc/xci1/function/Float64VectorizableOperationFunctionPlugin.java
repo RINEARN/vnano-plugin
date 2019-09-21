@@ -6,7 +6,7 @@ import org.vcssl.connect.ArrayDataContainerInterface1;
 import org.vcssl.connect.ConnectorException;
 import org.vcssl.connect.ConnectorPermissionName;
 
-public class VectorizableFloat64OperationFunctionPlugin implements ExternalFunctionConnectorInterface1 {
+public class Float64VectorizableOperationFunctionPlugin implements ExternalFunctionConnectorInterface1 {
 
 	@Override
 	public String getFunctionName() {

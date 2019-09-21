@@ -1,6 +1,6 @@
 package org.vcssl.nano.plugin.calc.xci1.function;
 
-public class CosFunctionPlugin extends VectorizableFloat64OperationFunctionPlugin {
+public class CosFunctionPlugin extends Float64VectorizableOperationFunctionPlugin {
 
 	@Override
 	public final String getFunctionName() {

@@ -29,11 +29,6 @@ public class VectorizableFloat64OperationFunctionPlugin implements ExternalFunct
 	}
 
 	@Override
-	public Class<?> getReturnClass(Class<?>[] parameterClasses) {
-		return parameterClasses[0];
-	}
-
-	@Override
 	public boolean[] getParameterClassArbitrarinesses() {
 		return new boolean[]{ false };
 	}
@@ -44,10 +39,19 @@ public class VectorizableFloat64OperationFunctionPlugin implements ExternalFunct
 		return new boolean[]{ true };
 	}
 
+	@Override
+	public boolean isParameterCountArbitrary() {
+		return false;
+	}
 
 	@Override
-	public boolean isVariadic() {
+	public boolean hasVariadicParameters() {
 		return false;
+	}
+
+	@Override
+	public Class<?> getReturnClass(Class<?>[] parameterClasses) {
+		return parameterClasses[0];
 	}
 
 	@Override

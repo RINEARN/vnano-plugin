@@ -1,2 +1,2 @@
-org/vcssl/nano/plugin/simplecalculator/SinFunctionPlugin.java
-org/vcssl/nano/plugin/SimpleCalculatorPlugin.java
+org/vcssl/nano/plugin/xci1/calc/function/SinFUnctionPlugin.java
+org/vcssl/nano/plugin/xci1/calc/SimpleCalculatorPlugin.java

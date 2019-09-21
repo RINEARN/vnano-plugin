@@ -1,9 +1,9 @@
-package org.vcssl.nano.plugin;
+package org.vcssl.nano.plugin.calc.xci1;
 
 import org.vcssl.connect.ConnectorPermissionName;
 import org.vcssl.connect.ExternalFunctionConnectorInterface1;
 import org.vcssl.connect.ExternalVariableConnectorInterface1;
-import org.vcssl.nano.plugin.simplecalculator.SinFunctionPlugin;
+import org.vcssl.nano.plugin.calc.xci1.function.SinFunctionPlugin;
 
 import static org.junit.Assert.*;
 
@@ -11,7 +11,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class SimpleCalculatorPluginTest {
+public class ScientificCalculatorPluginTest {
 
 	@Before
 	public void setUp() throws Exception {
@@ -23,7 +23,7 @@ public class SimpleCalculatorPluginTest {
 
 	@Test
 	public void test() {
-		SimpleCalculatorPlugin plugin = new SimpleCalculatorPlugin();
+		ScientificCalculatorPlugin plugin = new ScientificCalculatorPlugin();
 
 		// Check permissions
 		String[] necessaryPermissionNames = plugin.getNecessaryPermissionNames();

@@ -1,4 +1,4 @@
-package org.vcssl.nano.plugin.simplecalculator;
+package org.vcssl.nano.plugin.calc.xci1.function;
 
 import org.vcssl.nano.vm.memory.DataContainer;
 

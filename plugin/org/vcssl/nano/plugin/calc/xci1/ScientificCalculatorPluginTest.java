@@ -5,6 +5,7 @@ import org.vcssl.connect.ExternalFunctionConnectorInterface1;
 import org.vcssl.connect.ExternalVariableConnectorInterface1;
 import org.vcssl.nano.plugin.calc.xci1.function.CosFunctionPlugin;
 import org.vcssl.nano.plugin.calc.xci1.function.SinFunctionPlugin;
+import org.vcssl.nano.plugin.calc.xci1.function.TanFunctionPlugin;
 
 import static org.junit.Assert.*;
 
@@ -40,9 +41,10 @@ public class ScientificCalculatorPluginTest {
 
 		// Check functions
 		ExternalFunctionConnectorInterface1[] functions = plugin.getFunctions();
-		assertEquals(2, functions.length);
+		assertEquals(3, functions.length);
 		assertTrue(functions[0] instanceof SinFunctionPlugin);
 		assertTrue(functions[1] instanceof CosFunctionPlugin);
+		assertTrue(functions[2] instanceof TanFunctionPlugin);
 	}
 
 }

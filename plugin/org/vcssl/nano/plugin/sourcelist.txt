@@ -1,4 +1,5 @@
 org/vcssl/nano/plugin/calc/xci1/function/CosFunctionPlugin.java
 org/vcssl/nano/plugin/calc/xci1/function/SinFunctionPlugin.java
+org/vcssl/nano/plugin/calc/xci1/function/TanFunctionPlugin.java
 org/vcssl/nano/plugin/calc/xci1/function/VectorizableFloat64OperationFunctionPlugin.java
 org/vcssl/nano/plugin/calc/xci1/ScientificCalculatorPlugin.java

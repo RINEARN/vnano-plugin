@@ -1,6 +1,7 @@
 org/vcssl/nano/plugin/calc/xci1/function/CosFunctionPlugin.java
 org/vcssl/nano/plugin/calc/xci1/function/LnFunctionPlugin.java
 org/vcssl/nano/plugin/calc/xci1/function/Log10FunctionPlugin.java
+org/vcssl/nano/plugin/calc/xci1/function/PowFunctionPlugin.java
 org/vcssl/nano/plugin/calc/xci1/function/SinFunctionPlugin.java
 org/vcssl/nano/plugin/calc/xci1/function/SqrtFunctionPlugin.java
 org/vcssl/nano/plugin/calc/xci1/function/TanFunctionPlugin.java

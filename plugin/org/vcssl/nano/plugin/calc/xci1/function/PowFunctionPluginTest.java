@@ -10,7 +10,7 @@ import org.junit.Test;
 import org.vcssl.connect.ConnectorException;
 import org.vcssl.connect.ExternalFunctionConnectorInterface1;
 
-public class SinFunctionPluginTest {
+public class PowFunctionPluginTest {
 
 	private static final int RANK_OF_SCALAR = 0;
 
@@ -25,16 +25,17 @@ public class SinFunctionPluginTest {
 
 	@Test
 	public void testSettings() {
-		ExternalFunctionConnectorInterface1 function = new SinFunctionPlugin();
+		ExternalFunctionConnectorInterface1 function = new PowFunctionPlugin();
 
 		// Check function name
 		// 関数名を検査
-		assertEquals("sin", function.getFunctionName());
+		assertEquals("pow", function.getFunctionName());
 
 		// Check number and types of arguments
 		// 引数の個数と型を検査
-		assertEquals(1, function.getParameterClasses().length);
+		assertEquals(2, function.getParameterClasses().length);
 		assertTrue(function.getParameterClasses()[0] == double.class);
+		assertTrue(function.getParameterClasses()[1] == double.class);
 
 		// Check type of return value
 		// 戻り値の型を検査
@@ -44,18 +45,20 @@ public class SinFunctionPluginTest {
 
 	@Test
 	public void testDoubleScalar() throws ConnectorException {
-		ExternalFunctionConnectorInterface1 function = new SinFunctionPlugin();
+		ExternalFunctionConnectorInterface1 function = new PowFunctionPlugin();
 
 		// Prepare input/output data
 		// 入出力データを用意
 		DataContainer<double[]> inputDataContainer = new DataContainer<double[]>();
 		DataContainer<double[]> outputDataContainer = new DataContainer<double[]>();
+		DataContainer<double[]> exponentDataContainer = new DataContainer<double[]>();
 		inputDataContainer.setData(new double[] { 1.0 });
 		outputDataContainer.setData(new double[] { 0.0 });
+		exponentDataContainer.setData(new double[] { 2.3 });
 
 		// Operate data
 		// 演算を実行
-		function.invoke(new Object[]{ outputDataContainer, inputDataContainer });
+		function.invoke(new Object[]{ outputDataContainer, inputDataContainer, exponentDataContainer });
 
 		// Check dimensions of the operation result
 		// 演算結果の次元を確認
@@ -69,7 +72,7 @@ public class SinFunctionPluginTest {
 
 		// Check result value
 		// 演算結果の値を確認
-		Double expected = Double.valueOf(Math.sin(1.0));
+		Double expected = Double.valueOf(Math.pow(1.0, 2.3));
 		Double actual = Double.valueOf(resultData[0]);
 		assertTrue(expected.equals(actual));
 	}
@@ -77,20 +80,22 @@ public class SinFunctionPluginTest {
 
 	@Test
 	public void testDoubleArray1D() throws ConnectorException {
-		ExternalFunctionConnectorInterface1 function = new SinFunctionPlugin();
+		ExternalFunctionConnectorInterface1 function = new PowFunctionPlugin();
 
 		// Prepare input/output data
 		// 入出力データを用意
 		DataContainer<double[]> inputDataContainer = new DataContainer<double[]>();
 		DataContainer<double[]> outputDataContainer = new DataContainer<double[]>();
+		DataContainer<double[]> exponentDataContainer = new DataContainer<double[]>();
 		int[] inputArrayLengths = new int[] { 3 };
 		int[] outputArrayLengths = new int[] { 3 };
 		inputDataContainer.setData(new double[] { 1.0, 2.0, 3.0 }, inputArrayLengths);
 		outputDataContainer.setData(new double[] { 0.0, 0.0, 0.0 }, outputArrayLengths);
+		exponentDataContainer.setData(new double[] { 2.3 });
 
 		// Operate data
 		// 演算を実行
-		function.invoke(new Object[]{ outputDataContainer, inputDataContainer });
+		function.invoke(new Object[]{ outputDataContainer, inputDataContainer, exponentDataContainer });
 
 		// Check dimensions of the operation result
 		// 演算結果の次元を確認
@@ -108,19 +113,19 @@ public class SinFunctionPluginTest {
 
 		// Check result value[0]
 		// 演算結果[0]の値を確認
-		expected = Double.valueOf(Math.sin(1.0));
+		expected = Double.valueOf(Math.pow(1.0, 2.3));
 		actual = Double.valueOf(resultData[0]);
 		assertTrue(expected.equals(actual));
 
 		// Check result value[1]
 		// 演算結果[1]の値を確認
-		expected = Double.valueOf(Math.sin(2.0));
+		expected = Double.valueOf(Math.pow(2.0, 2.3));
 		actual = Double.valueOf(resultData[1]);
 		assertTrue(expected.equals(actual));
 
 		// Check result value[2]
 		// 演算結果[2]の値を確認
-		expected = Double.valueOf(Math.sin(3.0));
+		expected = Double.valueOf(Math.pow(3.0, 2.3));
 		actual = Double.valueOf(resultData[2]);
 		assertTrue(expected.equals(actual));
 	}
@@ -128,20 +133,22 @@ public class SinFunctionPluginTest {
 
 	@Test
 	public void testDoubleArray2D() throws ConnectorException {
-		ExternalFunctionConnectorInterface1 function = new SinFunctionPlugin();
+		ExternalFunctionConnectorInterface1 function = new PowFunctionPlugin();
 
 		// Prepare input/output data
 		// 入出力データを用意
 		DataContainer<double[]> inputDataContainer = new DataContainer<double[]>();
 		DataContainer<double[]> outputDataContainer = new DataContainer<double[]>();
+		DataContainer<double[]> exponentDataContainer = new DataContainer<double[]>();
 		int[] inputArrayLengths = new int[] { 2, 3 };
 		int[] outputArrayLengths = new int[] { 2, 3 };
 		inputDataContainer.setData(new double[] { 1.0, 2.0, 3.0, 4.0, 5.0, 6.0 }, inputArrayLengths);
 		outputDataContainer.setData(new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 }, outputArrayLengths);
+		exponentDataContainer.setData(new double[] { 2.3 });
 
 		// Operate data
 		// 演算を実行
-		function.invoke(new Object[]{ outputDataContainer, inputDataContainer });
+		function.invoke(new Object[]{ outputDataContainer, inputDataContainer, exponentDataContainer });
 
 		// Check dimensions of the operation result
 		// 演算結果の次元を確認
@@ -160,37 +167,37 @@ public class SinFunctionPluginTest {
 
 		// Check result value[0]
 		// 演算結果[0]の値を確認
-		expected = Double.valueOf(Math.sin(1.0));
+		expected = Double.valueOf(Math.pow(1.0, 2.3));
 		actual = Double.valueOf(resultData[0]);
 		assertTrue(expected.equals(actual));
 
 		// Check result value[1]
 		// 演算結果[1]の値を確認
-		expected = Double.valueOf(Math.sin(2.0));
+		expected = Double.valueOf(Math.pow(2.0, 2.3));
 		actual = Double.valueOf(resultData[1]);
 		assertTrue(expected.equals(actual));
 
 		// Check result value[2]
 		// 演算結果[2]の値を確認
-		expected = Double.valueOf(Math.sin(3.0));
+		expected = Double.valueOf(Math.pow(3.0, 2.3));
 		actual = Double.valueOf(resultData[2]);
 		assertTrue(expected.equals(actual));
 
 		// Check result value[3]
 		// 演算結果[3]の値を確認
-		expected = Double.valueOf(Math.sin(4.0));
+		expected = Double.valueOf(Math.pow(4.0, 2.3));
 		actual = Double.valueOf(resultData[3]);
 		assertTrue(expected.equals(actual));
 
 		// Check result value[4]
 		// 演算結果[4]の値を確認
-		expected = Double.valueOf(Math.sin(5.0));
+		expected = Double.valueOf(Math.pow(5.0, 2.3));
 		actual = Double.valueOf(resultData[4]);
 		assertTrue(expected.equals(actual));
 
 		// Check result value[5]
 		// 演算結果[5]の値を確認
-		expected = Double.valueOf(Math.sin(6.0));
+		expected = Double.valueOf(Math.pow(6.0, 2.3));
 		actual = Double.valueOf(resultData[5]);
 		assertTrue(expected.equals(actual));
 	}

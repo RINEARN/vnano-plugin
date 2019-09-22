@@ -19,3 +19,4 @@ org/vcssl/nano/plugin/calc/xci1/function/TanFunctionPlugin.java
 org/vcssl/nano/plugin/calc/xci1/function/Van1FunctionPlugin.java
 org/vcssl/nano/plugin/calc/xci1/function/VanFunctionPlugin.java
 org/vcssl/nano/plugin/calc/xci1/ScientificCalculatorPlugin.java
+org/vcssl/nano/plugin/calc/xci1/variable/PiVariablePlugin.java

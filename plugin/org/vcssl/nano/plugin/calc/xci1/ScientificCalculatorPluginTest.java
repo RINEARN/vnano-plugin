@@ -21,6 +21,7 @@ import org.vcssl.nano.plugin.calc.xci1.function.SumFunctionPlugin;
 import org.vcssl.nano.plugin.calc.xci1.function.TanFunctionPlugin;
 import org.vcssl.nano.plugin.calc.xci1.function.Van1FunctionPlugin;
 import org.vcssl.nano.plugin.calc.xci1.function.VanFunctionPlugin;
+import org.vcssl.nano.plugin.calc.xci1.variable.PiVariablePlugin;
 
 import static org.junit.Assert.*;
 
@@ -52,30 +53,31 @@ public class ScientificCalculatorPluginTest {
 
 		// Check variables
 		ExternalVariableConnectorInterface1[] variables = plugin.getVariables();
-		assertEquals(0, variables.length);
+		int variableIndex = 0;
+		assertTrue(variables[variableIndex++] instanceof PiVariablePlugin);
+		assertEquals(variables.length, variableIndex);
 
 		// Check functions
 		ExternalFunctionConnectorInterface1[] functions = plugin.getFunctions();
-		int index = 0;
-		assertTrue(functions[index++] instanceof LengthFunctionPlugin);
-		assertTrue(functions[index++] instanceof RadFunctionPlugin);
-		assertTrue(functions[index++] instanceof DegFunctionPlugin);
-		assertTrue(functions[index++] instanceof SinFunctionPlugin);
-		assertTrue(functions[index++] instanceof CosFunctionPlugin);
-		assertTrue(functions[index++] instanceof TanFunctionPlugin);
-		assertTrue(functions[index++] instanceof SqrtFunctionPlugin);
-		assertTrue(functions[index++] instanceof LnFunctionPlugin);
-		assertTrue(functions[index++] instanceof Log10FunctionPlugin);
-		assertTrue(functions[index++] instanceof PowFunctionPlugin);
-		assertTrue(functions[index++] instanceof ExpFunctionPlugin);
-		assertTrue(functions[index++] instanceof AbsFunctionPlugin);
-		assertTrue(functions[index++] instanceof SumFunctionPlugin);
-		assertTrue(functions[index++] instanceof MeanFunctionPlugin);
-		assertTrue(functions[index++] instanceof VanFunctionPlugin);
-		assertTrue(functions[index++] instanceof Van1FunctionPlugin);
-		assertTrue(functions[index++] instanceof SdnFunctionPlugin);
-		assertTrue(functions[index++] instanceof Sdn1FunctionPlugin);
-		assertEquals(functions.length, index);
+		int functionIndex = 0;
+		assertTrue(functions[functionIndex++] instanceof LengthFunctionPlugin);
+		assertTrue(functions[functionIndex++] instanceof RadFunctionPlugin);
+		assertTrue(functions[functionIndex++] instanceof DegFunctionPlugin);
+		assertTrue(functions[functionIndex++] instanceof SinFunctionPlugin);
+		assertTrue(functions[functionIndex++] instanceof CosFunctionPlugin);
+		assertTrue(functions[functionIndex++] instanceof TanFunctionPlugin);
+		assertTrue(functions[functionIndex++] instanceof SqrtFunctionPlugin);
+		assertTrue(functions[functionIndex++] instanceof LnFunctionPlugin);
+		assertTrue(functions[functionIndex++] instanceof Log10FunctionPlugin);
+		assertTrue(functions[functionIndex++] instanceof PowFunctionPlugin);
+		assertTrue(functions[functionIndex++] instanceof ExpFunctionPlugin);
+		assertTrue(functions[functionIndex++] instanceof AbsFunctionPlugin);
+		assertTrue(functions[functionIndex++] instanceof SumFunctionPlugin);
+		assertTrue(functions[functionIndex++] instanceof MeanFunctionPlugin);
+		assertTrue(functions[functionIndex++] instanceof VanFunctionPlugin);
+		assertTrue(functions[functionIndex++] instanceof Van1FunctionPlugin);
+		assertTrue(functions[functionIndex++] instanceof SdnFunctionPlugin);
+		assertTrue(functions[functionIndex++] instanceof Sdn1FunctionPlugin);
+		assertEquals(functions.length, functionIndex);
 	}
-
 }

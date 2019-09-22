@@ -15,6 +15,7 @@ import org.vcssl.nano.plugin.calc.xci1.function.SumFunctionPlugin;
 import org.vcssl.nano.plugin.calc.xci1.function.TanFunctionPlugin;
 import org.vcssl.nano.plugin.calc.xci1.function.Van1FunctionPlugin;
 import org.vcssl.nano.plugin.calc.xci1.function.VanFunctionPlugin;
+import org.vcssl.nano.plugin.calc.xci1.variable.PiVariablePlugin;
 import org.vcssl.nano.plugin.calc.xci1.function.AbsFunctionPlugin;
 import org.vcssl.nano.plugin.calc.xci1.function.CosFunctionPlugin;
 import org.vcssl.nano.plugin.calc.xci1.function.DegFunctionPlugin;
@@ -72,6 +73,7 @@ public class ScientificCalculatorPlugin implements ExternalNamespaceConnectorInt
 	@Override
 	public ExternalVariableConnectorInterface1[] getVariables() {
 		List<ExternalVariableConnectorInterface1> variableList = new LinkedList<ExternalVariableConnectorInterface1>();
+		variableList.add(new PiVariablePlugin());
 		return variableList.toArray(new ExternalVariableConnectorInterface1[0]);
 	}
 

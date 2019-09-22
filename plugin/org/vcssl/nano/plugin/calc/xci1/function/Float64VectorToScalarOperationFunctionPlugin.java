@@ -56,7 +56,7 @@ public class Float64VectorToScalarOperationFunctionPlugin implements ExternalFun
 
 	@Override
 	public boolean isDataConversionNecessary() {
-		return true;
+		return false;
 	}
 
 	@Override

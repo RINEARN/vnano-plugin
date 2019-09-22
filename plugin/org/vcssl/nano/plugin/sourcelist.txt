@@ -1,5 +1,6 @@
 org/vcssl/nano/plugin/calc/xci1/function/AbsFunctionPlugin.java
 org/vcssl/nano/plugin/calc/xci1/function/CosFunctionPlugin.java
+org/vcssl/nano/plugin/calc/xci1/function/DegFunctionPlugin.java
 org/vcssl/nano/plugin/calc/xci1/function/ExpFunctionPlugin.java
 org/vcssl/nano/plugin/calc/xci1/function/Float64VectorizableOperationFunctionPlugin.java
 org/vcssl/nano/plugin/calc/xci1/function/Float64VectorToScalarOperationFunctionPlugin.java

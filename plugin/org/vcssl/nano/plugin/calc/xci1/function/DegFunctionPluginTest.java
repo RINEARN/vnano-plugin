@@ -4,15 +4,28 @@ import org.vcssl.nano.vm.memory.DataContainer;
 
 import static org.junit.Assert.*;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.vcssl.connect.ConnectorException;
 import org.vcssl.connect.ExternalFunctionConnectorInterface1;
 
-public class RadFunctionPluginTest {
+public class DegFunctionPluginTest {
 
 	private static final int RANK_OF_SCALAR = 0;
+	private static final int COMPARING_PRECISION = 10;
+
+	// 丸め誤差を吸収して比較
+	private boolean compareWithRounding(Double a, Double b) {
+		MathContext roundingContext = new MathContext(COMPARING_PRECISION, RoundingMode.HALF_EVEN);
+		BigDecimal bigA = BigDecimal.valueOf(a).round(roundingContext);
+		BigDecimal bigB = BigDecimal.valueOf(b).round(roundingContext);
+		return (bigA.compareTo(bigB) == 0);
+	}
 
 	@Before
 	public void setUp() throws Exception {
@@ -25,11 +38,11 @@ public class RadFunctionPluginTest {
 
 	@Test
 	public void testSettings() {
-		ExternalFunctionConnectorInterface1 function = new RadFunctionPlugin();
+		ExternalFunctionConnectorInterface1 function = new DegFunctionPlugin();
 
 		// Check function name
 		// 関数名を検査
-		assertEquals("rad", function.getFunctionName());
+		assertEquals("deg", function.getFunctionName());
 
 		// Check number and types of arguments
 		// 引数の個数と型を検査
@@ -44,13 +57,13 @@ public class RadFunctionPluginTest {
 
 	@Test
 	public void testDoubleScalar() throws ConnectorException {
-		ExternalFunctionConnectorInterface1 function = new RadFunctionPlugin();
+		ExternalFunctionConnectorInterface1 function = new DegFunctionPlugin();
 
 		// Prepare input/output data
 		// 入出力データを用意
 		DataContainer<double[]> inputDataContainer = new DataContainer<double[]>();
 		DataContainer<double[]> outputDataContainer = new DataContainer<double[]>();
-		inputDataContainer.setData(new double[] { 180.0 });
+		inputDataContainer.setData(new double[] { Math.PI });
 		outputDataContainer.setData(new double[] { 0.0 });
 
 		// Operate data
@@ -69,15 +82,15 @@ public class RadFunctionPluginTest {
 
 		// Check result value
 		// 演算結果の値を確認
-		Double expected = Double.valueOf(Math.PI); // 180度はπラジアン
+		Double expected = Double.valueOf(180.0); // 180度はπラジアン
 		Double actual = Double.valueOf(resultData[0]);
-		assertTrue(expected.equals(actual));
+		assertTrue(compareWithRounding(expected, actual));
 	}
 
 
 	@Test
 	public void testDoubleArray1D() throws ConnectorException {
-		ExternalFunctionConnectorInterface1 function = new RadFunctionPlugin();
+		ExternalFunctionConnectorInterface1 function = new DegFunctionPlugin();
 
 		// Prepare input/output data
 		// 入出力データを用意
@@ -85,7 +98,7 @@ public class RadFunctionPluginTest {
 		DataContainer<double[]> outputDataContainer = new DataContainer<double[]>();
 		int[] inputArrayLengths = new int[] { 3 };
 		int[] outputArrayLengths = new int[] { 3 };
-		inputDataContainer.setData(new double[] { 180.0, 90.0, 60.0 }, inputArrayLengths);
+		inputDataContainer.setData(new double[] { Math.PI, Math.PI/2, Math.PI/3 }, inputArrayLengths);
 		outputDataContainer.setData(new double[] { 0.0, 0.0, 0.0 }, outputArrayLengths);
 
 		// Operate data
@@ -108,27 +121,27 @@ public class RadFunctionPluginTest {
 
 		// Check result value[0]
 		// 演算結果[0]の値を確認
-		expected = Double.valueOf( Math.PI ); // 180度はπラジアン
+		expected = Double.valueOf( 180.0 ); // 180度はπラジアン
 		actual = Double.valueOf(resultData[0]);
-		assertTrue(expected.equals(actual));
+		assertTrue(compareWithRounding(expected, actual));
 
 		// Check result value[1]
 		// 演算結果[1]の値を確認
-		expected = Double.valueOf( Math.PI / 2 ); // 90度はπ/2ラジアン
+		expected = Double.valueOf( 90.0 ); // 90度はπ/2ラジアン
 		actual = Double.valueOf(resultData[1]);
-		assertTrue(expected.equals(actual));
+		assertTrue(compareWithRounding(expected, actual));
 
 		// Check result value[2]
 		// 演算結果[2]の値を確認
-		expected = Double.valueOf( Math.PI / 3 ); // 60度はπ/3ラジアン
+		expected = Double.valueOf( 60.0 ); // 60度はπ/3ラジアン
 		actual = Double.valueOf(resultData[2]);
-		assertTrue(expected.equals(actual));
+		assertTrue(compareWithRounding(expected, actual));
 	}
 
 
 	@Test
 	public void testDoubleArray2D() throws ConnectorException {
-		ExternalFunctionConnectorInterface1 function = new RadFunctionPlugin();
+		ExternalFunctionConnectorInterface1 function = new DegFunctionPlugin();
 
 		// Prepare input/output data
 		// 入出力データを用意
@@ -136,7 +149,7 @@ public class RadFunctionPluginTest {
 		DataContainer<double[]> outputDataContainer = new DataContainer<double[]>();
 		int[] inputArrayLengths = new int[] { 2, 3 };
 		int[] outputArrayLengths = new int[] { 2, 3 };
-		inputDataContainer.setData(new double[] { 360.0, 270.0, 180.0, 90.0, 60.0, 30.0 }, inputArrayLengths);
+		inputDataContainer.setData(new double[] { 2*Math.PI, 3*Math.PI/2, Math.PI, Math.PI/2, Math.PI/3, Math.PI/6 }, inputArrayLengths);
 		outputDataContainer.setData(new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 }, outputArrayLengths);
 
 		// Operate data
@@ -160,39 +173,39 @@ public class RadFunctionPluginTest {
 
 		// Check result value[0]
 		// 演算結果[0]の値を確認
-		expected = Double.valueOf( 2 * Math.PI ); // 360度は2πラジアン
+		expected = Double.valueOf( 360.0 ); // 360度は2πラジアン
 		actual = Double.valueOf(resultData[0]);
-		assertTrue(expected.equals(actual));
+		assertTrue(compareWithRounding(expected, actual));
 
 		// Check result value[1]
 		// 演算結果[1]の値を確認
-		expected = Double.valueOf( 3 * Math.PI / 2); // 270度は(3/2)πラジアン
+		expected = Double.valueOf( 270.0 ); // 270度は(3/2)πラジアン
 		actual = Double.valueOf(resultData[1]);
-		assertTrue(expected.equals(actual));
+		assertTrue(compareWithRounding(expected, actual));
 
 		// Check result value[2]
 		// 演算結果[2]の値を確認
-		expected = Double.valueOf( Math.PI ); // 180度はπラジアン
+		expected = Double.valueOf( 180.0 ); // 180度はπラジアン
 		actual = Double.valueOf(resultData[2]);
-		assertTrue(expected.equals(actual));
+		assertTrue(compareWithRounding(expected, actual));
 
 		// Check result value[3]
 		// 演算結果[3]の値を確認
-		expected = Double.valueOf( Math.PI / 2 ); // 90度はπ/2ラジアン
+		expected = Double.valueOf( 90.0 ); // 90度はπ/2ラジアン
 		actual = Double.valueOf(resultData[3]);
-		assertTrue(expected.equals(actual));
+		assertTrue(compareWithRounding(expected, actual));
 
 		// Check result value[4]
 		// 演算結果[4]の値を確認
-		expected = Double.valueOf( Math.PI / 3 ); // 60度はπ/3ラジアン
+		expected = Double.valueOf( 60.0 ); // 60度はπ/3ラジアン
 		actual = Double.valueOf(resultData[4]);
-		assertTrue(expected.equals(actual));
+		assertTrue(compareWithRounding(expected, actual));
 
 		// Check result value[5]
 		// 演算結果[5]の値を確認
-		expected = Double.valueOf( Math.PI / 6 ); // 30度はπ/6 ラジアン
+		expected = Double.valueOf( 30.0 ); // 30度はπ/6 ラジアン
 		actual = Double.valueOf(resultData[5]);
-		assertTrue(expected.equals(actual));
+		assertTrue(compareWithRounding(expected, actual));
 	}
 
 }

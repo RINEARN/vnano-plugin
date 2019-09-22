@@ -17,6 +17,7 @@ import org.vcssl.nano.plugin.calc.xci1.function.Van1FunctionPlugin;
 import org.vcssl.nano.plugin.calc.xci1.function.VanFunctionPlugin;
 import org.vcssl.nano.plugin.calc.xci1.function.AbsFunctionPlugin;
 import org.vcssl.nano.plugin.calc.xci1.function.CosFunctionPlugin;
+import org.vcssl.nano.plugin.calc.xci1.function.DegFunctionPlugin;
 import org.vcssl.nano.plugin.calc.xci1.function.ExpFunctionPlugin;
 import org.vcssl.nano.plugin.calc.xci1.function.LnFunctionPlugin;
 import org.vcssl.nano.plugin.calc.xci1.function.Log10FunctionPlugin;
@@ -47,6 +48,7 @@ public class ScientificCalculatorPlugin implements ExternalNamespaceConnectorInt
 	public ExternalFunctionConnectorInterface1[] getFunctions() {
 		List<ExternalFunctionConnectorInterface1> functionList = new LinkedList<ExternalFunctionConnectorInterface1>();
 		functionList.add(new RadFunctionPlugin());
+		functionList.add(new DegFunctionPlugin());
 		functionList.add(new SinFunctionPlugin());
 		functionList.add(new CosFunctionPlugin());
 		functionList.add(new TanFunctionPlugin());

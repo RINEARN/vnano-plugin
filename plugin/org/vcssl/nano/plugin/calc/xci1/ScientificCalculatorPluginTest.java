@@ -10,6 +10,7 @@ import org.vcssl.nano.plugin.calc.xci1.function.LnFunctionPlugin;
 import org.vcssl.nano.plugin.calc.xci1.function.Log10FunctionPlugin;
 import org.vcssl.nano.plugin.calc.xci1.function.MeanFunctionPlugin;
 import org.vcssl.nano.plugin.calc.xci1.function.PowFunctionPlugin;
+import org.vcssl.nano.plugin.calc.xci1.function.Sdn1FunctionPlugin;
 import org.vcssl.nano.plugin.calc.xci1.function.SdnFunctionPlugin;
 import org.vcssl.nano.plugin.calc.xci1.function.SinFunctionPlugin;
 import org.vcssl.nano.plugin.calc.xci1.function.SqrtFunctionPlugin;
@@ -67,6 +68,7 @@ public class ScientificCalculatorPluginTest {
 		assertTrue(functions[index++] instanceof VanFunctionPlugin);
 		assertTrue(functions[index++] instanceof Van1FunctionPlugin);
 		assertTrue(functions[index++] instanceof SdnFunctionPlugin);
+		assertTrue(functions[index++] instanceof Sdn1FunctionPlugin);
 		assertEquals(functions.length, index);
 	}
 

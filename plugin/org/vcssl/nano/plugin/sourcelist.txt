@@ -11,5 +11,6 @@ org/vcssl/nano/plugin/calc/xci1/function/SinFunctionPlugin.java
 org/vcssl/nano/plugin/calc/xci1/function/SqrtFunctionPlugin.java
 org/vcssl/nano/plugin/calc/xci1/function/SumFunctionPlugin.java
 org/vcssl/nano/plugin/calc/xci1/function/TanFunctionPlugin.java
+org/vcssl/nano/plugin/calc/xci1/function/Van1FunctionPlugin.java
 org/vcssl/nano/plugin/calc/xci1/function/VanFunctionPlugin.java
 org/vcssl/nano/plugin/calc/xci1/ScientificCalculatorPlugin.java

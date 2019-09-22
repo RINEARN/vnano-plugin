@@ -155,8 +155,6 @@ public class SdnFunctionPluginTest {
 		double van = squareDiffSum / 3;
 		double sdn = Math.sqrt(van);
 
-		System.out.println("sdn=" + sdn);
-
 		Double expected = Double.valueOf(sdn);
 		Double actual = Double.valueOf(resultData[0]);
 		assertTrue(expected.equals(actual));

@@ -1,6 +1,6 @@
 package org.vcssl.nano.plugin.calc.xci1.function;
 
-public class SqrtFunctionPlugin extends VectorizableFloat64OperationFunctionPlugin {
+public class SqrtFunctionPlugin extends Float64VectorizableOperationFunctionPlugin {
 
 	@Override
 	public final String getFunctionName() {

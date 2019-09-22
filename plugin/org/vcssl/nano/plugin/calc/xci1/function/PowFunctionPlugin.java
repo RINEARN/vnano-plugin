@@ -29,11 +29,6 @@ public class PowFunctionPlugin implements ExternalFunctionConnectorInterface1 {
 	}
 
 	@Override
-	public final Class<?> getReturnClass(Class<?>[] parameterClasses) {
-		return parameterClasses[0];
-	}
-
-	@Override
 	public final boolean[] getParameterClassArbitrarinesses() {
 		return new boolean[]{ false, false };
 	}
@@ -44,10 +39,19 @@ public class PowFunctionPlugin implements ExternalFunctionConnectorInterface1 {
 		return new boolean[]{ true, false };
 	}
 
+	@Override
+	public final boolean isParameterCountArbitrary() {
+		return false;
+	}
 
 	@Override
-	public final boolean isVariadic() {
+	public final boolean hasVariadicParameters() {
 		return false;
+	}
+
+	@Override
+	public final Class<?> getReturnClass(Class<?>[] parameterClasses) {
+		return parameterClasses[0];
 	}
 
 	@Override

@@ -6,7 +6,7 @@ import org.vcssl.connect.ArrayDataContainerInterface1;
 import org.vcssl.connect.ConnectorException;
 import org.vcssl.connect.ConnectorPermissionName;
 
-public class VectorizableFloat64OperationFunctionPlugin implements ExternalFunctionConnectorInterface1 {
+public class Float64VectorToScalarOperationFunctionPlugin implements ExternalFunctionConnectorInterface1 {
 
 	@Override
 	public String getFunctionName() {
@@ -25,12 +25,12 @@ public class VectorizableFloat64OperationFunctionPlugin implements ExternalFunct
 
 	@Override
 	public String[] getParameterNames() {
-		return new String[] { "arg" };
+		return new String[] { "args" };
 	}
 
 	@Override
 	public Class<?> getReturnClass(Class<?>[] parameterClasses) {
-		return parameterClasses[0];
+		return double.class;
 	}
 
 	@Override
@@ -41,62 +41,68 @@ public class VectorizableFloat64OperationFunctionPlugin implements ExternalFunct
 
 	@Override
 	public boolean[] getParameterRankArbitrarinesses() {
-		return new boolean[]{ true };
+		return new boolean[]{ false };
 	}
 
+	@Override
+	public boolean isParameterCountArbitrary() {
+		return true;
+	}
 
 	@Override
-	public boolean isVariadic() {
+	public boolean hasVariadicParameters() {
 		return false;
 	}
 
 	@Override
 	public boolean isDataConversionNecessary() {
-		return false;
+		return true;
 	}
 
 	@Override
 	public Object invoke(Object[] arguments) throws ConnectorException {
 
 		// Check types of data containers.
-		if (!(arguments[0] instanceof ArrayDataContainerInterface1) || !(arguments[1] instanceof ArrayDataContainerInterface1)) {
-			throw new ConnectorException("The type of the data container is not supported by this plug-in.");
+		for (Object arg: arguments) {
+			if (!(arg instanceof ArrayDataContainerInterface1)) {
+				throw new ConnectorException("The type of the data container is not supported by this plug-in.");
+			}
 		}
-
-		// Check types of data in data containers, and cast data.
-		Object inputDataObject = ( (ArrayDataContainerInterface1<?>)arguments[1] ).getData();
-		if (!(inputDataObject instanceof double[])) {
-			throw new ConnectorException("The data type of the argument of \"sin\" function should be \"float\" or \"double\".");
-		}
-		@SuppressWarnings("unchecked")
-		ArrayDataContainerInterface1<double[]> inputDataContainer = (ArrayDataContainerInterface1<double[]>)arguments[1];
-		double[] inputData = (double[])inputDataObject;
-		int dataLength = inputData.length;
 
 		// Get or allocate output data
 		Object outputDataObject = ( (ArrayDataContainerInterface1<?>)arguments[0] ).getData();
 		double[] outputData = null;
-		if (outputDataObject instanceof double[] && ((double[])outputDataObject).length == dataLength) {
+		if (outputDataObject instanceof double[] && ((double[])outputDataObject).length == 1) {
 			outputData = (double[])outputDataObject;
 		} else {
-			outputData = new double[ dataLength ];
+			outputData = new double[ 1 ];
+		}
+
+		// Check types of data in data containers, and cast data.
+		int inputArgN = arguments.length - 1;
+		double[] inputData = new double[inputArgN];
+		for (int inputArgIndex=0; inputArgIndex<inputArgN; inputArgIndex++) {
+			int argIndex = inputArgIndex + 1;
+			Object inputDataObject = ( (ArrayDataContainerInterface1<?>)arguments[argIndex] ).getData();
+			if (!(inputDataObject instanceof double[])) {
+				throw new ConnectorException("The data type of the argument of \"sin\" function should be \"float\" or \"double\".");
+			}
+			inputData[inputArgIndex] = ((double[])inputDataObject)[0]; // each argument stores scalar value at [0]
 		}
 
 		// Operate data
-		this.operate(outputData, inputData, dataLength);
+		this.operate(outputData, inputData);
 
 		// Store result data
 		@SuppressWarnings("unchecked")
 		ArrayDataContainerInterface1<double[]> outputDataContainer = (ArrayDataContainerInterface1<double[]>)arguments[0];
-		outputDataContainer.setData(outputData, inputDataContainer.getLengths());
+		outputDataContainer.setData(outputData);
 
 		return null;
 	}
 
-
 	// Overridden on subclasses
-	public void operate(double[] outputData, double[] inputData, int dataLength) {
-
+	public void operate(double[] outputData, double[] inputData) {
 	}
 
 

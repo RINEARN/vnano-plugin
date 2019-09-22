@@ -1,16 +1,18 @@
 package org.vcssl.nano.plugin.calc.xci1.function;
 
-public class CosFunctionPlugin extends Float64VectorizableOperationFunctionPlugin {
+public class RadFunctionPlugin extends Float64VectorizableOperationFunctionPlugin {
 
 	@Override
 	public final String getFunctionName() {
-		return "cos";
+		return "rad";
 	}
 
 	@Override
 	public final void operate(double[] outputData, double[] inputData, int dataLength) {
 		for (int i=0; i<dataLength; i++) {
-			outputData[i] = Math.cos(inputData[i]);
+			double deg = inputData[i];
+			double rad = Math.PI * deg / 180.0;
+			outputData[i] = rad;
 		}
 	}
 }

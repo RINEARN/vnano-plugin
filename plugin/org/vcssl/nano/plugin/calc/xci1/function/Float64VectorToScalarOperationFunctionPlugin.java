@@ -4,7 +4,6 @@ import org.vcssl.connect.ExternalFunctionConnectorInterface1;
 
 import org.vcssl.connect.ArrayDataContainerInterface1;
 import org.vcssl.connect.ConnectorException;
-import org.vcssl.connect.ConnectorPermissionName;
 
 public class Float64VectorToScalarOperationFunctionPlugin implements ExternalFunctionConnectorInterface1 {
 
@@ -106,10 +105,6 @@ public class Float64VectorToScalarOperationFunctionPlugin implements ExternalFun
 	}
 
 
-	@Override
-	public String[] getNecessaryPermissionNames() { return new String[] { ConnectorPermissionName.NONE }; }
-	@Override
-	public String[] getUnnecessaryPermissionNames() { return new String[] { ConnectorPermissionName.ALL }; }
 	@Override
 	public void initializeForConnection(Object engineConnector) throws ConnectorException { }
 	@Override

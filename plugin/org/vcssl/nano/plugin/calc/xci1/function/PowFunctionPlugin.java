@@ -109,11 +109,6 @@ public class PowFunctionPlugin implements ExternalFunctionConnectorInterface1 {
 
 	}
 
-
-	@Override
-	public final String[] getNecessaryPermissionNames() { return new String[] { ConnectorPermissionName.NONE }; }
-	@Override
-	public final String[] getUnnecessaryPermissionNames() { return new String[] { ConnectorPermissionName.ALL }; }
 	@Override
 	public final void initializeForConnection(Object engineConnector) throws ConnectorException { }
 	@Override

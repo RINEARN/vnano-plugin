@@ -1,6 +1,5 @@
 package org.vcssl.nano.plugin.calc.xci1;
 
-import org.vcssl.connect.ConnectorPermissionName;
 import org.vcssl.connect.ExternalFunctionConnectorInterface1;
 import org.vcssl.connect.ExternalVariableConnectorInterface1;
 import org.vcssl.nano.plugin.calc.xci1.function.AbsFunctionPlugin;
@@ -45,14 +44,6 @@ public class ScientificCalculatorPluginTest {
 	@Test
 	public void test() {
 		ScientificCalculatorPlugin plugin = new ScientificCalculatorPlugin();
-
-		// Check permissions
-		String[] necessaryPermissionNames = plugin.getNecessaryPermissionNames();
-		assertEquals(1, necessaryPermissionNames.length);
-		assertEquals(ConnectorPermissionName.NONE, necessaryPermissionNames[0]);
-		String[] unnecessaryPermissionNames = plugin.getUnnecessaryPermissionNames();
-		assertEquals(1, necessaryPermissionNames.length);
-		assertEquals(ConnectorPermissionName.ALL, unnecessaryPermissionNames[0]);
 
 		// Check variables
 		ExternalVariableConnectorInterface1[] variables = plugin.getVariables();

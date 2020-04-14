@@ -4,7 +4,6 @@ import org.vcssl.connect.ExternalFunctionConnectorInterface1;
 
 import org.vcssl.connect.ArrayDataContainerInterface1;
 import org.vcssl.connect.ConnectorException;
-import org.vcssl.connect.ConnectorPermissionName;
 
 public class PowFunctionPlugin implements ExternalFunctionConnectorInterface1 {
 

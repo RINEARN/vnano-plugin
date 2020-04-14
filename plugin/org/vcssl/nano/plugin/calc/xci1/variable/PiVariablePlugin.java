@@ -13,10 +13,6 @@ public class PiVariablePlugin implements ExternalVariableConnectorInterface1 {
 	@Override
 	public boolean isConstant() { return true; }
 	@Override
-	public String[] getNecessaryPermissionNames() { return new String[]{ ConnectorPermissionName.NONE }; }
-	@Override
-	public String[] getUnnecessaryPermissionNames() { return new String[]{ ConnectorPermissionName.ALL }; }
-	@Override
 	public void initializeForConnection(Object engineConnector) { }
 	@Override
 	public void finalizeForDisconnection(Object engineConnector) { }

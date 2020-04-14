@@ -1,7 +1,5 @@
 package org.vcssl.nano.plugin.calc.xci1;
 
-import org.vcssl.connect.ConnectorPermissionName;
-
 import java.util.LinkedList;
 import java.util.List;
 
@@ -37,16 +35,6 @@ public class ScientificCalculatorPlugin implements ExternalNamespaceConnectorInt
 	@Override
 	public String getNamespaceName() {
 		return "SimpleCalculatorPlugin";
-	}
-
-	@Override
-	public String[] getNecessaryPermissionNames() {
-		return new String[]{ ConnectorPermissionName.NONE };
-	}
-
-	@Override
-	public String[] getUnnecessaryPermissionNames() {
-		return new String[]{ ConnectorPermissionName.ALL };
 	}
 
 	@Override

@@ -4,7 +4,6 @@ import org.vcssl.connect.ExternalFunctionConnectorInterface1;
 
 import org.vcssl.connect.ArrayDataContainerInterface1;
 import org.vcssl.connect.ConnectorException;
-import org.vcssl.connect.ConnectorPermissionName;
 
 public class Float64VectorToScalarOperationFunctionPlugin implements ExternalFunctionConnectorInterface1 {
 
@@ -70,12 +69,16 @@ public class Float64VectorToScalarOperationFunctionPlugin implements ExternalFun
 		}
 
 		// Get or allocate output data
-		Object outputDataObject = ( (ArrayDataContainerInterface1<?>)arguments[0] ).getData();
+		@SuppressWarnings("unchecked")
+		ArrayDataContainerInterface1<double[]> outputDataContainer = (ArrayDataContainerInterface1<double[]>)arguments[0];
+		Object outputDataObject = outputDataContainer.getData();
 		double[] outputData = null;
+		int outputOffset = outputDataContainer.getOffset();
 		if (outputDataObject instanceof double[] && ((double[])outputDataObject).length == 1) {
 			outputData = (double[])outputDataObject;
 		} else {
 			outputData = new double[ 1 ];
+			outputOffset = 0;
 		}
 
 		// Check types of data in data containers, and cast data.
@@ -94,9 +97,7 @@ public class Float64VectorToScalarOperationFunctionPlugin implements ExternalFun
 		this.operate(outputData, inputData);
 
 		// Store result data
-		@SuppressWarnings("unchecked")
-		ArrayDataContainerInterface1<double[]> outputDataContainer = (ArrayDataContainerInterface1<double[]>)arguments[0];
-		outputDataContainer.setData(outputData);
+		outputDataContainer.setData(outputData, outputOffset);
 
 		return null;
 	}
@@ -106,10 +107,6 @@ public class Float64VectorToScalarOperationFunctionPlugin implements ExternalFun
 	}
 
 
-	@Override
-	public String[] getNecessaryPermissionNames() { return new String[] { ConnectorPermissionName.NONE }; }
-	@Override
-	public String[] getUnnecessaryPermissionNames() { return new String[] { ConnectorPermissionName.ALL }; }
 	@Override
 	public void initializeForConnection(Object engineConnector) throws ConnectorException { }
 	@Override

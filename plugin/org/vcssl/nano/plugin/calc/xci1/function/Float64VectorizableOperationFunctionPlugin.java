@@ -39,6 +39,16 @@ public class Float64VectorizableOperationFunctionPlugin implements ExternalFunct
 	}
 
 	@Override
+	public boolean[] getParameterConstantnesses() {
+		return new boolean[]{ true };
+	}
+
+	@Override
+	public boolean[] getParameterReferencenesses() {
+		return new boolean[]{ true };
+	}
+
+	@Override
 	public boolean isParameterCountArbitrary() {
 		return false;
 	}

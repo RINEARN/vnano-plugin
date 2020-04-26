@@ -32,10 +32,19 @@ public class PowFunctionPlugin implements ExternalFunctionConnectorInterface1 {
 		return new boolean[]{ false, false };
 	}
 
-
 	@Override
 	public final boolean[] getParameterRankArbitrarinesses() {
 		return new boolean[]{ true, false };
+	}
+
+	@Override
+	public boolean[] getParameterConstantnesses() {
+		return new boolean[]{ true, true };
+	}
+
+	@Override
+	public boolean[] getParameterReferencenesses() {
+		return new boolean[]{ true, true };
 	}
 
 	@Override

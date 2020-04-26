@@ -38,6 +38,16 @@ public class LengthFunctionPlugin implements ExternalFunctionConnectorInterface1
 	}
 
 	@Override
+	public boolean[] getParameterConstantnesses() {
+		return new boolean[]{ true, true };
+	}
+
+	@Override
+	public boolean[] getParameterReferencenesses() {
+		return new boolean[]{ true, true };
+	}
+
+	@Override
 	public boolean isParameterCountArbitrary() {
 		return false;
 	}

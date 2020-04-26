@@ -44,6 +44,16 @@ public class Float64VectorToScalarOperationFunctionPlugin implements ExternalFun
 	}
 
 	@Override
+	public boolean[] getParameterConstantnesses() {
+		return new boolean[]{ true };
+	}
+
+	@Override
+	public boolean[] getParameterReferencenesses() {
+		return new boolean[]{ true };
+	}
+
+	@Override
 	public boolean isParameterCountArbitrary() {
 		return true;
 	}

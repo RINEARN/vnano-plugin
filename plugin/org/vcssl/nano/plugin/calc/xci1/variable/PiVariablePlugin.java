@@ -1,7 +1,6 @@
 package org.vcssl.nano.plugin.calc.xci1.variable;
 
 import org.vcssl.connect.ConnectorException;
-import org.vcssl.connect.ConnectorPermissionName;
 import org.vcssl.connect.ExternalVariableConnectorInterface1;
 
 public class PiVariablePlugin implements ExternalVariableConnectorInterface1 {

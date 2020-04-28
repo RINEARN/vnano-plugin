@@ -72,19 +72,34 @@ public class ScientificCalculatorPlugin implements ExternalNamespaceConnectorInt
 	}
 
 	@Override
-	public void initializeForConnection(Object engineConnector) throws ConnectorException {
+	public void preInitializeForConnection(Object engineConnector) throws ConnectorException {
 	}
 
 	@Override
-	public void finalizeForDisconnection(Object engineConnector) throws ConnectorException {
+	public void postInitializeForConnection(Object engineConnector) throws ConnectorException {
 	}
 
 	@Override
-	public void initializeForExecution(Object engineConnector) throws ConnectorException {
+	public void preFinalizeForDisconnection(Object engineConnector) throws ConnectorException {
 	}
 
 	@Override
-	public void finalizeForTermination(Object engineConnector) throws ConnectorException {
+	public void postFinalizeForDisconnection(Object engineConnector) throws ConnectorException {
 	}
 
+	@Override
+	public void preInitializeForExecution(Object engineConnector) throws ConnectorException {
+	}
+
+	@Override
+	public void postInitializeForExecution(Object engineConnector) throws ConnectorException {
+	}
+
+	@Override
+	public void preFinalizeForTermination(Object engineConnector) throws ConnectorException {
+	}
+
+	@Override
+	public void postFinalizeForTermination(Object engineConnector) throws ConnectorException {
+	}
 }

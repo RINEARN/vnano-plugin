@@ -6,6 +6,7 @@ import org.vcssl.connect.ArrayDataContainerInterface1;
 import org.vcssl.connect.ConnectorException;
 import org.vcssl.connect.EngineConnectorInterface1;
 import org.vcssl.connect.ExternalFunctionConnectorInterface1;
+import org.vcssl.nano.plugin.system.terminal.TerminalWindow;
 
 // Interface Specification: https://www.vcssl.org/en-us/dev/code/main-jimpl/api/org/vcssl/connect/ExternalFunctionConnectorInterface1.html
 // インターフェース仕様書:  https://www.vcssl.org/ja-jp/dev/code/main-jimpl/api/org/vcssl/connect/ExternalFunctionConnectorInterface1.html
@@ -15,10 +16,14 @@ public class PrintXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 	private String delimiter = null;
 	private String printEnd = null;
 	private PrintStream stdoutStream = null;
+	private TerminalWindow terminalWindow = null;
+	private boolean isGuiMode = false;
 
-	public PrintXfci1Plugin() {
+	public PrintXfci1Plugin(boolean isGuiMode, TerminalWindow terminalWindow) {
 		this.printEnd = "";
 		this.delimiter = "\t";
+		this.isGuiMode = isGuiMode;
+		this.terminalWindow = terminalWindow;
 	}
 
 	// 接続時の初期化
@@ -216,7 +221,11 @@ public class PrintXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 
 		// バッファに溜めた内容を print する
 		String printContent = printContentBuilder.toString();
-		this.stdoutStream.print(printContent);
+		if (this.isGuiMode) {
+			this.terminalWindow.print(printContent);
+		} else {
+			this.stdoutStream.print(printContent);
+		}
 
 		// データ型変換を無効化している場合は arguments[0] に結果を格納する仕様なので、このメソッドの戻り値は参照されない
 		return null;

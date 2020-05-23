@@ -1,15 +1,28 @@
+/*
+ * Author:  RINEARN (Fumihiro Matsui), 2020
+ * License: CC0
+ */
+
 package org.vcssl.nano.plugin.system;
 
 import java.util.LinkedList;
 import java.util.List;
 
 import org.vcssl.connect.ConnectorException;
+import org.vcssl.connect.EngineConnectorInterface1;
 import org.vcssl.connect.ExternalFunctionConnectorInterface1;
 import org.vcssl.connect.ExternalNamespaceConnectorInterface1;
 import org.vcssl.connect.ExternalVariableConnectorInterface1;
+import org.vcssl.nano.plugin.system.terminal.TerminalWindow;
 import org.vcssl.nano.plugin.system.xfci1.PrintXfci1Plugin;
 
+//Interface Specification: https://www.vcssl.org/en-us/dev/code/main-jimpl/api/org/vcssl/connect/ExternalNamespaceConnectorInterface1.html
+//インターフェース仕様書:  https://www.vcssl.org/ja-jp/dev/code/main-jimpl/api/org/vcssl/connect/ExternalNamespaceConnectorInterface1.html
+
 public class SystemTerminalIOXnci1Plugin implements ExternalNamespaceConnectorInterface1 {
+
+	private TerminalWindow terminalWindow = null;
+	private boolean isGuiMode = false;
 
 	@Override
 	public String getNamespaceName() {
@@ -19,7 +32,7 @@ public class SystemTerminalIOXnci1Plugin implements ExternalNamespaceConnectorIn
 	@Override
 	public ExternalFunctionConnectorInterface1[] getFunctions() {
 		List<ExternalFunctionConnectorInterface1> functionList = new LinkedList<ExternalFunctionConnectorInterface1>();
-		functionList.add(new PrintXfci1Plugin());
+		functionList.add( new PrintXfci1Plugin(this.isGuiMode, this.terminalWindow) );
 		return functionList.toArray(new ExternalFunctionConnectorInterface1[0]);
 	}
 
@@ -32,6 +45,25 @@ public class SystemTerminalIOXnci1Plugin implements ExternalNamespaceConnectorIn
 
 	@Override
 	public void preInitializeForConnection(Object engineConnector) throws ConnectorException {
+
+		// 処理系の情報を取得するコネクタ（処理系依存）の互換性を検査
+		if (!(engineConnector instanceof EngineConnectorInterface1)) {
+			throw new ConnectorException(
+				"The type of the engine connector \"" +
+				engineConnector.getClass().getCanonicalName() +
+				"\" is not supported by this plug-in."
+			);
+		}
+		EngineConnectorInterface1 eci1Connector = (EngineConnectorInterface1)engineConnector;
+
+		// 処理系のUI設定がGUIかどうかを取得
+		this.isGuiMode = ( (String)eci1Connector.getOptionValue("TERMINAL_IO_UI") ).equals("GUI");
+
+		// GUIモードならウィンドウを生成
+		if (this.isGuiMode) {
+			this.terminalWindow = new TerminalWindow();
+			this.terminalWindow.init();
+		}
 	}
 
 	@Override
@@ -39,15 +71,10 @@ public class SystemTerminalIOXnci1Plugin implements ExternalNamespaceConnectorIn
 	}
 
 	@Override
-	public void preFinalizeForDisconnection(Object engineConnector) throws ConnectorException {
-	}
-
-	@Override
-	public void postFinalizeForDisconnection(Object engineConnector) throws ConnectorException {
-	}
-
-	@Override
 	public void preInitializeForExecution(Object engineConnector) throws ConnectorException {
+		if (this.isGuiMode) {
+			this.terminalWindow.reset();
+		}
 	}
 
 	@Override
@@ -60,5 +87,17 @@ public class SystemTerminalIOXnci1Plugin implements ExternalNamespaceConnectorIn
 
 	@Override
 	public void postFinalizeForTermination(Object engineConnector) throws ConnectorException {
+	}
+
+	@Override
+	public void preFinalizeForDisconnection(Object engineConnector) throws ConnectorException {
+	}
+
+	@Override
+	public void postFinalizeForDisconnection(Object engineConnector) throws ConnectorException {
+		if (this.isGuiMode) {
+			this.terminalWindow.dispose(true);
+			this.terminalWindow = null;
+		}
 	}
 }

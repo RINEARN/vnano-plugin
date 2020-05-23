@@ -7,6 +7,7 @@ import org.vcssl.connect.ConnectorException;
 import org.vcssl.connect.ExternalFunctionConnectorInterface1;
 import org.vcssl.connect.ExternalNamespaceConnectorInterface1;
 import org.vcssl.connect.ExternalVariableConnectorInterface1;
+import org.vcssl.nano.plugin.system.xfci1.PrintXfci1Plugin;
 
 public class SystemTerminalIOXnci1Plugin implements ExternalNamespaceConnectorInterface1 {
 
@@ -18,7 +19,7 @@ public class SystemTerminalIOXnci1Plugin implements ExternalNamespaceConnectorIn
 	@Override
 	public ExternalFunctionConnectorInterface1[] getFunctions() {
 		List<ExternalFunctionConnectorInterface1> functionList = new LinkedList<ExternalFunctionConnectorInterface1>();
-		// functionList.add(...);
+		functionList.add(new PrintXfci1Plugin());
 		return functionList.toArray(new ExternalFunctionConnectorInterface1[0]);
 	}
 

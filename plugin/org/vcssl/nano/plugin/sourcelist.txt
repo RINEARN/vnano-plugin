@@ -23,3 +23,7 @@ org/vcssl/nano/plugin/calc/xci1/function/Van1FunctionPlugin.java
 org/vcssl/nano/plugin/calc/xci1/function/VanFunctionPlugin.java
 org/vcssl/nano/plugin/calc/xci1/ScientificCalculatorPlugin.java
 org/vcssl/nano/plugin/calc/xci1/variable/PiVariablePlugin.java
+org/vcssl/nano/plugin/system/SystemTerminalIOXnci1Plugin.java
+org/vcssl/nano/plugin/system/terminal/TerminalWindow.java
+org/vcssl/nano/plugin/system/xfci1/PrintlnXfci1Plugin.java
+org/vcssl/nano/plugin/system/xfci1/PrintXfci1Plugin.java

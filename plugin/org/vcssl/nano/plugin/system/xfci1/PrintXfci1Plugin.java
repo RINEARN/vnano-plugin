@@ -1,3 +1,8 @@
+/*
+ * Author:  RINEARN (Fumihiro Matsui), 2020
+ * License: CC0
+ */
+
 package org.vcssl.nano.plugin.system.xfci1;
 
 import java.io.PrintStream;
@@ -13,8 +18,9 @@ import org.vcssl.nano.plugin.system.terminal.TerminalWindow;
 
 public class PrintXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 
-	private String delimiter = null;
-	private String printEnd = null;
+	protected String delimiter = null;
+	protected String printEnd = null;
+
 	private PrintStream stdoutStream = null;
 	private TerminalWindow terminalWindow = null;
 	private boolean isGuiMode = false;

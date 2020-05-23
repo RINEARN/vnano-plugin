@@ -15,6 +15,7 @@ import org.vcssl.connect.ExternalNamespaceConnectorInterface1;
 import org.vcssl.connect.ExternalVariableConnectorInterface1;
 import org.vcssl.nano.plugin.system.terminal.TerminalWindow;
 import org.vcssl.nano.plugin.system.xfci1.PrintXfci1Plugin;
+import org.vcssl.nano.plugin.system.xfci1.PrintlnXfci1Plugin;
 
 //Interface Specification: https://www.vcssl.org/en-us/dev/code/main-jimpl/api/org/vcssl/connect/ExternalNamespaceConnectorInterface1.html
 //インターフェース仕様書:  https://www.vcssl.org/ja-jp/dev/code/main-jimpl/api/org/vcssl/connect/ExternalNamespaceConnectorInterface1.html
@@ -33,6 +34,7 @@ public class SystemTerminalIOXnci1Plugin implements ExternalNamespaceConnectorIn
 	public ExternalFunctionConnectorInterface1[] getFunctions() {
 		List<ExternalFunctionConnectorInterface1> functionList = new LinkedList<ExternalFunctionConnectorInterface1>();
 		functionList.add( new PrintXfci1Plugin(this.isGuiMode, this.terminalWindow) );
+		functionList.add( new PrintlnXfci1Plugin(this.isGuiMode, this.terminalWindow) );
 		return functionList.toArray(new ExternalFunctionConnectorInterface1[0]);
 	}
 

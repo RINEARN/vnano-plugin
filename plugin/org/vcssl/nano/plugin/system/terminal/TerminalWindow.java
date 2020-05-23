@@ -7,12 +7,16 @@ package org.vcssl.nano.plugin.system.terminal;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.lang.reflect.InvocationTargetException;
 
 import javax.swing.JFrame;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
+import javax.swing.text.DefaultEditorKit;
 
 import org.vcssl.connect.ConnectorException;
 
@@ -34,6 +38,7 @@ public class TerminalWindow {
 	private JFrame frame = null;
 	private JTextArea textArea = null;
 	private JScrollPane scrollPane = null;
+	private JPopupMenu textAreaPopupMenu = null;
 
 	// ウィンドウが表示OFFの状態でも、次に print された時点で表示ONにするためのフラグ。
 	// 何も print しないスクリプトでも常にウィンドウが表示されると、アプリケーションの種類によっては嫌かもしれないので、
@@ -73,6 +78,15 @@ public class TerminalWindow {
 				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS
 			);
 			TerminalWindow.this.frame.getContentPane().add(TerminalWindow.this.scrollPane);
+
+			// テキストエリアの右クリックメニューを生成
+			TerminalWindow.this.textAreaPopupMenu = new JPopupMenu();
+			TerminalWindow.this.textAreaPopupMenu.add(new DefaultEditorKit.CutAction()).setText("Cut");
+			TerminalWindow.this.textAreaPopupMenu.add(new DefaultEditorKit.CopyAction()).setText("Copy");
+			TerminalWindow.this.textAreaPopupMenu.add(new DefaultEditorKit.PasteAction()).setText("Paste");
+
+			// テキストエリアの右クリックイベントをハンドルするリスナーを生成して登録
+			TerminalWindow.this.textArea.addMouseListener(new TextAreaRightClickListener());
 
 			// テキストエリアを表示（ウィンドウは print するまで表示したくない用途もあるのでここではまだ表示しない）
 			TerminalWindow.this.textArea.setVisible(true);
@@ -157,6 +171,33 @@ public class TerminalWindow {
 			TerminalWindow.this.scrollPane = null;
 			TerminalWindow.this.frame.dispose();
 			TerminalWindow.this.frame = null;
+		}
+	}
+
+	/**
+	 * An event listener class to pop-up right-click menu
+	 * 右クリックメニューを表示するためのイベントリスナークラスです
+	 */
+	private final class TextAreaRightClickListener implements MouseListener {
+		@Override
+		public final void mouseClicked(MouseEvent e) {
+			if(javax.swing.SwingUtilities.isRightMouseButton(e)){
+				TerminalWindow.this.textAreaPopupMenu.show(
+					TerminalWindow.this.textArea, e.getX(), e.getY()
+				);
+			}
+		}
+		@Override
+		public final void mousePressed(MouseEvent e) {
+		}
+		@Override
+		public final void mouseReleased(MouseEvent e) {
+		}
+		@Override
+		public final void mouseEntered(MouseEvent e) {
+		}
+		@Override
+		public final void mouseExited(MouseEvent e) {
 		}
 	}
 

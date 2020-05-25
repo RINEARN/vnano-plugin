@@ -1,1 +1,11 @@
+# coding UTF-8
+
+# Provides terminal-I/O functions - 端末への入出力関数を提供します
 org/vcssl/nano/plugin/system/SystemTerminalIOXnci1Plugin.class
+
+# Provides elementary math functions - 初等的な数学関数を提供します
+org/vcssl/nano/plugin/math/MathElementaryXnci1Plugin.class
+
+# Provides statistical functions - 統計関数を提供します
+org/vcssl/nano/plugin/math/MathStatisticalXnci1Plugin.class
+

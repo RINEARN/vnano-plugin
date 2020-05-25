@@ -27,7 +27,7 @@ public class SystemTerminalIOXnci1Plugin implements ExternalNamespaceConnectorIn
 
 	@Override
 	public String getNamespaceName() {
-		return "SystemTerminalIOXnci1Plugin";
+		return "System";
 	}
 
 	@Override

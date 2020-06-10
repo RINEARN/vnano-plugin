@@ -59,7 +59,11 @@ public class SystemTerminalIOXnci1Plugin implements ExternalNamespaceConnectorIn
 		EngineConnectorInterface1 eci1Connector = (EngineConnectorInterface1)engineConnector;
 
 		// 処理系のUI設定がGUIかどうかを取得
-		this.isGuiMode = ( (String)eci1Connector.getOptionValue("TERMINAL_IO_UI") ).equals("GUI");
+		if (eci1Connector.hasOptionValue("UI_MODE")) {
+			this.isGuiMode = ( (String)eci1Connector.getOptionValue("UI_MODE") ).equals("GUI");
+		} else {
+			this.isGuiMode = true;
+		}
 
 		// GUIモードならウィンドウを生成
 		if (this.isGuiMode) {

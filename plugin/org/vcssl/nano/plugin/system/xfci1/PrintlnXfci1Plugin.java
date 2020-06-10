@@ -41,7 +41,11 @@ public class PrintlnXfci1Plugin extends PrintXfci1Plugin {
 
 		// 処理系のオプションから、端末I/O用のデフォルトの改行コードを取得し、print 終端文字に設定
 		//（この値が PrintXfci1Plugin では空文字で、両者はその点のみが異なる）
-		this.printEnd = (String)eci1Connector.getOptionValue("TERMINAL_IO_EOL");
+		if (eci1Connector.hasOptionValue("TERMINAL_IO_EOL")) {
+			this.printEnd = (String)eci1Connector.getOptionValue("TERMINAL_IO_EOL");
+		} else {
+			this.printEnd = System.getProperty("line.separator");
+		}
 	}
 
 	// 残りは PrintXfci1Plugin と全く同じ処理

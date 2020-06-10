@@ -48,6 +48,7 @@ org/vcssl/nano/plugin/math/xfci1/TanXfci1Plugin.java
 org/vcssl/nano/plugin/math/xfci1/Van1Xfci1Plugin.java
 org/vcssl/nano/plugin/math/xfci1/VanXfci1Plugin.java
 org/vcssl/nano/plugin/math/xvci1/PiXvci1Plugin.java
+org/vcssl/nano/plugin/system/SystemEnvironmentXnci1Plugin.java
 org/vcssl/nano/plugin/system/SystemTerminalIOXnci1Plugin.java
 org/vcssl/nano/plugin/system/terminal/TerminalWindow.java
 org/vcssl/nano/plugin/system/xfci1/PrintlnXfci1Plugin.java

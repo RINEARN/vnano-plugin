@@ -51,7 +51,11 @@ public class PrintXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 		EngineConnectorInterface1 eci1Connector = (EngineConnectorInterface1)engineConnector;
 
 		// 処理系のオプションから、標準出力用のストリームを取得
-		this.stdoutStream = (PrintStream)eci1Connector.getOptionValue("STDOUT_STREAM");
+		if (eci1Connector.hasOptionValue("STDOUT_STREAM")) {
+			this.stdoutStream = (PrintStream)eci1Connector.getOptionValue("STDOUT_STREAM");
+		} else {
+			throw new ConnectorException("The option \"STDOUT_STREAM\" is required for using \"print\" function, but it is not set.");
+		}
 	}
 
 	// スクリプト実行後の終了時処理

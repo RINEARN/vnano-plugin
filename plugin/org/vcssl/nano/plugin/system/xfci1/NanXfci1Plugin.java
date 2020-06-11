@@ -64,7 +64,7 @@ public class NanXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 	// 任意次元の引数は取らないので false を返す
 	@Override
 	public boolean[] getParameterRankArbitrarinesses() {
-		return new boolean[]{ true };
+		return new boolean[]{ false };
 	}
 
 	// 参照渡しする必要はないので false を返す

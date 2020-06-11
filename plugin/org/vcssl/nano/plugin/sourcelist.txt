@@ -56,4 +56,5 @@ org/vcssl/nano/plugin/system/xfci1/PrintXfci1Plugin.java
 org/vcssl/nano/plugin/system/xvci1/CrXvci1Plugin.java
 org/vcssl/nano/plugin/system/xvci1/EolXvci1Plugin.java
 org/vcssl/nano/plugin/system/xvci1/IntMaxXvci1Plugin.java
+org/vcssl/nano/plugin/system/xvci1/IntMinXvci1Plugin.java
 org/vcssl/nano/plugin/system/xvci1/LfXvci1Plugin.java

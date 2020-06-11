@@ -1,7 +1,22 @@
-# coding UTF-8
+# coding UTF-8;
+
+# Provides environment-related variables - 環境関連の変数を提供します
+org/vcssl/nano/plugin/system/SystemEnvironmentXnci1Plugin.class
+
+# Provides data-type-utility functions/variables - データ型関連のユーティリティ変数/関数を提供します
+org/vcssl/nano/plugin/system/SystemDataTypeXnci1Plugin.class
 
 # Provides terminal-I/O functions - 端末への入出力関数を提供します
 org/vcssl/nano/plugin/system/SystemTerminalIOXnci1Plugin.class
+
+# Provides time-utility functions - 時間関連のユーティリティ関数を提供します
+org/vcssl/nano/plugin/system/SystemTimeXnci1Plugin.class
+
+# Provides functions for terminating scripts - スクリプトを終了させる関数を提供します
+org/vcssl/nano/plugin/system/SystemTerminationXnci1Plugin.class
+
+# Provides utility functions for testing - テスト用のユーティリティ関数を提供します
+org/vcssl/nano/plugin/system/SystemTestXnci1Plugin.class
 
 # Provides elementary math functions - 初等的な数学関数を提供します
 org/vcssl/nano/plugin/math/MathElementaryXnci1Plugin.class

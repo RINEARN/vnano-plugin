@@ -61,3 +61,4 @@ org/vcssl/nano/plugin/system/xvci1/FloatMinAbsNormalXvci1Plugin.java
 org/vcssl/nano/plugin/system/xvci1/IntMaxXvci1Plugin.java
 org/vcssl/nano/plugin/system/xvci1/IntMinXvci1Plugin.java
 org/vcssl/nano/plugin/system/xvci1/LfXvci1Plugin.java
+org/vcssl/nano/plugin/system/xvci1/NanXvci1Plugin.java

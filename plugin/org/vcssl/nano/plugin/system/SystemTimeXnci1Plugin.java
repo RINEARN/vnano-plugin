@@ -12,6 +12,7 @@ import org.vcssl.connect.ConnectorException;
 import org.vcssl.connect.ExternalFunctionConnectorInterface1;
 import org.vcssl.connect.ExternalNamespaceConnectorInterface1;
 import org.vcssl.connect.ExternalVariableConnectorInterface1;
+import org.vcssl.nano.plugin.system.xfci1.SleepXfci1Plugin;
 import org.vcssl.nano.plugin.system.xfci1.TimeXfci1Plugin;
 
 //Interface Specification: https://www.vcssl.org/en-us/dev/code/main-jimpl/api/org/vcssl/connect/ExternalNamespaceConnectorInterface1.html
@@ -28,6 +29,7 @@ public class SystemTimeXnci1Plugin implements ExternalNamespaceConnectorInterfac
 	public ExternalFunctionConnectorInterface1[] getFunctions() {
 		List<ExternalFunctionConnectorInterface1> functionList = new LinkedList<ExternalFunctionConnectorInterface1>();
 		functionList.add(new TimeXfci1Plugin());
+		functionList.add(new SleepXfci1Plugin());
 		return functionList.toArray(new ExternalFunctionConnectorInterface1[0]);
 	}
 

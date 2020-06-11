@@ -1,6 +1,7 @@
 package org.vcssl.nano.plugin.system.xvci1;
 
 import org.vcssl.connect.ConnectorException;
+import org.vcssl.connect.EngineConnectorInterface1;
 import org.vcssl.connect.ExternalVariableConnectorInterface1;
 
 public class EolXvci1Plugin implements ExternalVariableConnectorInterface1 {
@@ -14,13 +15,30 @@ public class EolXvci1Plugin implements ExternalVariableConnectorInterface1 {
 	@Override
 	public boolean isConstant() { return true; }
 	@Override
-	public void initializeForConnection(Object engineConnector) {
-		this.eol = System.getProperty("line.separator");
-	}
+	public void initializeForConnection(Object engineConnector) { }
 	@Override
 	public void finalizeForDisconnection(Object engineConnector) { }
 	@Override
-	public void initializeForExecution(Object engineConnector) { }
+	public void initializeForExecution(Object engineConnector) throws ConnectorException {
+
+		// 処理系の情報を取得するコネクタ（処理系依存）の互換性を検査
+		if (!(engineConnector instanceof EngineConnectorInterface1)) {
+			throw new ConnectorException(
+				"The type of the engine connector \"" +
+				engineConnector.getClass().getCanonicalName() +
+				"\" is not supported by this plug-in."
+			);
+		}
+		EngineConnectorInterface1 eci1Connector = (EngineConnectorInterface1)engineConnector;
+
+		// 処理系のオプションから、環境におけるデフォルトの改行コードを取得
+		if (eci1Connector.hasOptionValue("ENVIRONMENT_EOL")) {
+			this.eol = (String)eci1Connector.getOptionValue("ENVIRONMENT_EOL");
+		} else {
+			this.eol = System.getProperty("line.separator");
+		}
+	}
+
 	@Override
 	public void finalizeForTermination(Object engineConnector) { }
 

@@ -97,7 +97,7 @@ public class NanXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 		return boolean.class;
 	}
 
-	// 自動変換を介さず、処理系のデータコンテナそのものを取得したいので true を返す
+	// 自動変換を介さず、処理系のデータコンテナそのものを取得したいので false を返す
 	@Override
 	public boolean isDataConversionNecessary() {
 		return false;

@@ -51,7 +51,9 @@ org/vcssl/nano/plugin/math/xvci1/PiXvci1Plugin.java
 org/vcssl/nano/plugin/system/SystemDataTypeXnci1Plugin.java
 org/vcssl/nano/plugin/system/SystemEnvironmentXnci1Plugin.java
 org/vcssl/nano/plugin/system/SystemTerminalIOXnci1Plugin.java
+org/vcssl/nano/plugin/system/SystemTestXnci1Plugin.java
 org/vcssl/nano/plugin/system/terminal/TerminalWindow.java
+org/vcssl/nano/plugin/system/xfci1/AssertXfci1Plugin.java
 org/vcssl/nano/plugin/system/xfci1/InfXfci1Plugin.java
 org/vcssl/nano/plugin/system/xfci1/NanXfci1Plugin.java
 org/vcssl/nano/plugin/system/xfci1/PrintlnXfci1Plugin.java

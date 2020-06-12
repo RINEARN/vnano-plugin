@@ -77,31 +77,39 @@ public class LengthXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 			throw new ConnectorException("The type of the data container is not supported by this plug-in.");
 		}
 
-		// Get rank of input data container
-		ArrayDataContainerInterface1<?> inputDataContainer = (ArrayDataContainerInterface1<?>)arguments[1];
-		int rank = inputDataContainer.getRank();
-		int[] lengths = inputDataContainer.getLengths();
-
+		// Get rank and lengths of the array argument
+		ArrayDataContainerInterface1<?> arrayArgDataContainer = (ArrayDataContainerInterface1<?>)arguments[1];
+		int rank = arrayArgDataContainer.getRank();
+		int[] lengths = arrayArgDataContainer.getLengths();
 		if (rank == 0) {
 			throw new ConnectorException("\"length\" function is not available for scalar argument.");
 		}
 
+		// Get value of the dim-index argument
+		@SuppressWarnings("unchecked")
+		ArrayDataContainerInterface1<long[]> dimIndexArgDataContainer = (ArrayDataContainerInterface1<long[]>)arguments[2];
+		long dimIndex = dimIndexArgDataContainer.getData()[ dimIndexArgDataContainer.getOffset() ];
+
 		// Get or allocate output data
-		Object outputDataObject = ( (ArrayDataContainerInterface1<?>)arguments[0] ).getData();
+		@SuppressWarnings("unchecked")
+		ArrayDataContainerInterface1<long[]> outputContainer = (ArrayDataContainerInterface1<long[]>)arguments[0];
+		Object outputDataObject = outputContainer.getData();
 		long[] outputData = null;
+		int outputOffset = -1;
 		if (outputDataObject instanceof long[] && ((long[])outputDataObject).length == lengths.length) {
 			outputData = (long[])outputDataObject;
+			outputOffset = outputContainer.getOffset();
 		} else {
-			outputData = new long[ lengths.length ];
+			outputData = new long[ 1 ];
+			outputOffset = 0;
 		}
 
 		// Store result data
-		for (int dim=0; dim<lengths.length; dim++) {
-			outputData[dim] = (long)lengths[dim];
-		}
+		outputData[outputOffset] = (long)lengths[ (int)dimIndex ];
+
 		@SuppressWarnings("unchecked")
 		ArrayDataContainerInterface1<long[]> outputDataContainer = (ArrayDataContainerInterface1<long[]>)arguments[0];
-		outputDataContainer.setData(outputData, new int[] { lengths.length });
+		outputDataContainer.setData(outputData, outputOffset);
 
 		return null;
 	}

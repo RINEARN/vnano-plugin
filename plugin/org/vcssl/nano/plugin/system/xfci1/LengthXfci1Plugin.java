@@ -63,7 +63,7 @@ public class LengthXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 
 	@Override
 	public String[] getParameterNames() {
-		return new String[] { "length" };
+		return new String[] { "array", "dimIndex" };
 	}
 
 	@Override
@@ -144,7 +144,7 @@ public class LengthXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 		Object outputDataObject = outputContainer.getData();
 		long[] outputData = null;
 		int outputOffset = -1;
-		if (outputDataObject instanceof long[] && 1 <= ((long[])outputDataObject).length) {
+		if (outputContainer.getRank() == 0 && outputDataObject instanceof long[] && 1 <= ((long[])outputDataObject).length) {
 			outputData = (long[])outputDataObject;
 			outputOffset = outputContainer.getOffset();
 		} else {

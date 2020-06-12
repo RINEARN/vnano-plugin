@@ -41,10 +41,10 @@ public class TimeXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 		return "time";
 	}
 
-	// 引数は取らないので void 型を返す
+	// 引数は取らないので空配列を返す
 	@Override
 	public Class<?>[] getParameterClasses() {
-		return new Class<?>[] { void.class };
+		return new Class<?>[0];
 	}
 
 	// 引数名は定義されていないので false を返す
@@ -53,34 +53,34 @@ public class TimeXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 		return false;
 	}
 
-	// 引数名を返す
+	// 引数名を返すが、引数が無いので空配列を返す
 	@Override
 	public String[] getParameterNames() {
 		return new String[0];
 	}
 
-	// 任意型の引数は取らないので false を返す
+	// 任意型の引数を取る場合に true を返すが、引数が無いので空配列を返す
 	@Override
 	public boolean[] getParameterClassArbitrarinesses() {
-		return new boolean[]{ false };
+		return new boolean[0];
 	}
 
-	// 任意次元の引数は取らないので false を返す
+	// 任意次元の引数を取る場合に true を返すが、引数が無いので空配列を返す
 	@Override
 	public boolean[] getParameterRankArbitrarinesses() {
-		return new boolean[]{ false };
+		return new boolean[0];
 	}
 
-	// 参照渡しする必要はないので false を返す
+	// 参照渡しする必要がある場合に true を返すが、引数が無いので空配列を返す
 	@Override
 	public boolean[] getParameterReferencenesses() {
-		return new boolean[]{ false };
+		return new boolean[0];
 	}
 
-	// 引数の中身を書き変えないので true を返す（そう宣言しておくと最適化で少し有利になる可能性がある）
+	// 引数の中身を書き変えない場合に true を返すが、引数が無いので空配列を返す
 	@Override
 	public boolean[] getParameterConstantnesses() {
-		return new boolean[]{ true };
+		return new boolean[0];
 	}
 
 	// 任意個の引数は取らないので false を返す

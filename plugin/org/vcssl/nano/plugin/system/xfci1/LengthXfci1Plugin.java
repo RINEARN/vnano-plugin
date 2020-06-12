@@ -144,7 +144,7 @@ public class LengthXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 		Object outputDataObject = outputContainer.getData();
 		long[] outputData = null;
 		int outputOffset = -1;
-		if (outputDataObject instanceof long[] && ((long[])outputDataObject).length == lengths.length) {
+		if (outputDataObject instanceof long[] && 1 <= ((long[])outputDataObject).length) {
 			outputData = (long[])outputDataObject;
 			outputOffset = outputContainer.getOffset();
 		} else {

@@ -74,6 +74,7 @@ public class LengthFunctionPlugin implements ExternalFunctionConnectorInterface1
 		if (!(arguments[0] instanceof ArrayDataContainerInterface1)
 				|| !(arguments[1] instanceof ArrayDataContainerInterface1)
 				|| !(arguments[2] instanceof ArrayDataContainerInterface1) ) {
+
 			throw new ConnectorException("The type of the data container is not supported by this plug-in.");
 		}
 
@@ -82,7 +83,7 @@ public class LengthFunctionPlugin implements ExternalFunctionConnectorInterface1
 		int rank = arrayArgDataContainer.getRank();
 		int[] lengths = arrayArgDataContainer.getLengths();
 		if (rank == 0) {
-			throw new ConnectorException("\"length\" function is not available for scalar argument.");
+			throw new ConnectorException("\"length\" function is not available for non-array argument.");
 		}
 
 		// Get value of the dim-index argument
@@ -96,7 +97,7 @@ public class LengthFunctionPlugin implements ExternalFunctionConnectorInterface1
 		Object outputDataObject = outputContainer.getData();
 		long[] outputData = null;
 		int outputOffset = -1;
-		if (outputDataObject instanceof long[] && ((long[])outputDataObject).length == lengths.length) {
+		if (outputDataObject instanceof long[] && 1 <= ((long[])outputDataObject).length) {
 			outputData = (long[])outputDataObject;
 			outputOffset = outputContainer.getOffset();
 		} else {
@@ -113,7 +114,6 @@ public class LengthFunctionPlugin implements ExternalFunctionConnectorInterface1
 
 		return null;
 	}
-
 	@Override
 	public void initializeForConnection(Object engineConnector) throws ConnectorException { }
 	@Override

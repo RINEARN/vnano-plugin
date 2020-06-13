@@ -132,7 +132,7 @@ public class TimeXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 		}
 
 		// 現在の時刻を取得し、ミリ秒に変換
-		long currentMilliTime = (System.nanoTime() - this.initialNanoTime) / 1000L;
+		long currentMilliTime = (System.nanoTime() - this.initialNanoTime) / 1000000L;
 
 		// 結果を戻り値データコンテナに格納する
 		outputDataContainer.getData()[ outputDataContainer.getOffset() ] = currentMilliTime;

@@ -3,7 +3,7 @@
  * License: CC0
  */
 
-package org.vcssl.nano.plugin.system;
+package org.vcssl.nano.plugin.system.xnci1;
 
 import java.util.LinkedList;
 import java.util.List;

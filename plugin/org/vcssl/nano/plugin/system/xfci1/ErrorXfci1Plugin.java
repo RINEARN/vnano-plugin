@@ -113,6 +113,6 @@ public class ErrorXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 				"Error messages starting with \"___\" is not available, because they are used for specific signals."
 			);
 		}
-		throw new ConnectorException(errorMessage);
+		throw new ConnectorException("___ERROR:" + errorMessage);
 	}
 }

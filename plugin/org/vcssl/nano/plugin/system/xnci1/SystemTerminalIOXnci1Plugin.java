@@ -23,7 +23,7 @@ import org.vcssl.nano.plugin.system.xfci1.PrintlnXfci1Plugin;
 public class SystemTerminalIOXnci1Plugin implements ExternalNamespaceConnectorInterface1 {
 
 	private TerminalWindow terminalWindow = null;
-	private boolean isGuiMode = false;
+	private boolean isGuiMode = true;
 
 	@Override
 	public String getNamespaceName() {
@@ -61,8 +61,6 @@ public class SystemTerminalIOXnci1Plugin implements ExternalNamespaceConnectorIn
 		// 処理系のUI設定がGUIかどうかを取得
 		if (eci1Connector.hasOptionValue("UI_MODE")) {
 			this.isGuiMode = ( (String)eci1Connector.getOptionValue("UI_MODE") ).equals("GUI");
-		} else {
-			this.isGuiMode = true;
 		}
 
 		// GUIモードならウィンドウを生成

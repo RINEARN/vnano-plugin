@@ -6,7 +6,7 @@ import org.vcssl.connect.ExternalVariableConnectorInterface1;
 
 public class EolXvci1Plugin implements ExternalVariableConnectorInterface1 {
 
-	private String eol = null;
+	private String eol = System.getProperty("line.separator");
 
 	@Override
 	public String getVariableName() { return "EOL"; }
@@ -34,8 +34,6 @@ public class EolXvci1Plugin implements ExternalVariableConnectorInterface1 {
 		// 処理系のオプションから、環境におけるデフォルトの改行コードを取得
 		if (eci1Connector.hasOptionValue("ENVIRONMENT_EOL")) {
 			this.eol = (String)eci1Connector.getOptionValue("ENVIRONMENT_EOL");
-		} else {
-			this.eol = System.getProperty("line.separator");
 		}
 	}
 

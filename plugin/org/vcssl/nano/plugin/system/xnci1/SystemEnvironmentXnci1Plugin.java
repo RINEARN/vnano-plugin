@@ -9,11 +9,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.vcssl.connect.ConnectorException;
-import org.vcssl.connect.EngineConnectorInterface1;
 import org.vcssl.connect.ExternalFunctionConnectorInterface1;
 import org.vcssl.connect.ExternalNamespaceConnectorInterface1;
 import org.vcssl.connect.ExternalVariableConnectorInterface1;
-import org.vcssl.nano.plugin.system.terminal.TerminalWindow;
 import org.vcssl.nano.plugin.system.xvci1.CrXvci1Plugin;
 import org.vcssl.nano.plugin.system.xvci1.EolXvci1Plugin;
 import org.vcssl.nano.plugin.system.xvci1.LfXvci1Plugin;

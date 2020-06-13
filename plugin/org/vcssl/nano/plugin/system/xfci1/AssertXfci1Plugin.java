@@ -17,7 +17,7 @@ import org.vcssl.connect.ExternalFunctionConnectorInterface1;
 
 public class AssertXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 
-	Locale locale = null;
+	Locale locale = Locale.getDefault();
 
 	// 接続時の初期化
 	@Override
@@ -40,8 +40,6 @@ public class AssertXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 		// 言語ロケール情報を取得（エラーメッセージの言語を変えるため）
 		if (eci1Connector.hasOptionValue("LOCALE")) {
 			this.locale = (Locale)eci1Connector.getOptionValue("LOCALE");
-		} else {
-			this.locale = Locale.getDefault();
 		}
 	}
 

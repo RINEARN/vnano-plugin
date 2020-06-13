@@ -53,9 +53,9 @@ public class LengthXfci1PluginTest {
 		DataContainer<double[]> inputDataContainer = new DataContainer<double[]>();
 		DataContainer<long[]> dimDataContainer = new DataContainer<long[]>();
 		DataContainer<long[]> outputDataContainer = new DataContainer<long[]>();
-		inputDataContainer.setData(new double[] { 1.0 });
-		dimDataContainer.setData(new long[] { 0L });
-		outputDataContainer.setData(new long[] { 0L });
+		inputDataContainer.setData(new double[] { 1.0 }, 0);
+		dimDataContainer.setData(new long[] { 0L }, 0);
+		outputDataContainer.setData(new long[] { 0L }, 0);
 
 		// Operate data
 		// 演算を実行
@@ -80,7 +80,7 @@ public class LengthXfci1PluginTest {
 		int[] inputArrayLengths = new int[] { 3 };
 		int[] outputArrayLengths = new int[] { 3 };
 		inputDataContainer.setData(new double[] { 1.0, 2.0, 3.0 }, inputArrayLengths);
-		dimDataContainer.setData(new long[] { 0L });
+		dimDataContainer.setData(new long[] { 0L }, 0);
 		outputDataContainer.setData(new long[] { 0L, 0L, 0L }, outputArrayLengths);
 
 		// Operate data
@@ -89,9 +89,8 @@ public class LengthXfci1PluginTest {
 
 		// Check dimensions of the operation result
 		// 演算結果の次元と要素数を確認
-		assertEquals(1, outputDataContainer.getRank());
-		assertEquals(1, outputDataContainer.getLengths().length);
-		assertEquals(1, outputDataContainer.getLengths()[0]);
+		assertEquals(0, outputDataContainer.getRank());
+		assertEquals(0, outputDataContainer.getLengths().length);
 
 		// Get result data in data container, and check its length
 		// 演算結果のデータを取り出し、データ長を確認
@@ -114,30 +113,47 @@ public class LengthXfci1PluginTest {
 		DataContainer<long[]> dimDataContainer = new DataContainer<long[]>();
 		DataContainer<long[]> outputDataContainer = new DataContainer<long[]>();
 		int[] inputArrayLengths = new int[] { 2, 3 };
-		int[] outputArrayLengths = new int[] { 2, 3 };
 		inputDataContainer.setData(new double[] { 1.0, 2.0, 3.0, 4.0, 5.0, 6.0 }, inputArrayLengths);
-		dimDataContainer.setData(new long[] { 0L });
-		outputDataContainer.setData(new long[] { 0L, 0L, 0L, 0L, 0L, 0L }, outputArrayLengths);
+		outputDataContainer.setData(new long[] { 0L }, 0);
+		long[] resultData = null;
 
-		// Operate data
-		// 演算を実行
+
+		// Operate data (dimIndex: 0)
+		// 演算を実行（次元インデックス: 0）
+		dimDataContainer.setData(new long[] { 0L }, 0);
 		function.invoke(new Object[]{ outputDataContainer, inputDataContainer, dimDataContainer });
 
 		// Check dimensions of the operation result
 		// 演算結果の次元を確認
-		assertEquals(1, outputDataContainer.getRank());
-		assertEquals(1, outputDataContainer.getLengths().length);
-		assertEquals(2, outputDataContainer.getLengths()[0]);
+		assertEquals(0, outputDataContainer.getRank());
 
 		// Get result data in data container, and check its length
 		// 演算結果のデータを取り出し、データ長を確認
-		long[] resultData = outputDataContainer.getData();
-		assertEquals(2, resultData.length);
+		resultData = outputDataContainer.getData();
+		assertEquals(1, resultData.length);
 
 		// Check result data
 		// 演算結果の値を確認
 		assertEquals(2L, resultData[0]);
-		assertEquals(3L, resultData[1]);
+
+
+		// Operate data (dimIndex: 0)
+		// 演算を実行（次元インデックス: 1）
+		dimDataContainer.setData(new long[] { 1L }, 0);
+		function.invoke(new Object[]{ outputDataContainer, inputDataContainer, dimDataContainer });
+
+		// Check dimensions of the operation result
+		// 演算結果の次元を確認
+		assertEquals(0, outputDataContainer.getRank());
+
+		// Get result data in data container, and check its length
+		// 演算結果のデータを取り出し、データ長を確認
+		resultData = outputDataContainer.getData();
+		assertEquals(1, resultData.length);
+
+		// Check result data
+		// 演算結果の値を確認
+		assertEquals(3L, resultData[0]);
 	}
 
 }

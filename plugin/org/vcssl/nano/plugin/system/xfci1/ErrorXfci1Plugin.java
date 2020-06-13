@@ -39,7 +39,7 @@ public class ErrorXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 	// string 型の引数を取るので、その内部表現の String 型を返す
 	@Override
 	public Class<?>[] getParameterClasses() {
-		return new Class<?>[] { long.class };
+		return new Class<?>[] { String.class };
 	}
 
 	// 引数名が定義されているので true を返す

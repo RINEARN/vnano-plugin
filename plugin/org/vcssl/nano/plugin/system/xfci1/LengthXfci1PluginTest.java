@@ -137,7 +137,7 @@ public class LengthXfci1PluginTest {
 		assertEquals(2L, resultData[0]);
 
 
-		// Operate data (dimIndex: 0)
+		// Operate data (dimIndex: 1)
 		// 演算を実行（次元インデックス: 1）
 		dimDataContainer.setData(new long[] { 1L }, 0);
 		function.invoke(new Object[]{ outputDataContainer, inputDataContainer, dimDataContainer });

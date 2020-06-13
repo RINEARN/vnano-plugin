@@ -52,9 +52,9 @@ public class PowXfci1PluginTest {
 		DataContainer<double[]> inputDataContainer = new DataContainer<double[]>();
 		DataContainer<double[]> outputDataContainer = new DataContainer<double[]>();
 		DataContainer<double[]> exponentDataContainer = new DataContainer<double[]>();
-		inputDataContainer.setData(new double[] { 1.0 });
-		outputDataContainer.setData(new double[] { 0.0 });
-		exponentDataContainer.setData(new double[] { 2.3 });
+		inputDataContainer.setData(new double[] { 1.0 }, 0);
+		outputDataContainer.setData(new double[] { 0.0 }, 0);
+		exponentDataContainer.setData(new double[] { 2.3 }, 0);
 
 		// Operate data
 		// 演算を実行
@@ -91,7 +91,7 @@ public class PowXfci1PluginTest {
 		int[] outputArrayLengths = new int[] { 3 };
 		inputDataContainer.setData(new double[] { 1.0, 2.0, 3.0 }, inputArrayLengths);
 		outputDataContainer.setData(new double[] { 0.0, 0.0, 0.0 }, outputArrayLengths);
-		exponentDataContainer.setData(new double[] { 2.3 });
+		exponentDataContainer.setData(new double[] { 2.3 }, 0);
 
 		// Operate data
 		// 演算を実行
@@ -144,7 +144,7 @@ public class PowXfci1PluginTest {
 		int[] outputArrayLengths = new int[] { 2, 3 };
 		inputDataContainer.setData(new double[] { 1.0, 2.0, 3.0, 4.0, 5.0, 6.0 }, inputArrayLengths);
 		outputDataContainer.setData(new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 }, outputArrayLengths);
-		exponentDataContainer.setData(new double[] { 2.3 });
+		exponentDataContainer.setData(new double[] { 2.3 }, 0);
 
 		// Operate data
 		// 演算を実行

@@ -54,8 +54,8 @@ public class Sdn1Xfci1PluginTest {
 		// 入出力データを用意
 		DataContainer<double[]> inputDataContainer = new DataContainer<double[]>();
 		DataContainer<double[]> outputDataContainer = new DataContainer<double[]>();
-		inputDataContainer.setData(new double[] { 1.23 });
-		outputDataContainer.setData(new double[] { 0.0 });
+		inputDataContainer.setData(new double[] { 1.23 }, 0);
+		outputDataContainer.setData(new double[] { 0.0 }, 0);
 
 		// Operate data
 		// 演算を実行
@@ -85,9 +85,9 @@ public class Sdn1Xfci1PluginTest {
 		DataContainer<double[]> inputDataContainer1 = new DataContainer<double[]>();
 		DataContainer<double[]> inputDataContainer2 = new DataContainer<double[]>();
 		DataContainer<double[]> outputDataContainer = new DataContainer<double[]>();
-		inputDataContainer1.setData(new double[] { 1.23 });
-		inputDataContainer2.setData(new double[] { 4.56 });
-		outputDataContainer.setData(new double[] { 0.0 });
+		inputDataContainer1.setData(new double[] { 1.23 }, 0);
+		inputDataContainer2.setData(new double[] { 4.56 }, 0);
+		outputDataContainer.setData(new double[] { 0.0 }, 0);
 
 		// Operate data
 		// 演算を実行
@@ -126,10 +126,10 @@ public class Sdn1Xfci1PluginTest {
 		DataContainer<double[]> inputDataContainer2 = new DataContainer<double[]>();
 		DataContainer<double[]> inputDataContainer3 = new DataContainer<double[]>();
 		DataContainer<double[]> outputDataContainer = new DataContainer<double[]>();
-		inputDataContainer1.setData(new double[] { 1.23 });
-		inputDataContainer2.setData(new double[] { 4.56 });
-		inputDataContainer3.setData(new double[] { 7.89 });
-		outputDataContainer.setData(new double[] { 0.0 });
+		inputDataContainer1.setData(new double[] { 1.23 }, 0);
+		inputDataContainer2.setData(new double[] { 4.56 }, 0);
+		inputDataContainer3.setData(new double[] { 7.89 }, 0);
+		outputDataContainer.setData(new double[] { 0.0 }, 0);
 
 		// Operate data
 		// 演算を実行

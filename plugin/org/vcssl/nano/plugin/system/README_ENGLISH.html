@@ -12,6 +12,7 @@
 		.rcol { }
 		dt { font-weight: bold; }
 		dd { margin-bottom: 14px; }
+		dt { display: list-item; list-style-position: outside; margin-left: 20px; list-style-type: disc; }
 	</style>
 </head>
 
@@ -19,7 +20,7 @@
 
 
 
-<h1>Vnano System Plug-ins<br />(org.vcssl.nano.plugin.system package)</h1>
+<h1>Vnano System Plug-in Group<br />(org.vcssl.nano.plugin.system package)</h1>
 <hr />
 
 
@@ -60,7 +61,7 @@ so same features are also available in scripts of the VCSSL by default.
 		</dd>
 	<dt><a href="#SystemTimeXnci1Plugin">SystemTimeXnci1Plugin</a></dt>
 		<dd>
-			Provides utility time-utility functions.
+			Provides time-utility functions.
 			<br />
 			Functions: <a href="#time">time()</a> / <a href="#sleep">sleep(sleepTime)</a>
 		</dd>
@@ -219,7 +220,7 @@ The plug-in providing data-type-utility functions/variables.
 	</tr>
 	<tr>
 		<td class="lcol">Value</td>
-		<td class="rcol">Storing the minimum absolute (positive) value in all representable normal numbers of &quot;float&quot; type.</td>
+		<td class="rcol">Storing the minimum absolute (positive, non-zero) value in all representable normal numbers of &quot;float&quot; type.</td>
 	</tr>
 	<tr>
 		<td class="lcol">Data Type</td>
@@ -235,7 +236,7 @@ The plug-in providing data-type-utility functions/variables.
 	</tr>
 	<tr>
 		<td class="lcol">Value</td>
-		<td class="rcol">Storing the minimum absolute (positive) value in all representable numbers of &quot;float&quot; type containing denormal numbers.</td>
+		<td class="rcol">Storing the minimum absolute (positive, non-zero) value in all representable numbers of &quot;float&quot; type containing denormal numbers.</td>
 	</tr>
 	<tr>
 		<td class="lcol">Data Type</td>

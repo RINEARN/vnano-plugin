@@ -41,6 +41,15 @@ For details, see the document of the application you are using.
 コンパイルが正常に完了すると、プラグインのクラスファイルが「 plugin/... 」フォルダ以下に生成されます。それらを、ご使用のアプリケーションで指定されているフォルダ内にコピーしてください。また、ご使用のアプリケーションの設定ファイル（ 例：plugin/VnanoPluginList.txt ）などから、それらを読み込むように指定してください。詳細については、ご使用のアプリケーションの説明書をご参照ください。
 
 
+## Specification Documents - 仕様書
+
+For details and specifications of each plug-in in standard plug-ins, see "VnanoStandardPluginSpec_English.html" in this repository. 
+You can refer same contents on the official website of the Vnano: 
+[https://www.vcssl.org/en-us/vnano/plugin/](https://www.vcssl.org/en-us/vnano/plugin/).
+
+各プラグインの詳細や仕様については、リポジトリ内の「 VnanoStandardPluginSpec_Japanese.html 」をご参照ください。同仕様書は、Vnanoの公式サイト上でも掲載されています： 
+[https://www.vcssl.org/ja-jp/vnano/plugin/](https://www.vcssl.org/ja-jp/vnano/plugin/).
+
 ---
 
 ## Credits - 本文中の商標など

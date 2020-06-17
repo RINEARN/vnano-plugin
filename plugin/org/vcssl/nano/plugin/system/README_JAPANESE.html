@@ -5,14 +5,16 @@
 	<title>Vnano System プラグイン群</title>
 	<meta charset="UTF-8">
 	<style type="text/css">
-		table { width: 100%; border: 1px solid #000000; border-collapse: collapse; margin-bottom: 20px; }
-		td { border: 1px solid #000000; text-align: left; }
-		th { border: 1px solid #000000; text-align: left; }
-		.lcol { width: 100px; background-color: #eeeeee; }
-		.rcol { }
-		dt { font-weight: bold; }
-		dd { margin-bottom: 14px; }
-		dt { display: list-item; list-style-position: outside; margin-left: 20px; list-style-type: disc; }
+		h1 .spec-path { font-size: 70%; }
+		h2 .spec-path { font-size: 70%; }
+		.spec-table { width: 100%; border: 1px solid #000000; border-collapse: collapse; margin-bottom: 20px; }
+		.spec-table td { border: 1px solid #000000; text-align: left; }
+		.spec-table th { border: 1px solid #000000; text-align: left; }
+		.spec-table .lcol { width: 100px; background-color: #eeeeee; }
+		.spec-table .rcol { }
+		.spec-dl { }
+		.spec-dl dt { font-weight: bold; display: list-item; list-style-position: outside; margin-left: 20px; list-style-type: disc; }
+		.spec-dl dd { margin-bottom: 14px; line-height: 160%; }
 	</style>
 </head>
 
@@ -20,7 +22,7 @@
 
 
 
-<h1>Vnano System プラグイン群<br />(org.vcssl.nano.plugin.system パッケージ)</h1>
+<h1>Vnano System プラグイン群<br /><span class="spec-path">(org.vcssl.nano.plugin.system パッケージ)</span></h1>
 <hr />
 
 
@@ -37,7 +39,7 @@
 
 <h2>提供プラグインおよび機能一覧</h2>
 
-<dl>
+<dl class="spec-dl">
 	<dt><a href="#SystemEnvironmentXnci1Plugin">SystemEnvironmentXnci1Plugin</a></dt>
 		<dd>
 			環境に関する情報などを提供するプラグインです。
@@ -92,7 +94,7 @@
 
 <hr style="page-break-before: always" />
 
-<h2 id="SystemEnvironmentXnci1Plugin">SystemEnvironmentXnci1Plugin<br />(org.vcssl.nano.plugin.system.xnci1.SystemEnvironmentXnci1Plugin)</h2>
+<h2 id="SystemEnvironmentXnci1Plugin">SystemEnvironmentXnci1Plugin<br /><span class="spec-path">(org.vcssl.nano.plugin.system.xnci1.SystemEnvironmentXnci1Plugin)</span></h2>
 
 <p>
 環境に関する情報などを提供するプラグインです。
@@ -102,7 +104,7 @@
 <h3>変数</h3>
 
 
-<table id="EOL">
+<table id="EOL" class="spec-table">
 	<tr>
 		<th class="lcol">変数</th>
 		<th class="rcol">EOL</th>
@@ -118,7 +120,7 @@
 </table>
 
 
-<table id="LF">
+<table id="LF" class="spec-table">
 	<tr>
 		<th class="lcol">変数</th>
 		<th class="rcol">LF</th>
@@ -134,7 +136,7 @@
 </table>
 
 
-<table id="CR">
+<table id="CR" class="spec-table">
 	<tr>
 		<th class="lcol">変数</th>
 		<th class="rcol">CR</th>
@@ -155,7 +157,7 @@
 
 <hr style="page-break-before: always" />
 
-<h2 id="SystemDataTypeXnci1Plugin">SystemDataTypeXnci1Plugin<br />(org.vcssl.nano.plugin.system.xnci1.SystemDataTypeXnci1Plugin)</h2>
+<h2 id="SystemDataTypeXnci1Plugin">SystemDataTypeXnci1Plugin<br /><span class="spec-path">(org.vcssl.nano.plugin.system.xnci1.SystemDataTypeXnci1Plugin)</span></h2>
 
 <p>
 データ型関連のユーティリティ機能を提供するプラグインです。
@@ -164,7 +166,7 @@
 
 <h3>変数</h3>
 
-<table id="INT_MAX">
+<table id="INT_MAX" class="spec-table">
 	<tr>
 		<th class="lcol">変数</th>
 		<th class="rcol">INT_MAX</th>
@@ -180,7 +182,7 @@
 </table>
 
 
-<table id="INT_MIN">
+<table id="INT_MIN" class="spec-table">
 	<tr>
 		<th class="lcol">変数</th>
 		<th class="rcol">INT_MIN</th>
@@ -196,7 +198,7 @@
 </table>
 
 
-<table id="FLOAT_MAX">
+<table id="FLOAT_MAX" class="spec-table">
 	<tr>
 		<th class="lcol">変数</th>
 		<th class="rcol">FLOAT_MAX</th>
@@ -212,7 +214,7 @@
 </table>
 
 
-<table id="FLOAT_MIN_ABS_NORMAL">
+<table id="FLOAT_MIN_ABS_NORMAL" class="spec-table">
 	<tr>
 		<th class="lcol">変数</th>
 		<th class="rcol">FLOAT_MIN_ABS_NORMAL</th>
@@ -228,7 +230,7 @@
 </table>
 
 
-<table id="FLOAT_MIN_ABS_DENORMAL">
+<table id="FLOAT_MIN_ABS_DENORMAL" class="spec-table">
 	<tr>
 		<th class="lcol">変数</th>
 		<th class="rcol">FLOAT_MIN_ABS_DENORMAL</th>
@@ -244,7 +246,7 @@
 </table>
 
 
-<table id="NAN">
+<table id="NAN" class="spec-table">
 	<tr>
 		<th class="lcol">変数</th>
 		<th class="rcol">NAN</th>
@@ -260,7 +262,7 @@
 </table>
 
 
-<table id="INF">
+<table id="INF" class="spec-table">
 	<tr>
 		<th class="lcol">変数</th>
 		<th class="rcol">INF</th>
@@ -279,7 +281,7 @@
 <h3>関数</h3>
 
 
-<table id="nan">
+<table id="nan" class="spec-table">
 	<tr>
 		<th class="lcol">関数</th>
 		<th class="rcol">nan(value)</th>
@@ -307,7 +309,7 @@
 </table>
 
 
-<table id="inf">
+<table id="inf" class="spec-table">
 	<tr>
 		<th class="lcol">関数</th>
 		<th class="rcol">inf(value)</th>
@@ -335,7 +337,7 @@
 </table>
 
 
-<table id="length">
+<table id="length" class="spec-table">
 	<tr>
 		<th class="lcol">関数</th>
 		<th class="rcol">length(array, dimIndex)</th>
@@ -367,7 +369,7 @@
 </table>
 
 
-<table id="rank">
+<table id="rank" class="spec-table">
 	<tr>
 		<th class="lcol">関数</th>
 		<th class="rcol">rank(array)</th>
@@ -402,7 +404,7 @@
 
 <hr style="page-break-before: always" />
 
-<h2 id="SystemTerminalIOXnci1Plugin">SystemTerminalIOXnci1Plugin<br />(org.vcssl.nano.plugin.system.xnci1.SystemTerminalIOXnci1Plugin)</h2>
+<h2 id="SystemTerminalIOXnci1Plugin">SystemTerminalIOXnci1Plugin<br /><span class="spec-path">(org.vcssl.nano.plugin.system.xnci1.SystemTerminalIOXnci1Plugin)</span></h2>
 
 <p>
 端末との入出力機能を提供するプラグインです。
@@ -417,7 +419,7 @@
 <h3>関数</h3>
 
 
-<table id="print">
+<table id="print" class="spec-table">
 	<tr>
 		<th class="lcol">関数</th>
 		<th class="rcol">print(...)</th>
@@ -445,7 +447,7 @@
 </table>
 
 
-<table id="println">
+<table id="println" class="spec-table">
 	<tr>
 		<th class="lcol">関数</th>
 		<th class="rcol">println(...)</th>
@@ -478,7 +480,7 @@
 
 <hr style="page-break-before: always" />
 
-<h2 id="SystemTimeXnci1Plugin">SystemTimeXnci1Plugin<br />(org.vcssl.nano.plugin.system.xnci1.SystemTimeXnci1Plugin)</h2>
+<h2 id="SystemTimeXnci1Plugin">SystemTimeXnci1Plugin<br /><span class="spec-path">(org.vcssl.nano.plugin.system.xnci1.SystemTimeXnci1Plugin)</span></h2>
 
 <p>
 時間制御に関するユーティリティ機能を提供するプラグインです。
@@ -488,7 +490,7 @@
 <h3>関数</h3>
 
 
-<table id="time">
+<table id="time" class="spec-table">
 	<tr>
 		<th class="lcol">関数</th>
 		<th class="rcol">time()</th>
@@ -516,7 +518,7 @@
 </table>
 
 
-<table id="sleep">
+<table id="sleep" class="spec-table">
 	<tr>
 		<th class="lcol">関数</th>
 		<th class="rcol">sleep(sleepTime)</th>
@@ -549,7 +551,7 @@
 
 <hr style="page-break-before: always" />
 
-<h2 id="SystemTerminationXnci1Plugin">SystemTerminationXnci1Plugin<br />(org.vcssl.nano.plugin.system.xnci1.SystemTerminationXnci1Plugin)</h2>
+<h2 id="SystemTerminationXnci1Plugin">SystemTerminationXnci1Plugin<br /><span class="spec-path">(org.vcssl.nano.plugin.system.xnci1.SystemTerminationXnci1Plugin)</span></h2>
 
 <p>
 スクリプトを終了させる機能を提供するプラグインです。
@@ -559,7 +561,7 @@
 <h3>関数</h3>
 
 
-<table id="exit">
+<table id="exit" class="spec-table">
 	<tr>
 		<th class="lcol">関数</th>
 		<th class="rcol">exit()</th>
@@ -587,7 +589,7 @@
 </table>
 
 
-<table id="exit_int">
+<table id="exit_int" class="spec-table">
 	<tr>
 		<th class="lcol">関数</th>
 		<th class="rcol">exit(exitStatusCode)</th>
@@ -615,7 +617,7 @@
 </table>
 
 
-<table id="error">
+<table id="error" class="spec-table">
 	<tr>
 		<th class="lcol">関数</th>
 		<th class="rcol">error(errorMessage)</th>
@@ -648,7 +650,7 @@
 
 <hr style="page-break-before: always" />
 
-<h2 id="SystemTestXnci1Plugin">SystemTestXnci1Plugin<br />(org.vcssl.nano.plugin.system.xnci1.SystemTestXnci1Plugin)</h2>
+<h2 id="SystemTestXnci1Plugin">SystemTestXnci1Plugin<br /><span class="spec-path">(org.vcssl.nano.plugin.system.xnci1.SystemTestXnci1Plugin)</span></h2>
 
 <p>
 テストのためのユーティリティ機能を提供するプラグインです。
@@ -658,7 +660,7 @@
 <h3>関数</h3>
 
 
-<table id="assert">
+<table id="assert" class="spec-table">
 	<tr>
 		<th class="lcol">関数</th>
 		<th class="rcol">assert(expectedCondition)</th>

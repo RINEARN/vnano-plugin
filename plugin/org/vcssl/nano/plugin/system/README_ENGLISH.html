@@ -5,14 +5,16 @@
 	<title>Vnano System Plug-ins</title>
 	<meta charset="UTF-8">
 	<style type="text/css">
-		table { width: 100%; border: 1px solid #000000; border-collapse: collapse; margin-bottom: 20px; }
-		td { border: 1px solid #000000; text-align: left; }
-		th { border: 1px solid #000000; text-align: left; }
-		.lcol { width: 100px; background-color: #eeeeee; }
-		.rcol { }
-		dt { font-weight: bold; }
-		dd { margin-bottom: 14px; }
-		dt { display: list-item; list-style-position: outside; margin-left: 20px; list-style-type: disc; }
+		h1 .spec-path { font-size: 70%; }
+		h2 .spec-path { font-size: 70%; }
+		.spec-table { width: 100%; border: 1px solid #000000; border-collapse: collapse; margin-bottom: 20px; }
+		.spec-table td { border: 1px solid #000000; text-align: left; }
+		.spec-table th { border: 1px solid #000000; text-align: left; }
+		.spec-table .lcol { width: 100px; background-color: #eeeeee; }
+		.spec-table .rcol { }
+		.spec-dl { }
+		.spec-dl dt { font-weight: bold; display: list-item; list-style-position: outside; margin-left: 20px; list-style-type: disc; }
+		.spec-dl dd { margin-bottom: 14px; line-height: 160%; }
 	</style>
 </head>
 
@@ -20,7 +22,7 @@
 
 
 
-<h1>Vnano System Plug-in Group<br />(org.vcssl.nano.plugin.system package)</h1>
+<h1>Vnano System Plug-in Group<br /><span class="spec-path">(org.vcssl.nano.plugin.system package)</span></h1>
 <hr />
 
 
@@ -38,7 +40,7 @@ so same features are also available in scripts of the VCSSL by default.
 
 <h2>List of Provided Plug-ins and Features</h2>
 
-<dl>
+<dl class="spec-dl">
 	<dt><a href="#SystemEnvironmentXnci1Plugin">SystemEnvironmentXnci1Plugin</a></dt>
 		<dd>
 			Provides environment-related variables.
@@ -93,7 +95,7 @@ All of the above plug-ins are released under <a href="https://creativecommons.or
 
 <hr style="page-break-before: always" />
 
-<h2 id="SystemEnvironmentXnci1Plugin">SystemEnvironmentXnci1Plugin<br />(org.vcssl.nano.plugin.system.xnci1.SystemEnvironmentXnci1Plugin)</h2>
+<h2 id="SystemEnvironmentXnci1Plugin">SystemEnvironmentXnci1Plugin<br /><span class="spec-path">(org.vcssl.nano.plugin.system.xnci1.SystemEnvironmentXnci1Plugin)</span></h2>
 
 <p>
 The plug-in providing environment-related variables.
@@ -103,7 +105,7 @@ The plug-in providing environment-related variables.
 <h3>Variables</h3>
 
 
-<table id="EOL">
+<table id="EOL" class="spec-table">
 	<tr>
 		<th class="lcol">Variable</th>
 		<th class="rcol">EOL</th>
@@ -119,7 +121,7 @@ The plug-in providing environment-related variables.
 </table>
 
 
-<table id="LF">
+<table id="LF" class="spec-table">
 	<tr>
 		<th class="lcol">Variable</th>
 		<th class="rcol">LF</th>
@@ -135,7 +137,7 @@ The plug-in providing environment-related variables.
 </table>
 
 
-<table id="CR">
+<table id="CR" class="spec-table">
 	<tr>
 		<th class="lcol">Variable</th>
 		<th class="rcol">CR</th>
@@ -156,7 +158,7 @@ The plug-in providing environment-related variables.
 
 <hr style="page-break-before: always" />
 
-<h2 id="SystemDataTypeXnci1Plugin">SystemDataTypeXnci1Plugin<br />(org.vcssl.nano.plugin.system.xnci1.SystemDataTypeXnci1Plugin)</h2>
+<h2 id="SystemDataTypeXnci1Plugin">SystemDataTypeXnci1Plugin<br /><span class="spec-path">(org.vcssl.nano.plugin.system.xnci1.SystemDataTypeXnci1Plugin)</span></h2>
 
 <p>
 The plug-in providing data-type-utility functions/variables.
@@ -165,7 +167,7 @@ The plug-in providing data-type-utility functions/variables.
 
 <h3>Variables</h3>
 
-<table id="INT_MAX">
+<table id="INT_MAX" class="spec-table">
 	<tr>
 		<th class="lcol">Variable</th>
 		<th class="rcol">INT_MAX</th>
@@ -181,7 +183,7 @@ The plug-in providing data-type-utility functions/variables.
 </table>
 
 
-<table id="INT_MIN">
+<table id="INT_MIN" class="spec-table">
 	<tr>
 		<th class="lcol">Variable</th>
 		<th class="rcol">INT_MIN</th>
@@ -197,7 +199,7 @@ The plug-in providing data-type-utility functions/variables.
 </table>
 
 
-<table id="FLOAT_MAX">
+<table id="FLOAT_MAX" class="spec-table">
 	<tr>
 		<th class="lcol">Variable</th>
 		<th class="rcol">FLOAT_MAX</th>
@@ -213,7 +215,7 @@ The plug-in providing data-type-utility functions/variables.
 </table>
 
 
-<table id="FLOAT_MIN_ABS_NORMAL">
+<table id="FLOAT_MIN_ABS_NORMAL" class="spec-table">
 	<tr>
 		<th class="lcol">Variable</th>
 		<th class="rcol">FLOAT_MIN_ABS_NORMAL</th>
@@ -229,7 +231,7 @@ The plug-in providing data-type-utility functions/variables.
 </table>
 
 
-<table id="FLOAT_MIN_ABS_DENORMAL">
+<table id="FLOAT_MIN_ABS_DENORMAL" class="spec-table">
 	<tr>
 		<th class="lcol">Variable</th>
 		<th class="rcol">FLOAT_MIN_ABS_DENORMAL</th>
@@ -245,7 +247,7 @@ The plug-in providing data-type-utility functions/variables.
 </table>
 
 
-<table id="NAN">
+<table id="NAN" class="spec-table">
 	<tr>
 		<th class="lcol">Variable</th>
 		<th class="rcol">NAN</th>
@@ -261,7 +263,7 @@ The plug-in providing data-type-utility functions/variables.
 </table>
 
 
-<table id="INF">
+<table id="INF" class="spec-table">
 	<tr>
 		<th class="lcol">Variable</th>
 		<th class="rcol">INF</th>
@@ -280,7 +282,7 @@ The plug-in providing data-type-utility functions/variables.
 <h3>Functions</h3>
 
 
-<table id="nan">
+<table id="nan" class="spec-table">
 	<tr>
 		<th class="lcol">Function</th>
 		<th class="rcol">nan(value)</th>
@@ -308,7 +310,7 @@ The plug-in providing data-type-utility functions/variables.
 </table>
 
 
-<table id="inf">
+<table id="inf" class="spec-table">
 	<tr>
 		<th class="lcol">Function</th>
 		<th class="rcol">inf(value)</th>
@@ -336,7 +338,7 @@ The plug-in providing data-type-utility functions/variables.
 </table>
 
 
-<table id="length">
+<table id="length" class="spec-table">
 	<tr>
 		<th class="lcol">Function</th>
 		<th class="rcol">length(array, dimIndex)</th>
@@ -368,7 +370,7 @@ The plug-in providing data-type-utility functions/variables.
 </table>
 
 
-<table id="rank">
+<table id="rank" class="spec-table">
 	<tr>
 		<th class="lcol">Function</th>
 		<th class="rcol">rank(array)</th>
@@ -403,7 +405,7 @@ The plug-in providing data-type-utility functions/variables.
 
 <hr style="page-break-before: always" />
 
-<h2 id="SystemTerminalIOXnci1Plugin">SystemTerminalIOXnci1Plugin<br />(org.vcssl.nano.plugin.system.xnci1.SystemTerminalIOXnci1Plugin)</h2>
+<h2 id="SystemTerminalIOXnci1Plugin">SystemTerminalIOXnci1Plugin<br /><span class="spec-path">(org.vcssl.nano.plugin.system.xnci1.SystemTerminalIOXnci1Plugin)</span></h2>
 
 <p>
 The plug-in providing I/O functions from/to the terminal.
@@ -419,7 +421,7 @@ and I/O will be performed from/to it.
 <h3>Functions</h3>
 
 
-<table id="print">
+<table id="print" class="spec-table">
 	<tr>
 		<th class="lcol">Function</th>
 		<th class="rcol">print(...)</th>
@@ -447,7 +449,7 @@ and I/O will be performed from/to it.
 </table>
 
 
-<table id="println">
+<table id="println" class="spec-table">
 	<tr>
 		<th class="lcol">Function</th>
 		<th class="rcol">println(...)</th>
@@ -480,7 +482,7 @@ and I/O will be performed from/to it.
 
 <hr style="page-break-before: always" />
 
-<h2 id="SystemTimeXnci1Plugin">SystemTimeXnci1Plugin<br />(org.vcssl.nano.plugin.system.xnci1.SystemTimeXnci1Plugin)</h2>
+<h2 id="SystemTimeXnci1Plugin">SystemTimeXnci1Plugin<br /><span class="spec-path">(org.vcssl.nano.plugin.system.xnci1.SystemTimeXnci1Plugin)</span></h2>
 
 <p>
 The plug-in providing time-utility functions
@@ -490,7 +492,7 @@ The plug-in providing time-utility functions
 <h3>Functions</h3>
 
 
-<table id="time">
+<table id="time" class="spec-table">
 	<tr>
 		<th class="lcol">Function</th>
 		<th class="rcol">time()</th>
@@ -518,7 +520,7 @@ The plug-in providing time-utility functions
 </table>
 
 
-<table id="sleep">
+<table id="sleep" class="spec-table">
 	<tr>
 		<th class="lcol">Function</th>
 		<th class="rcol">sleep(sleepTime)</th>
@@ -551,7 +553,7 @@ The plug-in providing time-utility functions
 
 <hr style="page-break-before: always" />
 
-<h2 id="SystemTerminationXnci1Plugin">SystemTerminationXnci1Plugin<br />(org.vcssl.nano.plugin.system.xnci1.SystemTerminationXnci1Plugin)</h2>
+<h2 id="SystemTerminationXnci1Plugin">SystemTerminationXnci1Plugin<br /><span class="spec-path">(org.vcssl.nano.plugin.system.xnci1.SystemTerminationXnci1Plugin)</span></h2>
 
 <p>
 The plug-in providing functions for terminating scripts
@@ -561,7 +563,7 @@ The plug-in providing functions for terminating scripts
 <h3>Functions</h3>
 
 
-<table id="exit">
+<table id="exit" class="spec-table">
 	<tr>
 		<th class="lcol">Function</th>
 		<th class="rcol">exit()</th>
@@ -589,7 +591,7 @@ The plug-in providing functions for terminating scripts
 </table>
 
 
-<table id="exit_int">
+<table id="exit_int" class="spec-table">
 	<tr>
 		<th class="lcol">Function</th>
 		<th class="rcol">exit(exitStatusCode)</th>
@@ -617,7 +619,7 @@ The plug-in providing functions for terminating scripts
 </table>
 
 
-<table id="error">
+<table id="error" class="spec-table">
 	<tr>
 		<th class="lcol">Function</th>
 		<th class="rcol">error(errorMessage)</th>
@@ -650,7 +652,7 @@ The plug-in providing functions for terminating scripts
 
 <hr style="page-break-before: always" />
 
-<h2 id="SystemTestXnci1Plugin">SystemTestXnci1Plugin<br />(org.vcssl.nano.plugin.system.xnci1.SystemTestXnci1Plugin)</h2>
+<h2 id="SystemTestXnci1Plugin">SystemTestXnci1Plugin<br /><span class="spec-path">(org.vcssl.nano.plugin.system.xnci1.SystemTestXnci1Plugin)</span></h2>
 
 <p>
 The XNCI1 plug-in providing utility functions for testing.
@@ -660,7 +662,7 @@ The XNCI1 plug-in providing utility functions for testing.
 <h3>Functions</h3>
 
 
-<table id="assert">
+<table id="assert" class="spec-table">
 	<tr>
 		<th class="lcol">Function</th>
 		<th class="rcol">assert(expectedCondition)</th>

@@ -5,14 +5,16 @@
 	<title>Vnano Math プラグイン群</title>
 	<meta charset="UTF-8">
 	<style type="text/css">
-		table { width: 100%; border: 1px solid #000000; border-collapse: collapse; margin-bottom: 20px; }
-		td { border: 1px solid #000000; text-align: left; }
-		th { border: 1px solid #000000; text-align: left; }
-		.lcol { width: 100px; background-color: #eeeeee; }
-		.rcol { }
-		dt { font-weight: bold; }
-		dd { margin-bottom: 14px; }
-		dt { display: list-item; list-style-position: outside; margin-left: 20px; list-style-type: disc; }
+		h1 .spec-path { font-size: 70%; }
+		h2 .spec-path { font-size: 70%; }
+		.spec-table { width: 100%; border: 1px solid #000000; border-collapse: collapse; margin-bottom: 20px; }
+		.spec-table td { border: 1px solid #000000; text-align: left; }
+		.spec-table th { border: 1px solid #000000; text-align: left; }
+		.spec-table .lcol { width: 100px; background-color: #eeeeee; }
+		.spec-table .rcol { }
+		.spec-dl { }
+		.spec-dl dt { font-weight: bold; display: list-item; list-style-position: outside; margin-left: 20px; list-style-type: disc; }
+		.spec-dl dd { margin-bottom: 14px; line-height: 160%; }
 	</style>
 </head>
 
@@ -20,7 +22,7 @@
 
 
 
-<h1>Vnano Math プラグイン群<br />(org.vcssl.nano.plugin.math パッケージ)</h1>
+<h1>Vnano Math プラグイン群<br /><span class="spec-path">(org.vcssl.nano.plugin.math パッケージ)</span></h1>
 <hr />
 
 
@@ -43,7 +45,7 @@
 
 <h2>提供プラグインおよび機能一覧</h2>
 
-<dl>
+<dl class="spec-dl">
 	<dt><a href="#MathElementaryXnci1Plugin">MathElementaryXnci1Plugin</a></dt>
 		<dd>
 			初等的な数学関数などを提供するプラグインです。
@@ -77,7 +79,7 @@
 
 <hr style="page-break-before: always" />
 
-<h2 id="MathElementaryXnci1Plugin">MathElementaryXnci1Plugin<br />(org.vcssl.nano.math.xnci1.MathElementaryXnci1Plugin)</h2>
+<h2 id="MathElementaryXnci1Plugin">MathElementaryXnci1Plugin<br /><span class="spec-path">(org.vcssl.nano.math.xnci1.MathElementaryXnci1Plugin)</span></h2>
 
 <p>
 初等的な数学関数などを提供するプラグインです。
@@ -86,7 +88,7 @@
 
 <h3>変数</h3>
 
-<table id="PI">
+<table id="PI" class="spec-table">
 	<tr>
 		<th class="lcol">変数</th>
 		<th class="rcol">PI</th>
@@ -106,7 +108,7 @@
 <h3>関数</h3>
 
 
-<table id="rad">
+<table id="rad" class="spec-table">
 	<tr>
 		<th class="lcol">関数</th>
 		<th class="rcol">rad( degree )</th>
@@ -137,7 +139,7 @@
 </table>
 
 
-<table id="deg">
+<table id="deg" class="spec-table">
 	<tr>
 		<th class="lcol">関数</th>
 		<th class="rcol">deg( radian )</th>
@@ -168,7 +170,7 @@
 </table>
 
 
-<table id="sin">
+<table id="sin" class="spec-table">
 	<tr>
 		<th class="lcol">関数</th>
 		<th class="rcol">sin( x )</th>
@@ -198,7 +200,7 @@
 </table>
 
 
-<table id="cos">
+<table id="cos" class="spec-table">
 	<tr>
 		<th class="lcol">関数</th>
 		<th class="rcol">cos( x )</th>
@@ -228,7 +230,7 @@
 </table>
 
 
-<table id="tan">
+<table id="tan" class="spec-table">
 	<tr>
 		<th class="lcol">関数</th>
 		<th class="rcol">tan( x )</th>
@@ -258,7 +260,7 @@
 </table>
 
 
-<table id="asin">
+<table id="asin" class="spec-table">
 	<tr>
 		<th class="lcol">関数</th>
 		<th class="rcol">asin( x )</th>
@@ -288,7 +290,7 @@
 </table>
 
 
-<table id="acos">
+<table id="acos" class="spec-table">
 	<tr>
 		<th class="lcol">関数</th>
 		<th class="rcol">acos( x )</th>
@@ -318,7 +320,7 @@
 </table>
 
 
-<table id="atan">
+<table id="atan" class="spec-table">
 	<tr>
 		<th class="lcol">関数</th>
 		<th class="rcol">atan( x )</th>
@@ -348,7 +350,7 @@
 </table>
 
 
-<table id="sqrt">
+<table id="sqrt" class="spec-table">
 	<tr>
 		<th class="lcol">関数</th>
 		<th class="rcol">sqrt( x )</th>
@@ -378,7 +380,7 @@
 </table>
 
 
-<table id="ln">
+<table id="ln" class="spec-table">
 	<tr>
 		<th class="lcol">関数</th>
 		<th class="rcol">ln( x )</th>
@@ -408,7 +410,7 @@
 </table>
 
 
-<table id="log10">
+<table id="log10" class="spec-table">
 	<tr>
 		<th class="lcol">関数</th>
 		<th class="rcol">log10( x )</th>
@@ -438,7 +440,7 @@
 </table>
 
 
-<table id="pow">
+<table id="pow" class="spec-table">
 	<tr>
 		<th class="lcol">関数</th>
 		<th class="rcol">pow( x, exponent )</th>
@@ -472,7 +474,7 @@
 </table>
 
 
-<table id="exp">
+<table id="exp" class="spec-table">
 	<tr>
 		<th class="lcol">関数</th>
 		<th class="rcol">exp( exponent )</th>
@@ -504,7 +506,7 @@
 </table>
 
 
-<table id="abs">
+<table id="abs" class="spec-table">
 	<tr>
 		<th class="lcol">関数</th>
 		<th class="rcol">abs( x )</th>
@@ -541,7 +543,7 @@
 
 <hr style="page-break-before: always" />
 
-<h2 id="MathStatisticalXnci1Plugin">MathStatisticalXnci1Plugin<br />(org.vcssl.nano.math.xnci1.MathStatisticalXnci1Plugin)</h2>
+<h2 id="MathStatisticalXnci1Plugin">MathStatisticalXnci1Plugin<br /><span class="spec-path">(org.vcssl.nano.math.xnci1.MathStatisticalXnci1Plugin)</span></h2>
 
 <p>
 初等的な統計関数などを提供するプラグインです。
@@ -551,7 +553,7 @@
 <h3>関数</h3>
 
 
-<table id="sum">
+<table id="sum" class="spec-table">
 	<tr>
 		<th class="lcol">関数</th>
 		<th class="rcol">sum(...)</th>
@@ -583,7 +585,7 @@
 </table>
 
 
-<table id="mean">
+<table id="mean" class="spec-table">
 	<tr>
 		<th class="lcol">関数</th>
 		<th class="rcol">mean(...)</th>
@@ -615,7 +617,7 @@
 </table>
 
 
-<table id="van">
+<table id="van" class="spec-table">
 	<tr>
 		<th class="lcol">関数</th>
 		<th class="rcol">van(...)</th>
@@ -647,7 +649,7 @@
 </table>
 
 
-<table id="van1">
+<table id="van1" class="spec-table">
 	<tr>
 		<th class="lcol">関数</th>
 		<th class="rcol">van1(...)</th>
@@ -679,7 +681,7 @@
 </table>
 
 
-<table id="sdn">
+<table id="sdn" class="spec-table">
 	<tr>
 		<th class="lcol">関数</th>
 		<th class="rcol">sdn(...)</th>
@@ -712,7 +714,7 @@
 
 
 
-<table id="sdn1">
+<table id="sdn1" class="spec-table">
 	<tr>
 		<th class="lcol">Function</th>
 		<th class="rcol">sdn1(...)</th>

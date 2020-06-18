@@ -165,11 +165,37 @@ public class TerminalWindow {
 	 * UIスレッドでウィンドウを破棄するためのクラスです
 	 */
 	private class DisposeRunner implements Runnable {
+
+		// disposesNow に true が指定されていれば、有無を言わさず今すぐに破棄する
+		// false が指定されている場合は、画面が表示中ならすぐに破棄はせず、
+		// ユーザーがウィンドウを閉じた時点で破棄されるように設定する
+
+		boolean disposesNow = false;
+		public DisposeRunner(boolean disposesNow) {
+			this.disposesNow = disposesNow;
+		}
+
 		@Override
 		public void run() {
+			if (TerminalWindow.this.frame == null) {
+				return;
+			}
+
+			// disposesNow に true が指定されている場合や、
+			// false でも画面が非表示になっている場合は、今すぐに破棄する
+			if (disposesNow || !TerminalWindow.this.frame.isVisible()) {
+				TerminalWindow.this.frame.setVisible(false);
+				TerminalWindow.this.frame.dispose();
+
+			// そうでなければ、ユーザーにとって不都合にならないタイミングで破棄するように設定
+			} else {
+				TerminalWindow.this.frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			}
+
+			// どちらにしても参照はこの時点で解除しておく
 			TerminalWindow.this.textArea = null;
 			TerminalWindow.this.scrollPane = null;
-			TerminalWindow.this.frame.dispose();
+			TerminalWindow.this.textAreaPopupMenu = null;
 			TerminalWindow.this.frame = null;
 		}
 	}
@@ -206,7 +232,11 @@ public class TerminalWindow {
 	 * ウィンドウを構築します
 	 */
 	public void init() {
-		SwingUtilities.invokeLater(new InitRunner());
+		if (SwingUtilities.isEventDispatchThread()) {
+			new InitRunner().run();
+		} else {
+			SwingUtilities.invokeLater(new InitRunner());
+		}
 	}
 
 	/**
@@ -215,7 +245,7 @@ public class TerminalWindow {
 	 */
 	public void reset() {
 		this.autoShowing = true;
-		SwingUtilities.invokeLater(new ClearRunner());
+		this.clear();
 	}
 
 	/**
@@ -223,7 +253,11 @@ public class TerminalWindow {
 	 * ウィンドウを表示します
 	 */
 	public void show() {
-		SwingUtilities.invokeLater(new ShowRunner());
+		if (SwingUtilities.isEventDispatchThread()) {
+			new ShowRunner().run();
+		} else {
+			SwingUtilities.invokeLater(new ShowRunner());
+		}
 	}
 
 	/**
@@ -232,7 +266,11 @@ public class TerminalWindow {
 	 */
 	public void hide() {
 		this.autoShowing = false;
-		SwingUtilities.invokeLater(new HideRunner());
+		if (SwingUtilities.isEventDispatchThread()) {
+			new HideRunner().run();
+		} else {
+			SwingUtilities.invokeLater(new HideRunner());
+		}
 	}
 
 	/**
@@ -243,18 +281,29 @@ public class TerminalWindow {
 	public void print(String printContent) throws ConnectorException {
 
 		// ウィンドウが表示状態かどうかを取得
-		VisiblityCheckRunner visibleChecker = new VisiblityCheckRunner();
-		try {
-			SwingUtilities.invokeAndWait(visibleChecker);
-		} catch (InvocationTargetException | InterruptedException e) {
-			throw new ConnectorException(e);
+		boolean isFrameVisible = false;
+		if (SwingUtilities.isEventDispatchThread()) {
+			isFrameVisible = this.frame.isVisible();
+		} else {
+			VisiblityCheckRunner visibleChecker = new VisiblityCheckRunner();
+			try {
+				SwingUtilities.invokeAndWait(visibleChecker);
+			} catch (InvocationTargetException | InterruptedException e) {
+				throw new ConnectorException(e);
+			}
+			isFrameVisible = visibleChecker.isVisible();
 		}
 
-		if (this.autoShowing && !visibleChecker.isVisible()) {
+		if (this.autoShowing && !isFrameVisible) {
 			this.autoShowing = false;
-			SwingUtilities.invokeLater(new ShowRunner());
+			this.show();
 		}
-		SwingUtilities.invokeLater(new PrintRunner(printContent));
+
+		if (SwingUtilities.isEventDispatchThread()) {
+			new PrintRunner(printContent).run();
+		} else {
+			SwingUtilities.invokeLater(new PrintRunner(printContent));
+		}
 	}
 
 	/**
@@ -262,42 +311,27 @@ public class TerminalWindow {
 	 * ウィンドウ上のテキストエリアの内容をクリアします
 	 */
 	public void clear() {
-		SwingUtilities.invokeLater(new ClearRunner());
+		if (SwingUtilities.isEventDispatchThread()) {
+			new ClearRunner().run();
+		} else {
+			SwingUtilities.invokeLater(new ClearRunner());
+		}
 	}
 
 	/**
 	 * Disposes the window
 	 * ウィンドウを破棄します
 	 */
-	public void dispose(boolean disposeNow) {
+	public void dispose(boolean disposesNow) {
 
-		// disposeNow に true が指定されていれば、有無を言わさず今すぐに破棄する
-		if (disposeNow) {
-			SwingUtilities.invokeLater(new DisposeRunner());
+		// disposesNow に true が指定されていれば、有無を言わさず今すぐに破棄する
+		// false が指定されている場合は、画面が表示中ならすぐに破棄はせず、
+		// ユーザーがウィンドウを閉じた時点で破棄されるように設定する
 
-		// そうでなければ、ユーザーにとって不都合にならないタイミングで破棄する
+		if (SwingUtilities.isEventDispatchThread()) {
+			new DisposeRunner(disposesNow).run();
 		} else {
-
-			// まずウィンドウが表示状態かどうかを取得
-			VisiblityCheckRunner visibleChecker = new VisiblityCheckRunner();
-			try {
-				SwingUtilities.invokeAndWait(visibleChecker);
-			} catch (InvocationTargetException | InterruptedException e) {
-				// 表示状態の取得に失敗したら普通な流れではないのでもう破棄する
-				SwingUtilities.invokeLater(new DisposeRunner());
-			}
-
-			// 表示が ON の場合は、今は破棄せず、ユーザーがウィンドウを閉じた時点で破棄されるように設定する
-			if (visibleChecker.isVisible()) {
-				TerminalWindow.this.textArea = null;
-				TerminalWindow.this.scrollPane = null;
-				TerminalWindow.this.frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-				TerminalWindow.this.frame = null;
-
-			// 表示が OFF になっていれば今すぐ破棄しても問題ない
-			} else {
-				SwingUtilities.invokeLater(new DisposeRunner());
-			}
+			SwingUtilities.invokeLater(new DisposeRunner(disposesNow));
 		}
 	}
 }

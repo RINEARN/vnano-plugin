@@ -81,12 +81,9 @@ public class Float64VectorToScalarOperationXfci1Plugin implements ExternalFuncti
 		// Get or allocate output data
 		@SuppressWarnings("unchecked")
 		ArrayDataContainerInterface1<double[]> outputDataContainer = (ArrayDataContainerInterface1<double[]>)arguments[0];
-		Object outputDataObject = outputDataContainer.getData();
 		int outputDataOffset = outputDataContainer.getOffset();
-		double[] outputData = null;
-		if (outputDataObject instanceof double[] && outputDataContainer.getSize() == 1) {
-			outputData = (double[])outputDataObject;
-		} else {
+		double[] outputData = outputDataContainer.getData();
+		if (outputData == null || outputDataContainer.getSize() != 1) {
 			outputData = new double[ 1 ];
 			outputDataOffset = 0;
 		}

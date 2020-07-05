@@ -98,7 +98,7 @@ public class Float64VectorizableOperationXfci1Plugin implements ExternalFunction
 		// Get or allocate data
 		double[] inputData = (double[])inputDataContainer.getData();
 		double[] outputData = null;
-		if (outputDataContainer.getData() != null && outputDataSize == inputDataSize) {
+		if (outputDataObject != null && outputDataSize == inputDataSize) {
 			outputData = (double[])outputDataObject;
 		} else {
 			outputDataSize = inputDataSize;

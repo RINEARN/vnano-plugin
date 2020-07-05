@@ -50,7 +50,7 @@ public class AbsXfci1PluginTest {
 		// 入出力データを用意
 		DataContainer<double[]> inputDataContainer = new DataContainer<double[]>();
 		DataContainer<double[]> outputDataContainer = new DataContainer<double[]>();
-		inputDataContainer.setData(new double[] { 1.0 }, 0);
+		inputDataContainer.setData(new double[] { -1.0 }, 0);
 		outputDataContainer.setData(new double[] { 0.0 }, 0);
 
 		// Operate data
@@ -69,7 +69,7 @@ public class AbsXfci1PluginTest {
 
 		// Check result value
 		// 演算結果の値を確認
-		Double expected = Double.valueOf(Math.abs(1.0));
+		Double expected = Double.valueOf(Math.abs(-1.0));
 		Double actual = Double.valueOf(resultData[0]);
 		assertTrue(expected.equals(actual));
 	}
@@ -85,7 +85,7 @@ public class AbsXfci1PluginTest {
 		DataContainer<double[]> outputDataContainer = new DataContainer<double[]>();
 		int[] inputArrayLengths = new int[] { 3 };
 		int[] outputArrayLengths = new int[] { 3 };
-		inputDataContainer.setData(new double[] { 1.0, 2.0, 3.0 }, inputArrayLengths);
+		inputDataContainer.setData(new double[] { -1.0, 2.0, -3.0 }, inputArrayLengths);
 		outputDataContainer.setData(new double[] { 0.0, 0.0, 0.0 }, outputArrayLengths);
 
 		// Operate data
@@ -108,7 +108,7 @@ public class AbsXfci1PluginTest {
 
 		// Check result value[0]
 		// 演算結果[0]の値を確認
-		expected = Double.valueOf(Math.abs(1.0));
+		expected = Double.valueOf(Math.abs(-1.0));
 		actual = Double.valueOf(resultData[0]);
 		assertTrue(expected.equals(actual));
 
@@ -120,7 +120,7 @@ public class AbsXfci1PluginTest {
 
 		// Check result value[2]
 		// 演算結果[2]の値を確認
-		expected = Double.valueOf(Math.abs(3.0));
+		expected = Double.valueOf(Math.abs(-3.0));
 		actual = Double.valueOf(resultData[2]);
 		assertTrue(expected.equals(actual));
 	}
@@ -136,7 +136,7 @@ public class AbsXfci1PluginTest {
 		DataContainer<double[]> outputDataContainer = new DataContainer<double[]>();
 		int[] inputArrayLengths = new int[] { 2, 3 };
 		int[] outputArrayLengths = new int[] { 2, 3 };
-		inputDataContainer.setData(new double[] { 1.0, 2.0, 3.0, 4.0, 5.0, 6.0 }, inputArrayLengths);
+		inputDataContainer.setData(new double[] { -1.0, 2.0, -3.0, 4.0, -5.0, 6.0 }, inputArrayLengths);
 		outputDataContainer.setData(new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 }, outputArrayLengths);
 
 		// Operate data
@@ -160,7 +160,7 @@ public class AbsXfci1PluginTest {
 
 		// Check result value[0]
 		// 演算結果[0]の値を確認
-		expected = Double.valueOf(Math.abs(1.0));
+		expected = Double.valueOf(Math.abs(-1.0));
 		actual = Double.valueOf(resultData[0]);
 		assertTrue(expected.equals(actual));
 
@@ -172,7 +172,7 @@ public class AbsXfci1PluginTest {
 
 		// Check result value[2]
 		// 演算結果[2]の値を確認
-		expected = Double.valueOf(Math.abs(3.0));
+		expected = Double.valueOf(Math.abs(-3.0));
 		actual = Double.valueOf(resultData[2]);
 		assertTrue(expected.equals(actual));
 
@@ -184,7 +184,7 @@ public class AbsXfci1PluginTest {
 
 		// Check result value[4]
 		// 演算結果[4]の値を確認
-		expected = Double.valueOf(Math.abs(5.0));
+		expected = Double.valueOf(Math.abs(-5.0));
 		actual = Double.valueOf(resultData[4]);
 		assertTrue(expected.equals(actual));
 
@@ -194,5 +194,50 @@ public class AbsXfci1PluginTest {
 		actual = Double.valueOf(resultData[5]);
 		assertTrue(expected.equals(actual));
 	}
+
+
+	@Test
+	public void testDoubleArrayElement() throws ConnectorException {
+		ExternalFunctionConnectorInterface1 function = new AbsXfci1Plugin();
+
+		// Prepare input/output data
+		// 入出力データを用意
+		DataContainer<double[]> inputDataContainer = new DataContainer<double[]>();
+		DataContainer<double[]> outputDataContainer = new DataContainer<double[]>();
+		int inputDataOffset = 1;
+		int outputDataOffset = 2;
+		inputDataContainer.setData(new double[] { -1.0, -2.0, -3.0 }, inputDataOffset);
+		outputDataContainer.setData(new double[] { 0.0, 0.0, 0.0 }, outputDataOffset);
+
+		// Operate data
+		// 演算を実行
+		function.invoke(new Object[]{ outputDataContainer, inputDataContainer });
+
+		// Check dimensions of the operation result
+		// 演算結果の次元を確認
+		assertEquals(0, outputDataContainer.getRank());
+		assertEquals(0, outputDataContainer.getLengths().length);
+
+		// Get result data in data container, and check its length
+		// 演算結果のデータを取り出し、データ長や使用サイズ、格納位置などを確認
+		double[] resultData = outputDataContainer.getData();
+		int resultDataSize = outputDataContainer.getSize();
+		int resultDataOffset = outputDataContainer.getOffset();
+		int resultDataRank = outputDataContainer.getRank();
+		assertEquals(3, resultData.length); // 変わっていないはず
+		assertEquals(1, resultDataSize); // スカラなので1のはず
+		assertEquals(0, resultDataRank); // スカラなので0のはず
+		assertEquals(outputDataOffset, resultDataOffset);
+
+		Double expected;
+		Double actual;
+
+		// Check the result value
+		// 演算結果の値を確認
+		expected = Double.valueOf(Math.abs(-2.0));
+		actual = Double.valueOf(resultData[resultDataOffset]);
+		assertTrue(expected.equals(actual));
+	}
+
 
 }

@@ -118,8 +118,9 @@ public class SdnXfci1PluginTest {
 		assertTrue(expected.equals(actual));
 	}
 
+
 	@Test
-	public void testTripleDoubleArgs() throws ConnectorException {
+	public void testArryElementArgs() throws ConnectorException {
 		ExternalFunctionConnectorInterface1 function = new SdnXfci1Plugin();
 
 		// Prepare input/output data
@@ -128,24 +129,26 @@ public class SdnXfci1PluginTest {
 		DataContainer<double[]> inputDataContainer2 = new DataContainer<double[]>();
 		DataContainer<double[]> inputDataContainer3 = new DataContainer<double[]>();
 		DataContainer<double[]> outputDataContainer = new DataContainer<double[]>();
-		inputDataContainer1.setData(new double[] { 1.23 }, 0);
-		inputDataContainer2.setData(new double[] { 4.56 }, 0);
-		inputDataContainer3.setData(new double[] { 7.89 }, 0);
-		outputDataContainer.setData(new double[] { 0.0 }, 0);
+		int inputDataOffset1 = 0;
+		int inputDataOffset2 = 1;
+		int inputDataOffset3 = 2;
+		int outputDataOffset = 2;
+		inputDataContainer1.setData(new double[] { 1.23, 4.56, 7.89 }, inputDataOffset1);
+		inputDataContainer2.setData(new double[] { 1.23, 4.56, 7.89 }, inputDataOffset2);
+		inputDataContainer3.setData(new double[] { 1.23, 4.56, 7.89 }, inputDataOffset3);
+		outputDataContainer.setData(new double[] { 0.0, 0.0, 0.0 }, outputDataOffset);
 
 		// Operate data
 		// 演算を実行
 		function.invoke(new Object[]{ outputDataContainer, inputDataContainer1, inputDataContainer2, inputDataContainer3 });
 
-		// Check dimensions of the operation result
-		// 演算結果の次元を確認
-		assertEquals(RANK_OF_SCALAR, outputDataContainer.getRank());
-		assertEquals(0, outputDataContainer.getLengths().length);
-
-		// Get result data in data container, and check its length
-		// 演算結果のデータを取り出し、データ長を確認
+		// Check dimensions, size, offset, and so on of the operation result
+		// 演算結果のデータを取り出し、データ長や使用サイズ、格納位置などを確認
 		double[] resultData = outputDataContainer.getData();
-		assertEquals(1, resultData.length);
+		assertEquals(RANK_OF_SCALAR, outputDataContainer.getRank());
+		assertEquals(3, resultData.length);
+		assertEquals(1, outputDataContainer.getSize());
+		assertEquals(2, outputDataContainer.getOffset());
 
 		// Check result value
 		// 以下、演算結果の値を確認
@@ -154,9 +157,8 @@ public class SdnXfci1PluginTest {
 		double squareDiffSum = (1.23-mean)*(1.23-mean) + (4.56-mean)*(4.56-mean) + (7.89-mean)*(7.89-mean);
 		double van = squareDiffSum / 3;
 		double sdn = Math.sqrt(van);
-
 		Double expected = Double.valueOf(sdn);
-		Double actual = Double.valueOf(resultData[0]);
+		Double actual = Double.valueOf(resultData[outputDataOffset]);
 		assertTrue(expected.equals(actual));
 	}
 

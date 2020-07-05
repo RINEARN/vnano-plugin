@@ -162,8 +162,12 @@ public class PrintXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 		// 引数のデータを上記バッファに print していく
 		for (int argIndex=1; argIndex<argLength; argIndex++) { // データ変換を無効化している場合、[0] は戻り値格納用
 
-			// データコンテナの格納データを取得
+			ArrayDataContainerInterface1<?> inputDataContainer = (ArrayDataContainerInterface1<?>) arguments[argIndex];
+
+			// データコンテナの格納データ、要素数、要素格納位置を取得
 			Object inputDataObject = ( (ArrayDataContainerInterface1<?>)arguments[argIndex] ).getData();
+			int inputDataSize = inputDataContainer.getSize();
+			int inputDataOffset = inputDataContainer.getOffset();
 
 			// ArrayDataContainerInterface1 型のデータコンテナでは、
 			// スクリプト上での配列次元数に関わらず、全てのデータは1次元配列として保持される。
@@ -176,9 +180,9 @@ public class PrintXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 			// スクリプト内で int 型データが渡された場合: 内部表現は long 型の1次元配列
 			if (inputDataObject instanceof long[]) {
 				long[] inputData = (long[])inputDataObject;
-				for (int i=0; i<inputData.length; i++) {
-					printContentBuilder.append(inputData[i]);
-					if (i != inputData.length - 1) {
+				for (int i=0; i<inputDataSize; i++) {
+					printContentBuilder.append( inputData[ inputDataOffset + i ] );
+					if (i != inputDataSize - 1) {
 						printContentBuilder.append(this.delimiter); // 最後の要素値でなければデリミタを挟む
 					}
 				}
@@ -186,9 +190,9 @@ public class PrintXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 			// スクリプト内で float 型データが渡された場合: 内部表現は double 型の1次元配列
 			} else if (inputDataObject instanceof double[]) {
 				double[] inputData = (double[])inputDataObject;
-				for (int i=0; i<inputData.length; i++) {
-					printContentBuilder.append(inputData[i]);
-					if (i != inputData.length - 1) {
+				for (int i=0; i<inputDataSize; i++) {
+					printContentBuilder.append( inputData[ inputDataOffset + i ] );
+					if (i != inputDataSize - 1) {
 						printContentBuilder.append(this.delimiter); // 最後の要素値でなければデリミタを挟む
 					}
 				}
@@ -196,9 +200,9 @@ public class PrintXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 			// スクリプト内で bool 型データが渡された場合: 内部表現は boolean 型の1次元配列
 			} else if (inputDataObject instanceof boolean[]) {
 				boolean[] inputData = (boolean[])inputDataObject;
-				for (int i=0; i<inputData.length; i++) {
-					printContentBuilder.append(inputData[i]);
-					if (i != inputData.length - 1) {
+				for (int i=0; i<inputDataSize; i++) {
+					printContentBuilder.append( inputData[ inputDataOffset + i ] );
+					if (i != inputDataSize - 1) {
 						printContentBuilder.append(this.delimiter); // 最後の要素値でなければデリミタを挟む
 					}
 				}
@@ -206,9 +210,9 @@ public class PrintXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 			// スクリプト内で string 型データが渡された場合: 内部表現は String 型の1次元配列
 			} else if (inputDataObject instanceof String[]) {
 				String[] inputData = (String[])inputDataObject;
-				for (int i=0; i<inputData.length; i++) {
-					printContentBuilder.append(inputData[i]);
-					if (i != inputData.length - 1) {
+				for (int i=0; i<inputDataSize; i++) {
+					printContentBuilder.append( inputData[ inputDataOffset + i ] );
+					if (i != inputDataSize - 1) {
 						printContentBuilder.append(this.delimiter); // 最後の要素値でなければデリミタを挟む
 					}
 				}

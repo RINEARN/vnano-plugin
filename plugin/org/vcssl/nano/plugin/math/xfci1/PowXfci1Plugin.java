@@ -85,28 +85,40 @@ public class PowXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 		}
 		@SuppressWarnings("unchecked")
 		ArrayDataContainerInterface1<double[]> inputDataContainer = (ArrayDataContainerInterface1<double[]>)arguments[1];
+		@SuppressWarnings("unchecked")
+		ArrayDataContainerInterface1<double[]> exponentDataContainer = (ArrayDataContainerInterface1<double[]>)arguments[2];
+		int inputDataSize = inputDataContainer.getSize();
+		int inputDataOffset = inputDataContainer.getOffset();
+		int exponentDataOffset = exponentDataContainer.getOffset();
 		double[] inputData = (double[])inputDataObject;
-		int dataLength = inputData.length;
+		double[] exponentData = (double[])exponentDataObject;
 
 		// Get or allocate output data
-		Object outputDataObject = ( (ArrayDataContainerInterface1<?>)arguments[0] ).getData();
-		double[] outputData = null;
-		if (outputDataObject instanceof double[] && ((double[])outputDataObject).length == dataLength) {
-			outputData = (double[])outputDataObject;
-		} else {
-			outputData = new double[ dataLength ];
+		@SuppressWarnings("unchecked")
+		ArrayDataContainerInterface1<double[]> outputDataContainer = (ArrayDataContainerInterface1<double[]>)arguments[0];
+		int outputDataSize = outputDataContainer.getSize();
+		int outputDataOffset = outputDataContainer.getOffset();
+		double[] outputData = outputDataContainer.getData();
+		if (outputData == null || outputDataSize != inputDataSize) {
+			outputData = new double[ inputDataSize ];
+			outputDataSize = inputDataSize;
+			outputDataOffset = 0;
 		}
 
 		// Operate data
-		double exponentValue = ((double[])exponentDataObject)[0];
-		for (int i=0; i<dataLength; i++) {
-			outputData[i] = Math.pow(inputData[i], exponentValue);
+		double exponentValue = exponentData[ exponentDataOffset ];
+		for (int i=0; i<inputDataSize; i++) {
+			outputData[ i + outputDataOffset ] = Math.pow( inputData[ i + inputDataOffset ], exponentValue );
 		}
 
 		// Store result data
-		@SuppressWarnings("unchecked")
-		ArrayDataContainerInterface1<double[]> outputDataContainer = (ArrayDataContainerInterface1<double[]>)arguments[0];
-		outputDataContainer.setData(outputData, inputDataContainer.getLengths());
+		if (outputDataContainer.getRank() == 0) { // if data is scalar
+			// Store data as a scalar
+			outputDataContainer.setData(outputData, outputDataOffset);
+		} else {
+			// Store data as an array
+			outputDataContainer.setData(outputData, inputDataContainer.getLengths());
+		}
 
 		return null;
 	}

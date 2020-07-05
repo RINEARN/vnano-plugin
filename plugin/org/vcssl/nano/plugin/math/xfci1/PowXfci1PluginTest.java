@@ -245,11 +245,6 @@ public class PowXfci1PluginTest {
 		// 演算結果の値を確認
 		expected = Double.valueOf(Math.pow(2.0, 2.3));
 		actual = Double.valueOf(resultData[resultDataOffset]);
-		System.out.println("expec=" + expected);
-		System.out.println("actual=" + actual);
-		System.out.println("result[0]=" + resultData[0]);
-		System.out.println("result[1]=" + resultData[1]);
-		System.out.println("result[2]=" + resultData[2]);
 		assertTrue(expected.equals(actual));
 	}
 

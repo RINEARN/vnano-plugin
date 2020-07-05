@@ -8,8 +8,7 @@ public class MeanXfci1Plugin extends Float64VectorToScalarOperationXfci1Plugin {
 	}
 
 	@Override
-	public final void operate(double[] outputData, double[] inputData) {
-
+	public final void operate(double[] outputData, double[] inputData, int outputDataOffset) {
 		int n = inputData.length;
 
 		double sum = 0.0;
@@ -19,6 +18,6 @@ public class MeanXfci1Plugin extends Float64VectorToScalarOperationXfci1Plugin {
 
 		double mean = sum / n;
 
-		outputData[0] = mean;
+		outputData[ outputDataOffset ] = mean;
 	}
 }

@@ -158,4 +158,48 @@ public class Sdn1Xfci1PluginTest {
 		assertTrue(expected.equals(actual));
 	}
 
+
+	@Test
+	public void testArryElementArgs() throws ConnectorException {
+		ExternalFunctionConnectorInterface1 function = new Sdn1Xfci1Plugin();
+
+		// Prepare input/output data
+		// 入出力データを用意
+		DataContainer<double[]> inputDataContainer1 = new DataContainer<double[]>();
+		DataContainer<double[]> inputDataContainer2 = new DataContainer<double[]>();
+		DataContainer<double[]> inputDataContainer3 = new DataContainer<double[]>();
+		DataContainer<double[]> outputDataContainer = new DataContainer<double[]>();
+		int inputDataOffset1 = 0;
+		int inputDataOffset2 = 1;
+		int inputDataOffset3 = 2;
+		int outputDataOffset = 2;
+		inputDataContainer1.setData(new double[] { 1.23, 4.56, 7.89 }, inputDataOffset1);
+		inputDataContainer2.setData(new double[] { 1.23, 4.56, 7.89 }, inputDataOffset2);
+		inputDataContainer3.setData(new double[] { 1.23, 4.56, 7.89 }, inputDataOffset3);
+		outputDataContainer.setData(new double[] { 0.0, 0.0, 0.0 }, outputDataOffset);
+
+		// Operate data
+		// 演算を実行
+		function.invoke(new Object[]{ outputDataContainer, inputDataContainer1, inputDataContainer2, inputDataContainer3 });
+
+		// Check dimensions, size, offset, and so on of the operation result
+		// 演算結果のデータを取り出し、データ長や使用サイズ、格納位置などを確認
+		double[] resultData = outputDataContainer.getData();
+		assertEquals(RANK_OF_SCALAR, outputDataContainer.getRank());
+		assertEquals(3, resultData.length);
+		assertEquals(1, outputDataContainer.getSize());
+		assertEquals(2, outputDataContainer.getOffset());
+
+		// Check result value
+		// 以下、演算結果の値を確認
+
+		double mean = (1.23 + 4.56 + 7.89) / 3;
+		double squareDiffSum = (1.23-mean)*(1.23-mean) + (4.56-mean)*(4.56-mean) + (7.89-mean)*(7.89-mean);
+		double van1 = squareDiffSum / (3-1);
+		double sdn1 = Math.sqrt(van1);
+		Double expected = Double.valueOf(sdn1);
+		Double actual = Double.valueOf(resultData[outputDataOffset]);
+		assertTrue(expected.equals(actual));
+	}
+
 }

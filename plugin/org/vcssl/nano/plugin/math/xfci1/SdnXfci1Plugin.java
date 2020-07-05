@@ -8,7 +8,7 @@ public class SdnXfci1Plugin extends Float64VectorToScalarOperationXfci1Plugin {
 	}
 
 	@Override
-	public final void operate(double[] outputData, double[] inputData) {
+	public final void operate(double[] outputData, double[] inputData, int outputDataOffset) {
 		int n = inputData.length;
 
 		double sum = 0.0;
@@ -27,6 +27,6 @@ public class SdnXfci1Plugin extends Float64VectorToScalarOperationXfci1Plugin {
 		double van = squareDiffSum / n;
 		double sdn = Math.sqrt(van);
 
-		outputData[0] = sdn;
+		outputData[ outputDataOffset ] = sdn;
 	}
 }

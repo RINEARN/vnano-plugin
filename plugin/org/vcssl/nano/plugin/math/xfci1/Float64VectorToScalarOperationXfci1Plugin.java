@@ -82,13 +82,13 @@ public class Float64VectorToScalarOperationXfci1Plugin implements ExternalFuncti
 		@SuppressWarnings("unchecked")
 		ArrayDataContainerInterface1<double[]> outputDataContainer = (ArrayDataContainerInterface1<double[]>)arguments[0];
 		Object outputDataObject = outputDataContainer.getData();
+		int outputDataOffset = outputDataContainer.getOffset();
 		double[] outputData = null;
-		int outputOffset = outputDataContainer.getOffset();
-		if (outputDataObject instanceof double[] && ((double[])outputDataObject).length == 1) {
+		if (outputDataObject instanceof double[] && outputDataContainer.getSize() == 1) {
 			outputData = (double[])outputDataObject;
 		} else {
 			outputData = new double[ 1 ];
-			outputOffset = 0;
+			outputDataOffset = 0;
 		}
 
 		// Check types of data in data containers, and cast data.
@@ -96,24 +96,27 @@ public class Float64VectorToScalarOperationXfci1Plugin implements ExternalFuncti
 		double[] inputData = new double[inputArgN];
 		for (int inputArgIndex=0; inputArgIndex<inputArgN; inputArgIndex++) {
 			int argIndex = inputArgIndex + 1;
-			Object inputDataObject = ( (ArrayDataContainerInterface1<?>)arguments[argIndex] ).getData();
+			ArrayDataContainerInterface1<?> inputDataContainer = (ArrayDataContainerInterface1<?>)arguments[argIndex];
+			Object inputDataObject = inputDataContainer.getData();
+			int inputDataOffset = inputDataContainer.getOffset();
 			if (!(inputDataObject instanceof double[])) {
-				throw new ConnectorException("The data type of the argument of \"sin\" function should be \"float\" or \"double\".");
+				throw new ConnectorException("The data type of the argument of this function should be \"float\" or \"double\".");
 			}
-			inputData[inputArgIndex] = ((double[])inputDataObject)[0]; // each argument stores scalar value at [0]
+			inputData[inputArgIndex] = ((double[])inputDataObject)[ inputDataOffset ];
 		}
 
 		// Operate data
-		this.operate(outputData, inputData);
+		this.operate(outputData, inputData, outputDataOffset);
 
 		// Store result data
-		outputDataContainer.setData(outputData, outputOffset);
+		outputDataContainer.setData(outputData, outputDataOffset);
 
 		return null;
 	}
 
 	// Overridden on subclasses
-	public void operate(double[] outputData, double[] inputData) {
+	public void operate(double[] outputData, double[] inputData, int outputDataOffset) {
+
 	}
 
 

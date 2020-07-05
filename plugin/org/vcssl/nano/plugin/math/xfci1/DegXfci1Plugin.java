@@ -8,11 +8,11 @@ public class DegXfci1Plugin extends Float64VectorizableOperationXfci1Plugin {
 	}
 
 	@Override
-	public final void operate(double[] outputData, double[] inputData, int dataLength) {
-		for (int i=0; i<dataLength; i++) {
-			double rad = inputData[i];
+	public final void operate(double[] outputData, double[] inputData, int outputDataOffset, int inputDataOffset, int dataSize) {
+		for (int i=0; i<dataSize; i++) {
+			double rad = inputData[ i + inputDataOffset ];
 			double deg = 180.0 * rad / Math.PI;
-			outputData[i] = deg;
+			outputData[ i + outputDataOffset ] = deg;
 		}
 	}
 }

@@ -195,4 +195,48 @@ public class TanXfci1PluginTest {
 		assertTrue(expected.equals(actual));
 	}
 
+
+	@Test
+	public void testDoubleArrayElement() throws ConnectorException {
+		ExternalFunctionConnectorInterface1 function = new TanXfci1Plugin();
+
+		// Prepare input/output data
+		// 入出力データを用意
+		DataContainer<double[]> inputDataContainer = new DataContainer<double[]>();
+		DataContainer<double[]> outputDataContainer = new DataContainer<double[]>();
+		int inputDataOffset = 1;
+		int outputDataOffset = 2;
+		inputDataContainer.setData(new double[] { 1.0, 2.0, 3.0 }, inputDataOffset);
+		outputDataContainer.setData(new double[] { 0.0, 0.0, 0.0 }, outputDataOffset);
+
+		// Operate data
+		// 演算を実行
+		function.invoke(new Object[]{ outputDataContainer, inputDataContainer });
+
+		// Check dimensions of the operation result
+		// 演算結果の次元を確認
+		assertEquals(0, outputDataContainer.getRank());
+		assertEquals(0, outputDataContainer.getLengths().length);
+
+		// Get result data in data container, and check its length
+		// 演算結果のデータを取り出し、データ長や使用サイズ、格納位置などを確認
+		double[] resultData = outputDataContainer.getData();
+		int resultDataSize = outputDataContainer.getSize();
+		int resultDataOffset = outputDataContainer.getOffset();
+		int resultDataRank = outputDataContainer.getRank();
+		assertEquals(3, resultData.length); // 変わっていないはず
+		assertEquals(1, resultDataSize); // スカラなので1のはず
+		assertEquals(0, resultDataRank); // スカラなので0のはず
+		assertEquals(outputDataOffset, resultDataOffset);
+
+		Double expected;
+		Double actual;
+
+		// Check the result value
+		// 演算結果の値を確認
+		expected = Double.valueOf(Math.tan(2.0));
+		actual = Double.valueOf(resultData[resultDataOffset]);
+		assertTrue(expected.equals(actual));
+	}
+
 }

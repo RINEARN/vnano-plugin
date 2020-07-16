@@ -7,6 +7,7 @@ import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.vcssl.connect.ArrayDataContainerInterface1;
 import org.vcssl.connect.ConnectorException;
 import org.vcssl.connect.ExternalFunctionConnectorInterface1;
 
@@ -50,8 +51,8 @@ public class SinXfci1PluginTest {
 		// 入出力データを用意
 		DataContainer<double[]> inputDataContainer = new DataContainer<double[]>();
 		DataContainer<double[]> outputDataContainer = new DataContainer<double[]>();
-		inputDataContainer.setData(new double[] { 1.0 }, 0);
-		outputDataContainer.setData(new double[] { 0.0 }, 0);
+		inputDataContainer.setData(new double[] { 1.0 }, 0, ArrayDataContainerInterface1.SCALAR_LENGTHS);
+		outputDataContainer.setData(new double[] { 0.0 }, 0, ArrayDataContainerInterface1.SCALAR_LENGTHS);
 
 		// Operate data
 		// 演算を実行
@@ -85,8 +86,8 @@ public class SinXfci1PluginTest {
 		DataContainer<double[]> outputDataContainer = new DataContainer<double[]>();
 		int[] inputArrayLengths = new int[] { 3 };
 		int[] outputArrayLengths = new int[] { 3 };
-		inputDataContainer.setData(new double[] { 1.0, 2.0, 3.0 }, inputArrayLengths);
-		outputDataContainer.setData(new double[] { 0.0, 0.0, 0.0 }, outputArrayLengths);
+		inputDataContainer.setData(new double[] { 1.0, 2.0, 3.0 }, 0, inputArrayLengths);
+		outputDataContainer.setData(new double[] { 0.0, 0.0, 0.0 }, 0, outputArrayLengths);
 
 		// Operate data
 		// 演算を実行
@@ -136,8 +137,8 @@ public class SinXfci1PluginTest {
 		DataContainer<double[]> outputDataContainer = new DataContainer<double[]>();
 		int[] inputArrayLengths = new int[] { 2, 3 };
 		int[] outputArrayLengths = new int[] { 2, 3 };
-		inputDataContainer.setData(new double[] { 1.0, 2.0, 3.0, 4.0, 5.0, 6.0 }, inputArrayLengths);
-		outputDataContainer.setData(new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 }, outputArrayLengths);
+		inputDataContainer.setData(new double[] { 1.0, 2.0, 3.0, 4.0, 5.0, 6.0 }, 0, inputArrayLengths);
+		outputDataContainer.setData(new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 }, 0, outputArrayLengths);
 
 		// Operate data
 		// 演算を実行
@@ -206,8 +207,8 @@ public class SinXfci1PluginTest {
 		DataContainer<double[]> outputDataContainer = new DataContainer<double[]>();
 		int inputDataOffset = 1;
 		int outputDataOffset = 2;
-		inputDataContainer.setData(new double[] { 1.0, 2.0, 3.0 }, inputDataOffset);
-		outputDataContainer.setData(new double[] { 0.0, 0.0, 0.0 }, outputDataOffset);
+		inputDataContainer.setData(new double[] { 1.0, 2.0, 3.0 }, inputDataOffset, ArrayDataContainerInterface1.SCALAR_LENGTHS);
+		outputDataContainer.setData(new double[] { 0.0, 0.0, 0.0 }, outputDataOffset, ArrayDataContainerInterface1.SCALAR_LENGTHS);
 
 		// Operate data
 		// 演算を実行

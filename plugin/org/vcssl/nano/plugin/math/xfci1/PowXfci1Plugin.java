@@ -96,9 +96,9 @@ public class PowXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 		// Get or allocate output data
 		@SuppressWarnings("unchecked")
 		ArrayDataContainerInterface1<double[]> outputDataContainer = (ArrayDataContainerInterface1<double[]>)arguments[0];
+		double[] outputData = outputDataContainer.getData();
 		int outputDataSize = outputDataContainer.getSize();
 		int outputDataOffset = outputDataContainer.getOffset();
-		double[] outputData = outputDataContainer.getData();
 		if (outputData == null || outputDataSize != inputDataSize) {
 			outputData = new double[ inputDataSize ];
 			outputDataSize = inputDataSize;
@@ -112,13 +112,9 @@ public class PowXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 		}
 
 		// Store result data
-		if (outputDataContainer.getRank() == 0) { // if data is scalar
-			// Store data as a scalar
-			outputDataContainer.setData(outputData, outputDataOffset);
-		} else {
-			// Store data as an array
-			outputDataContainer.setData(outputData, inputDataContainer.getLengths());
-		}
+		int[] outputDataLengths = new int[ inputDataContainer.getRank() ];
+		System.arraycopy(inputDataContainer.getLengths(), 0, outputDataLengths, 0, inputDataContainer.getRank());
+		outputDataContainer.setData(outputData, outputDataOffset, outputDataLengths);
 
 		return null;
 	}

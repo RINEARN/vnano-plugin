@@ -44,5 +44,7 @@ jobs:
         javac -encoding UTF-8 @org/vcssl/nano/plugin/sourcelist.txt
         cd ..
     - name: Test plugins
-      run: ./test.sh
+      run: |
+        chmod +x ./test.sh
+        ./test.sh
 

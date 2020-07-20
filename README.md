@@ -26,6 +26,7 @@ You can refer same contents on the official website of the Vnano:
 [https://www.vcssl.org/ja-jp/vnano/plugin/](https://www.vcssl.org/ja-jp/vnano/plugin/).
 
 
+<a id="how-to-compile-and-use"></a>
 ## How to Compile and Use - コンパイル及び使用方法
 
 At first, clone this repository:
@@ -50,12 +51,13 @@ For details, see the document of the application you are using.
 
 コンパイルが正常に完了すると、プラグインのクラスファイルが「 plugin/... 」フォルダ以下に生成されます。それらを、ご使用のアプリケーションで指定されているフォルダ内にコピーしてください。また、ご使用のアプリケーションの設定ファイル（ 例：plugin/VnanoPluginList.txt ）などから、それらを読み込むように指定してください。詳細については、ご使用のアプリケーションの説明書をご参照ください。
 
+
 ## How to Test - テスト方法
 
 As a preparation, build the script engine of the Vnano (see: <a href="https://github.com/RINEARN/vnano">the repository of the Vnano</a>), and put the built JAR file "Vnano.jar" into the top-level directory of this repository.
-Then, you can run test scripts for all compiled plug-ins (see: <a href="#how-to-use">How to Compile and Use</a> section) as follows:
+Then, you can run test scripts for all compiled plug-ins (see: <a href="#how-to-compile-and-use">How to Compile and Use</a> section) as follows:
 
-まず準備として、Vnanoのスクリプトエンジンをビルドし、生成されたJARファイル「 Vnano.jar 」を、このリポジトリ直下のフォルダ内に配置してください。その後、以下のようにして、全てのコンパイル済みプラグイン（「<a href="#how-to-use">コンパイル及び使用方法</a>」の項目参照）のテストスクリプトを実行できます：
+まず準備として、Vnanoのスクリプトエンジンをビルドし、生成されたJARファイル「 Vnano.jar 」を、このリポジトリ直下のフォルダ内に配置してください。その後、以下のようにして、全てのコンパイル済みプラグイン（「<a href="#how-to-compile-and-use">コンパイル及び使用方法</a>」の項目参照）のテストスクリプトを実行できます：
 
 For Microsoft&reg; Windows&reg;:
 

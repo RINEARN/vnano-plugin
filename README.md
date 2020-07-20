@@ -9,7 +9,7 @@ This repository provides/manages plug-ins to extend build-in functions and varia
 各プラグインは、Vnano のスクリプトエンジンを搭載したアプリケーションで利用できます。
 
 
-### Current Build/Test Results - 現在のビルド/テスト検証結果
+#### Current Build/Test Results - 現在のビルド/テスト検証結果
 
 &nbsp;&nbsp;- master branch -
 <br />

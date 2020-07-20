@@ -9,6 +9,24 @@ This repository provides/manages plug-ins to extend build-in functions and varia
 各プラグインは、Vnano のスクリプトエンジンを搭載したアプリケーションで利用できます。
 
 
+### Current Build/Test Results - 現在のビルド/テスト検証結果
+
+&nbsp;&nbsp;- master branch -
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://github.com/RINEARN/vnano-standard-plugin/workflows/Standard%20Build%2FTest%20CI/badge.svg?branch=master" alt="Standard CI Result" /> on JDK 14
+&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://github.com/RINEARN/vnano-standard-plugin/workflows/Old-Env%20Build%2FTest%20CI/badge.svg?branch=master" alt="Old-Env CI Result" /> on JDK 8
+&nbsp;&nbsp;
+<br />
+&nbsp;&nbsp;- develop branch -
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://github.com/RINEARN/vnano-standard-plugin/workflows/Standard%20Build%2FTest%20CI/badge.svg?branch=develop" alt="Standard CI Result" /> on JDK 14
+&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://github.com/RINEARN/vnano-standard-plugin/workflows/Old-Env%20Build%2FTest%20CI/badge.svg?branch=develop" alt="Old-Env CI Result" /> on JDK 8
+&nbsp;&nbsp;
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;( Green: OK / Red: NG )
+
+<hr />
+
 ## License - ライセンス
 
 This package is released under [CC0](https://creativecommons.org/publicdomain/zero/1.0/deed).

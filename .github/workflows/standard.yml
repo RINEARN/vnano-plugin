@@ -1,0 +1,50 @@
+name: Standard Build/Test CI
+on: push
+jobs:
+
+  build-vnano-engine:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set-up environment
+      uses: actions/setup-java@v1
+      with:
+        java-version: 14
+    - name: Clone and build the Vnano Engine
+      run: |
+        git clone https://github.com/RINEARN/vnano
+        cd vnano
+        ant -noinput -buildfile build.xml
+        cd ..
+    - name: Upload the Vnano Engine
+      uses: actions/upload-artifact@v1
+      with:
+        name: engine
+        path: ./vnano/Vnano.jar
+
+  build-and-test-plugins:
+    needs: build-vnano-engine
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set-up environment
+      uses: actions/setup-java@v1
+      with:
+        java-version: 14
+    - name: Download the Vnano Engine
+      uses: actions/download-artifact@v1
+      with:
+        name: engine
+    - name: Copy the downloaded Vnano Engine
+      run: cp ./engine/Vnano.jar ./Vnano.jar
+    - name: Compile plugins
+      run: |
+        cd plugin
+        javac -encoding UTF-8 @org/vcssl/connect/sourcelist.txt
+        javac -encoding UTF-8 @org/vcssl/nano/plugin/sourcelist.txt
+        cd ..
+    - name: Test plugins
+      run: |
+        chmod +x ./test.sh
+        ./test.sh
+

@@ -23,6 +23,7 @@ jobs:
         path: ./vnano/Vnano.jar
 
   build-and-test-plugins:
+    needs: build-vnano-engine
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2

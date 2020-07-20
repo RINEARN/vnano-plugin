@@ -90,32 +90,29 @@ public class Float64VectorizableOperationXfci1Plugin implements ExternalFunction
 		ArrayDataContainerInterface1<double[]> inputDataContainer = (ArrayDataContainerInterface1<double[]>)arguments[1];
 		@SuppressWarnings("unchecked")
 		ArrayDataContainerInterface1<double[]> outputDataContainer = (ArrayDataContainerInterface1<double[]>)arguments[0];
-		int inputDataOffset = inputDataContainer.getOffset();
-		int outputDataOffset = outputDataContainer.getOffset();
-		int inputDataSize = inputDataContainer.getSize();
-		int outputDataSize = outputDataContainer.getSize();
 
-		// Get or allocate data
+		// Get or allocate input data
 		double[] inputData = (double[])inputDataContainer.getData();
-		double[] outputData = null;
-		if (outputDataObject != null && outputDataSize == inputDataSize) {
-			outputData = (double[])outputDataObject;
-		} else {
+		int inputDataOffset = inputDataContainer.getOffset();
+		int inputDataSize = inputDataContainer.getSize();
+
+		// Get or allocate output data
+		double[] outputData = outputDataContainer.getData();
+		int outputDataOffset = outputDataContainer.getOffset();
+		int outputDataSize = outputDataContainer.getSize();
+		if (outputDataObject == null || outputDataSize != inputDataSize) {
+			outputData = new double[ inputDataSize ];
 			outputDataSize = inputDataSize;
-			outputData = new double[ outputDataSize ];
+			outputDataOffset = 0;
 		}
 
 		// Operate data
 		this.operate(outputData, inputData, outputDataOffset, inputDataOffset, inputDataSize);
 
 		// Store result data
-		if (inputDataContainer.getRank() == 0) { // if input data is scalar
-			// Store data as a scalar
-			outputDataContainer.setData(outputData, outputDataOffset);
-		} else {
-			// Store data as an array
-			outputDataContainer.setData(outputData, inputDataContainer.getLengths());
-		}
+		int[] outputDataLengths = new int[ inputDataContainer.getRank() ];
+		System.arraycopy(inputDataContainer.getLengths(), 0, outputDataLengths, 0, inputDataContainer.getRank());
+		outputDataContainer.setData(outputData, outputDataOffset, outputDataLengths);
 
 		return null;
 	}

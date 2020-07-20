@@ -121,7 +121,7 @@ public class RankXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 
 		@SuppressWarnings("unchecked")
 		ArrayDataContainerInterface1<long[]> outputDataContainer = (ArrayDataContainerInterface1<long[]>)arguments[0];
-		outputDataContainer.setData(outputData, outputOffset);
+		outputDataContainer.setData(outputData, outputOffset, ArrayDataContainerInterface1.SCALAR_LENGTHS);
 
 		return null;
 	}

@@ -128,7 +128,7 @@ public class TimeXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 
 		// 戻り値格納用データコンテナのデータ領域が未確保なら確保する
 		if (outputDataContainer.getData() == null) {
-			outputDataContainer.setData(new long[1], 0);
+			outputDataContainer.setData(new long[1], 0, ArrayDataContainerInterface1.SCALAR_LENGTHS);
 		}
 
 		// 現在の時刻を取得し、ミリ秒に変換

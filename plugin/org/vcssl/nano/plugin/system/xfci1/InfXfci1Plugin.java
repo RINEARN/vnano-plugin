@@ -129,7 +129,7 @@ public class InfXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 
 		// 戻り値格納用データコンテナのデータ領域が未確保なら確保する
 		if (outputDataContainer.getData() == null) {
-			outputDataContainer.setData(new boolean[1], 0);
+			outputDataContainer.setData(new boolean[1], 0, ArrayDataContainerInterface1.SCALAR_LENGTHS);
 		}
 
 		// 引数データコンテナから値を取り出す（ getData() の戻り値は常に1次元配列で、スカラの場合は getOffset() 番目に値が格納されている ）

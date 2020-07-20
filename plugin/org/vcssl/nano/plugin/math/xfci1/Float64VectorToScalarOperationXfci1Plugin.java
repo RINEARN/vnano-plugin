@@ -106,7 +106,7 @@ public class Float64VectorToScalarOperationXfci1Plugin implements ExternalFuncti
 		this.operate(outputData, inputData, outputDataOffset);
 
 		// Store result data
-		outputDataContainer.setData(outputData, outputDataOffset);
+		outputDataContainer.setData(outputData, outputDataOffset, ArrayDataContainerInterface1.SCALAR_LENGTHS);
 
 		return null;
 	}

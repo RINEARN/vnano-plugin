@@ -7,6 +7,7 @@ import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.vcssl.connect.ArrayDataContainerInterface1;
 import org.vcssl.connect.ConnectorException;
 import org.vcssl.connect.ExternalFunctionConnectorInterface1;
 
@@ -53,9 +54,9 @@ public class LengthXfci1PluginTest {
 		DataContainer<double[]> inputDataContainer = new DataContainer<double[]>();
 		DataContainer<long[]> dimDataContainer = new DataContainer<long[]>();
 		DataContainer<long[]> outputDataContainer = new DataContainer<long[]>();
-		inputDataContainer.setData(new double[] { 1.0 }, 0);
-		dimDataContainer.setData(new long[] { 0L }, 0);
-		outputDataContainer.setData(new long[] { 0L }, 0);
+		inputDataContainer.setData(new double[] { 1.0 }, 0, ArrayDataContainerInterface1.SCALAR_LENGTHS);
+		dimDataContainer.setData(new long[] { 0L }, 0, ArrayDataContainerInterface1.SCALAR_LENGTHS);
+		outputDataContainer.setData(new long[] { 0L }, 0, ArrayDataContainerInterface1.SCALAR_LENGTHS);
 
 		// Operate data
 		// 演算を実行
@@ -79,9 +80,9 @@ public class LengthXfci1PluginTest {
 		DataContainer<long[]> outputDataContainer = new DataContainer<long[]>();
 		int[] inputArrayLengths = new int[] { 3 };
 		int[] outputArrayLengths = new int[] { 3 };
-		inputDataContainer.setData(new double[] { 1.0, 2.0, 3.0 }, inputArrayLengths);
-		dimDataContainer.setData(new long[] { 0L }, 0);
-		outputDataContainer.setData(new long[] { 0L, 0L, 0L }, outputArrayLengths);
+		inputDataContainer.setData(new double[] { 1.0, 2.0, 3.0 }, 0, inputArrayLengths);
+		dimDataContainer.setData(new long[] { 0L }, 0, ArrayDataContainerInterface1.SCALAR_LENGTHS);
+		outputDataContainer.setData(new long[] { 0L, 0L, 0L }, 0, outputArrayLengths);
 
 		// Operate data
 		// 演算を実行
@@ -113,14 +114,14 @@ public class LengthXfci1PluginTest {
 		DataContainer<long[]> dimDataContainer = new DataContainer<long[]>();
 		DataContainer<long[]> outputDataContainer = new DataContainer<long[]>();
 		int[] inputArrayLengths = new int[] { 2, 3 };
-		inputDataContainer.setData(new double[] { 1.0, 2.0, 3.0, 4.0, 5.0, 6.0 }, inputArrayLengths);
-		outputDataContainer.setData(new long[] { 0L }, 0);
+		inputDataContainer.setData(new double[] { 1.0, 2.0, 3.0, 4.0, 5.0, 6.0 }, 0, inputArrayLengths);
+		outputDataContainer.setData(new long[] { 0L }, 0, ArrayDataContainerInterface1.SCALAR_LENGTHS);
 		long[] resultData = null;
 
 
 		// Operate data (dimIndex: 0)
 		// 演算を実行（次元インデックス: 0）
-		dimDataContainer.setData(new long[] { 0L }, 0);
+		dimDataContainer.setData(new long[] { 0L }, 0, ArrayDataContainerInterface1.SCALAR_LENGTHS);
 		function.invoke(new Object[]{ outputDataContainer, inputDataContainer, dimDataContainer });
 
 		// Check dimensions of the operation result
@@ -139,7 +140,7 @@ public class LengthXfci1PluginTest {
 
 		// Operate data (dimIndex: 1)
 		// 演算を実行（次元インデックス: 1）
-		dimDataContainer.setData(new long[] { 1L }, 0);
+		dimDataContainer.setData(new long[] { 1L }, 0, ArrayDataContainerInterface1.SCALAR_LENGTHS);
 		function.invoke(new Object[]{ outputDataContainer, inputDataContainer, dimDataContainer });
 
 		// Check dimensions of the operation result

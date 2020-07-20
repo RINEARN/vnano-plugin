@@ -1,4 +1,4 @@
-name: Old-Env Build/Test CI
+name: Standard Build/Test CI
 on: push
 jobs:
 

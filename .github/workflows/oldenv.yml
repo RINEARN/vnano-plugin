@@ -19,7 +19,7 @@ jobs:
     - name: Upload the Vnano Engine
       uses: actions/upload-artifact@v1
       with:
-        name: vnano-built-engine
+        name: engine
         path: ./vnano/Vnano.jar
 
   build-and-test-plugins:
@@ -33,9 +33,9 @@ jobs:
     - name: Download the Vnano Engine
       uses: actions/download-artifact@v1
       with:
-        name: vnano-built-engine
+        name: engine
     - name: Copy the downloaded Vnano Engine
-      run: cp ./vnano-built-engine/Vnano.jar ./Vnano.jar
+      run: cp ./engine/Vnano.jar ./Vnano.jar
     - name: Compile plugins
       run: |
         cd plugin

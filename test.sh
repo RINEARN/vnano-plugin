@@ -7,6 +7,16 @@ echo "--------------------------------------------------"
 echo ""
 
 
+echo "[ SystemEnvironmentXnci1PluginTest.vnano (accelerator disabled) ]"
+java -jar Vnano.jar --pluginList ./plugin/VnanoPluginList_AllStandards.txt --accelerator false ./plugin/org/vcssl/nano/plugin/system/xnci1/SystemEnvironmentXnci1PluginTest.vnano
+
+echo ""
+
+echo "[ SystemEnvironmentXnci1PluginTest.vnano (accelerator enabled) ]"
+java -jar Vnano.jar --pluginList ./plugin/VnanoPluginList_AllStandards.txt --accelerator true ./plugin/org/vcssl/nano/plugin/system/xnci1/SystemEnvironmentXnci1PluginTest.vnano
+
+echo ""
+
 echo "[ SystemDataTypeXnci1PluginTest.vnano (accelerator disabled) ]"
 java -jar Vnano.jar --pluginList ./plugin/VnanoPluginList_AllStandards.txt --accelerator false ./plugin/org/vcssl/nano/plugin/system/xnci1/SystemDataTypeXnci1PluginTest.vnano
 

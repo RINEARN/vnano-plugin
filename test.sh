@@ -15,6 +15,16 @@ echo ""
 echo "[ MathElementaryXnci1PluginTest.vnano (accelerator enabled) ]"
 java -jar Vnano.jar --pluginList ./plugin/VnanoPluginList_AllStandards.txt --accelerator true ./plugin/org/vcssl/nano/plugin/math/xnci1/MathElementaryXnci1PluginTest.vnano
 
+echo ""
+
+echo "[ MathStatisticalXnci1PluginTest.vnano (accelerator disabled) ]"
+java -jar Vnano.jar --pluginList ./plugin/VnanoPluginList_AllStandards.txt --accelerator false ./plugin/org/vcssl/nano/plugin/math/xnci1/MathStatisticalXnci1PluginTest.vnano
+
+echo ""
+
+echo "[ MathStatisticalXnci1PluginTest.vnano (accelerator enabled) ]"
+java -jar Vnano.jar --pluginList ./plugin/VnanoPluginList_AllStandards.txt --accelerator true ./plugin/org/vcssl/nano/plugin/math/xnci1/MathStatisticalXnci1PluginTest.vnano
+
 
 echo ""
 echo "--------------------------------------------------"

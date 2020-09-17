@@ -5,6 +5,8 @@
 
 package org.vcssl.nano.plugin.security.paci1;
 
+import java.io.InputStream;
+import java.io.PrintStream;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -29,6 +31,7 @@ public class SecurityPermissionAuthorizerPaci1Plugin implements PermissionAuthor
 	 */
 	private Map<String, String> specifiedPermissionMap;
 
+
 	/**
 	 * スクリプト実行中に、ユーザーの返答などに応じて編集される、一時的なパーミッション内容を保持します。
 	 * 例えば値が「ASK」のパーミッションは、ユーザーに許可/拒否の選択肢が提示されますが、
@@ -39,7 +42,19 @@ public class SecurityPermissionAuthorizerPaci1Plugin implements PermissionAuthor
 
 
 	/**
-	 * 標準入力からの入力内容を読むスキャナです。
+	 * スクリプトエンジンのオプションに指定されている標準出力ストリームを控えます（CUIモード時に使用）。
+	 */
+	private PrintStream stdoutStream = null;
+
+
+	/**
+	 * スクリプトエンジンのオプションに指定されている標準入力ストリームを控えます（CUIモード時に使用）。
+	 */
+	private InputStream stdinStream = null;
+
+
+	/**
+	 * 標準入力からの入力内容を読むスキャナです（CUIモード時に使用）。
 	 */
 	private Scanner standardInputScanner;
 
@@ -129,9 +144,23 @@ public class SecurityPermissionAuthorizerPaci1Plugin implements PermissionAuthor
 		}
 		EngineConnectorInterface1 eci1Connector = (EngineConnectorInterface1)engineConnector;
 
-		// 処理系のUI設定がGUIかどうかを取得
+		// 処理系のオプションから、UIモードがGUIかどうかを取得
 		if (eci1Connector.hasOptionValue("UI_MODE")) {
 			this.isGuiMode = ( (String)eci1Connector.getOptionValue("UI_MODE") ).equals("GUI");
+		}
+
+		// CUIモードの場合、処理系のオプションに指定されている標準入出力ストリームを取得
+		if (!this.isGuiMode) {
+			if (eci1Connector.hasOptionValue("STDIN_STREAM")) {
+				this.stdinStream = (InputStream) eci1Connector.getOptionValue("STDIN_STREAM");
+			} else {
+				throw new ConnectorException("The option \"STDIN_STREAM\" is required for using the permission authorizer on CUI mode, but it is not set.");
+			}
+			if (eci1Connector.hasOptionValue("STDOUT_STREAM")) {
+				this.stdoutStream = (PrintStream) eci1Connector.getOptionValue("STDOUT_STREAM");
+			} else {
+				throw new ConnectorException("The option \"STDOUT_STREAM\" is required for using the permission authorizer on CUI mode, but it is not set.");
+			}
 		}
 
 		// メッセージのロケール設定を取得し、日本語かどうかを調べる
@@ -157,6 +186,8 @@ public class SecurityPermissionAuthorizerPaci1Plugin implements PermissionAuthor
 		// close すると標準入力も close してしまう（標準入力は再度開けない）
 		//this.standardInputScanner.close();
 		this.standardInputScanner = null;
+		this.stdoutStream = null;
+		this.stdinStream = null;
 	}
 
 
@@ -213,12 +244,12 @@ public class SecurityPermissionAuthorizerPaci1Plugin implements PermissionAuthor
 	private boolean confirmOnCui(String confirmMessage) {
 
 		// メッセージを提示
-		System.out.println(confirmMessage);
-		System.out.print("yes(y)/no(n): ");
+		this.stdoutStream.println(confirmMessage);
+		this.stdoutStream.print("yes(y)/no(n): ");
 
 		// ユーザーによる入力
 		if (this.standardInputScanner == null) {
-			this.standardInputScanner = new Scanner(System.in);
+			this.standardInputScanner = new Scanner(this.stdinStream);
 		}
 		String userDecision = this.standardInputScanner.nextLine().toLowerCase();
 
@@ -228,16 +259,16 @@ public class SecurityPermissionAuthorizerPaci1Plugin implements PermissionAuthor
 		while (!inputIsValid && 0<=retryCount) {
 			if (retryCount == 0) {
 				if (this.isJapanese) {
-					System.out.println("入力エラーです。パーミッション要求は拒否されます。");
+					this.stdoutStream.println("入力エラーです。パーミッション要求は拒否されます。");
 				} else {
-					System.out.println("Error. The permission request will be declined.");
+					this.stdoutStream.println("Error. The permission request will be declined.");
 				}
 				return false;
 			}
 			if (this.isJapanese) {
-				System.out.print("入力エラーです。許可する場合は「yes」か「y」、拒否する場合は「no」か「n」を入力してください: ");
+				this.stdoutStream.print("入力エラーです。許可する場合は「yes」か「y」、拒否する場合は「no」か「n」を入力してください: ");
 			} else {
-				System.out.print("Error. Input \"yes\" or \"y\" to allow, \"no\" or \"n\" to deny: ");
+				this.stdoutStream.print("Error. Input \"yes\" or \"y\" to allow, \"no\" or \"n\" to deny: ");
 			}
 			userDecision = this.standardInputScanner.nextLine().toLowerCase();
 			inputIsValid = userDecision.equals("y") || userDecision.equals("n") || userDecision.equals("yes") || userDecision.equals("no");

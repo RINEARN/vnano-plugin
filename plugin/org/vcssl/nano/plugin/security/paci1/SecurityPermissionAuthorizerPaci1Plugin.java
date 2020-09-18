@@ -364,8 +364,8 @@ public class SecurityPermissionAuthorizerPaci1Plugin implements PermissionAuthor
 		// 指定パーミッション名も "DEFAULT" もどちらも登録されていない場合はエラー
 		} else {
 			String errorMessage = this.isJapanese ?
-				"パーミッション「 " + permissionName + " 」が要求されましたが、このパーミッションは現在の設定では使用できないか、このシステムではサポートされていません。" :
-				"The permission for \"" + permissionName + "\" has been requested, but it is not available on the current settings, or it is unsupported on this script engine" ;
+				"パーミッション「 " + permissionName + " 」が要求されましたが、このパーミッション項目に対する許可/拒否が設定されていません。" :
+				"The permission for \"" + permissionName + "\" has been requested, but whether it should be allowed or denied is not set" ;
 			throw new ConnectorException(errorMessage);
 		}
 

@@ -356,12 +356,12 @@ public class SecurityPermissionAuthorizerPaci1Plugin implements PermissionAuthor
 		if (this.temporaryPermissionMap.containsKey(permissionName)) {
 			permissionValue = this.temporaryPermissionMap.get(permissionName);
 
-		// 上記以外で、メタパーミッション名 "ALL" がマップに登録されている場合は、その設定値を用いる
+		// 上記以外で、メタパーミッション名 "DEFAULT" がマップに登録されている場合は、その設定値を用いる
 		// （分岐順序に注意: 上の分岐のように、指定パーミッション名が明示的に登録されている場合は、そちらを優先すべき）
-		} else if (this.temporaryPermissionMap.containsKey(ConnectorPermissionName.ALL)) {
-			permissionValue = this.temporaryPermissionMap.get(ConnectorPermissionName.ALL);
+		} else if (this.temporaryPermissionMap.containsKey(ConnectorPermissionName.DEFAULT)) {
+			permissionValue = this.temporaryPermissionMap.get(ConnectorPermissionName.DEFAULT);
 
-		// 指定パーミッション名も "ALL" もどちらも登録されていない場合はエラー
+		// 指定パーミッション名も "DEFAULT" もどちらも登録されていない場合はエラー
 		} else {
 			String errorMessage = this.isJapanese ?
 				"パーミッション「 " + permissionName + " 」が要求されましたが、このパーミッションは現在の設定では使用できないか、このシステムではサポートされていません。" :

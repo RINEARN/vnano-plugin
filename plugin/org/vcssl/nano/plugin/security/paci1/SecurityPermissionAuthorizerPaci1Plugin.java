@@ -108,6 +108,20 @@ public class SecurityPermissionAuthorizerPaci1Plugin implements PermissionAuthor
 	@Override
 	public void setPermissionMap(Map<String, String> permissionMap) throws ConnectorException {
 		this.specifiedPermissionMap = permissionMap;
+
+		if (permissionMap.containsKey(ConnectorPermissionName.ALL)) {
+			String errorMessage = this.isJapanese ?
+				"パーミッション項目名「 ALL 」は、パーミッションマップのキーとしては使用できません（代わりに「 DEFAULT 」が有用かもしれません）。" :
+				"The permission item name \"ALL\" can not be used as a key of permission maps (\"DEFAULT\" might be suitable for your needs)" ;
+			throw new ConnectorException(errorMessage);
+		}
+
+		if (permissionMap.containsKey(ConnectorPermissionName.NONE)) {
+			String errorMessage = this.isJapanese ?
+				"パーミッション項目名「 NONE 」は、パーミッションマップのキーとしては使用できません。" :
+				"The permission item name \"NONE\" can not be used as a key of permission maps" ;
+			throw new ConnectorException(errorMessage);
+		}
 	}
 
 

@@ -308,9 +308,13 @@ public class SecurityPermissionAuthorizerPaci1Plugin implements PermissionAuthor
 	private boolean askPermissionToUser(String permissionName, Object requester, Object metaInformation) {
 
 		// パーミッション名を、メッセージ内でわかりやすい表記に変更（「FILE_WRITE」->「ファイルの書き込み」など）
-		String permissionNameInMessage = PERMISSION_JAJP_NAME_MAP.containsKey(permissionName) ?
-			PERMISSION_JAJP_NAME_MAP.get(permissionName) :
-			PERMISSION_ENUS_NAME_MAP.get(permissionName);
+		String permissionNameInMessage = permissionName;
+		if (this.isJapanese && PERMISSION_JAJP_NAME_MAP.containsKey(permissionName)) {
+			permissionNameInMessage = PERMISSION_JAJP_NAME_MAP.get(permissionName);
+		}
+		if (!this.isJapanese && PERMISSION_ENUS_NAME_MAP.containsKey(permissionName)) {
+			permissionNameInMessage = PERMISSION_ENUS_NAME_MAP.get(permissionName);
+		}
 
 		// パーミッション要求元プラグインをメッセージ内で通知するため、そのクラスパスを取得
 		String requesterName = requester.getClass().getCanonicalName();

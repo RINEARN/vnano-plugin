@@ -6,6 +6,8 @@
 package org.vcssl.nano.plugin.system.xfci1;
 
 import org.vcssl.connect.ConnectorException;
+import org.vcssl.connect.ConnectorPermissionName;
+import org.vcssl.connect.EngineConnectorInterface1;
 import org.vcssl.connect.ExternalFunctionConnectorInterface1;
 
 // Interface Specification: https://www.vcssl.org/en-us/dev/code/main-jimpl/api/org/vcssl/connect/ExternalFunctionConnectorInterface1.html
@@ -13,13 +15,27 @@ import org.vcssl.connect.ExternalFunctionConnectorInterface1;
 
 public class ExitVoidXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 
+	// パーミッション要求用にエンジンコネクタを控える
+	EngineConnectorInterface1 engineConnector = null;
+
 	// 接続時の初期化
 	@Override
 	public void initializeForConnection(Object engineConnector) throws ConnectorException { }
 
 	// スクリプト実行前の初期化
 	@Override
-	public void initializeForExecution(Object engineConnector) throws ConnectorException { }
+	public void initializeForExecution(Object engineConnector) throws ConnectorException {
+
+		// 処理系の情報を取得するコネクタ（処理系依存）の互換性を検査し、適合すればフィールドに控える
+		if (!(engineConnector instanceof EngineConnectorInterface1)) {
+			throw new ConnectorException(
+				"The type of the engine connector \"" +
+				engineConnector.getClass().getCanonicalName() +
+				"\" is not supported by this plug-in."
+			);
+		}
+		this.engineConnector = (EngineConnectorInterface1)engineConnector;
+	}
 
 	// スクリプト実行後の終了時処理
 	@Override
@@ -105,6 +121,15 @@ public class ExitVoidXfci1Plugin implements ExternalFunctionConnectorInterface1 
 	// スクリプトから呼ばれた際に実行する処理
 	@Override
 	public Object invoke(Object[] arguments) throws ConnectorException {
+
+		// プログラムの終了を許可/拒否設定できるパーミッション項目が存在するため、終了前に要求しておく
+		// (却下されてもどのみち permission denied で終了するが、エラー扱いになるかどうかが異なる)
+		// (許可されればこの行では何も起こらず、拒否されればここで ConnectorException が発生する）
+		this.engineConnector.requestPermission(ConnectorPermissionName.PROGRAM_EXIT, this, new String[0]);
+
+		// 許可された場合、exit 関数による正常終了はエラー扱いにしたくないため、
+		// 特別に "__EXIT:終了ステータスコード" のメッセージを持たせた ConnectorException を投げる
+		// (そうするとスクリプトエンジン側がそう判断してくれる)
 		throw new ConnectorException("___EXIT:0");
 	}
 }

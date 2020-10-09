@@ -31,6 +31,11 @@ public class SystemTerminalIOXnci1Plugin implements ExternalNamespaceConnectorIn
 	}
 
 	@Override
+	public boolean isAbbreviatable() {
+		return true;
+	}
+
+	@Override
 	public ExternalFunctionConnectorInterface1[] getFunctions() {
 		List<ExternalFunctionConnectorInterface1> functionList = new LinkedList<ExternalFunctionConnectorInterface1>();
 		functionList.add( new PrintXfci1Plugin(this.isGuiMode, this.terminalWindow) );

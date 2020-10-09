@@ -25,6 +25,11 @@ public class MathStatisticalXnci1Plugin implements ExternalNamespaceConnectorInt
 	}
 
 	@Override
+	public boolean isAbbreviatable() {
+		return true;
+	}
+
+	@Override
 	public ExternalFunctionConnectorInterface1[] getFunctions() {
 		List<ExternalFunctionConnectorInterface1> functionList = new LinkedList<ExternalFunctionConnectorInterface1>();
 		functionList.add(new SumXfci1Plugin());

@@ -126,17 +126,6 @@ public class SecurityPermissionAuthorizerPaci1Plugin implements PermissionAuthor
 
 
 	/**
-	 * パーミッション項目の名前と値を格納するマップ（パーミッションマップ）の形で, 各パーミッションの値を取得します。
-	 *
-	 * @return permissionMap パーミッション項目の名前と値を格納するマップ（パーミッションマップ）
-	 */
-	@Override
-	public Map<String, String> getPermissionMap() throws ConnectorException {
-		return this.specifiedPermissionMap;
-	}
-
-
-	/**
 	 * 処理系への接続時に必要な初期化処理を行います。
 	 *
 	 * 引数には、スクリプトエンジンに依存するやり取りを行うためのオブジェクトが渡されます。

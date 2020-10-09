@@ -27,6 +27,11 @@ public class SystemTerminationXnci1Plugin implements ExternalNamespaceConnectorI
 	}
 
 	@Override
+	public boolean isAbbreviatable() {
+		return true;
+	}
+
+	@Override
 	public ExternalFunctionConnectorInterface1[] getFunctions() {
 		List<ExternalFunctionConnectorInterface1> functionList = new LinkedList<ExternalFunctionConnectorInterface1>();
 		functionList.add(new ExitVoidXfci1Plugin());

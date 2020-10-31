@@ -18,6 +18,11 @@ public class Float64VectorizableOperationXfci1Plugin implements ExternalFunction
 	}
 
 	@Override
+	public Class<?>[] getParameterUnconvertedClasses() {
+		return new Class<?>[] { ArrayDataContainerInterface1.class };
+	}
+
+	@Override
 	public boolean hasParameterNames() {
 		return true;
 	}
@@ -61,6 +66,11 @@ public class Float64VectorizableOperationXfci1Plugin implements ExternalFunction
 	@Override
 	public Class<?> getReturnClass(Class<?>[] parameterClasses) {
 		return parameterClasses[0];
+	}
+
+	@Override
+	public Class<?> getReturnUnconvertedClass(Class<?>[] parameterClasses) {
+		return ArrayDataContainerInterface1.class;
 	}
 
 	@Override

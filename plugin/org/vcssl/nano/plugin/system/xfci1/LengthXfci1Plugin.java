@@ -54,6 +54,12 @@ public class LengthXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 		return new Class<?>[] { Object.class, long.class };
 	}
 
+	// データの自動変換を無効化しているので、処理系とやり取りする際に使う型を返す
+	@Override
+	public Class<?>[] getParameterUnconvertedClasses() {
+		return new Class<?>[] { ArrayDataContainerInterface1.class };
+	}
+
 	@Override
 	public boolean hasParameterNames() {
 		return true;
@@ -98,6 +104,12 @@ public class LengthXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 	@Override
 	public Class<?> getReturnClass(Class<?>[] parameterClasses) {
 		return long.class;
+	}
+
+	// データの自動変換を無効化しているので、処理系とやり取りする際に使う型を返す
+	@Override
+	public Class<?> getReturnUnconvertedClass(Class<?>[] parameterClasses) {
+		return ArrayDataContainerInterface1.class;
 	}
 
 	@Override

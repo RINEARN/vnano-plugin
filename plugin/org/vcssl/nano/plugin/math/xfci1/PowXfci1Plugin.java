@@ -18,6 +18,11 @@ public class PowXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 	}
 
 	@Override
+	public Class<?>[] getParameterUnconvertedClasses() {
+		return new Class<?>[] { ArrayDataContainerInterface1.class };
+	}
+
+	@Override
 	public final boolean hasParameterNames() {
 		return true;
 	}
@@ -60,6 +65,11 @@ public class PowXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 	@Override
 	public final Class<?> getReturnClass(Class<?>[] parameterClasses) {
 		return parameterClasses[0];
+	}
+
+	@Override
+	public Class<?> getReturnUnconvertedClass(Class<?>[] parameterClasses) {
+		return ArrayDataContainerInterface1.class;
 	}
 
 	@Override

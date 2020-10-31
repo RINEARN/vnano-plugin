@@ -47,6 +47,12 @@ public class TimeXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 		return new Class<?>[0];
 	}
 
+	// データの自動変換を無効化しているので、処理系とやり取りする際に使う型を返す
+	@Override
+	public Class<?>[] getParameterUnconvertedClasses() {
+		return new Class<?>[] { ArrayDataContainerInterface1.class };
+	}
+
 	// 引数名は定義されていないので false を返す
 	@Override
 	public boolean hasParameterNames() {
@@ -99,6 +105,12 @@ public class TimeXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 	@Override
 	public Class<?> getReturnClass(Class<?>[] parameterClasses) {
 		return long.class;
+	}
+
+	// データの自動変換を無効化しているので、処理系とやり取りする際に使う型を返す
+	@Override
+	public Class<?> getReturnUnconvertedClass(Class<?>[] parameterClasses) {
+		return ArrayDataContainerInterface1.class;
 	}
 
 	// 自動変換を介さず、処理系のデータコンテナそのものを取得したいので false を返す

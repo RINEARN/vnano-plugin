@@ -5,6 +5,7 @@
 
 package org.vcssl.nano.plugin.system.xfci1;
 
+import org.vcssl.connect.ArrayDataContainerInterface1;
 import org.vcssl.connect.ConnectorException;
 import org.vcssl.connect.ConnectorPermissionName;
 import org.vcssl.connect.EngineConnectorInterface1;
@@ -56,6 +57,12 @@ public class ExitIntXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 	@Override
 	public Class<?>[] getParameterClasses() {
 		return new Class<?>[] { long.class };
+	}
+
+	// データの自動変換を有効化しているので参照されない
+	@Override
+	public Class<?>[] getParameterUnconvertedClasses() {
+		return null;
 	}
 
 	// 引数名が定義されているので true を返す
@@ -110,6 +117,12 @@ public class ExitIntXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 	@Override
 	public Class<?> getReturnClass(Class<?>[] parameterClasses) {
 		return void.class;
+	}
+
+	// データの自動変換を有効化しているので参照されない
+	@Override
+	public Class<?> getReturnUnconvertedClass(Class<?>[] parameterClasses) {
+		return null;
 	}
 
 	// データ型の自動変換機能を利用するので true を返す

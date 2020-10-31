@@ -72,7 +72,7 @@ public class SecurityPermissionAuthorizerPaci1Plugin implements PermissionAuthor
 
 
 	/**
-	 * synchronized 用のロック対象オブジェクトです。
+	 * synchronized ブロック用のロック対象オブジェクトです。
 	 */
 	private final Object lock;
 

@@ -43,6 +43,12 @@ public class InfXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 		return new Class<?>[] { double.class };
 	}
 
+	// データの自動変換を無効化しているので、処理系とやり取りする際に使う型を返す
+	@Override
+	public Class<?>[] getParameterUnconvertedClasses() {
+		return new Class<?>[] { ArrayDataContainerInterface1.class };
+	}
+
 	// 引数名が定義されているので true を返す
 	@Override
 	public boolean hasParameterNames() {
@@ -95,6 +101,12 @@ public class InfXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 	@Override
 	public Class<?> getReturnClass(Class<?>[] parameterClasses) {
 		return boolean.class;
+	}
+
+	// データの自動変換を無効化しているので、処理系とやり取りする際に使う型を返す
+	@Override
+	public Class<?> getReturnUnconvertedClass(Class<?>[] parameterClasses) {
+		return ArrayDataContainerInterface1.class;
 	}
 
 	// 自動変換を介さず、処理系のデータコンテナそのものを取得したいので false を返す

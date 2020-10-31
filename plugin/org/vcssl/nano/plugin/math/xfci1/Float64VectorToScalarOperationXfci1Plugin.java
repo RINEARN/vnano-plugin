@@ -18,6 +18,11 @@ public class Float64VectorToScalarOperationXfci1Plugin implements ExternalFuncti
 	}
 
 	@Override
+	public Class<?>[] getParameterUnconvertedClasses() {
+		return new Class<?>[] { ArrayDataContainerInterface1.class };
+	}
+
+	@Override
 	public boolean hasParameterNames() {
 		return true;
 	}
@@ -30,6 +35,11 @@ public class Float64VectorToScalarOperationXfci1Plugin implements ExternalFuncti
 	@Override
 	public Class<?> getReturnClass(Class<?>[] parameterClasses) {
 		return double.class;
+	}
+
+	@Override
+	public Class<?> getReturnUnconvertedClass(Class<?>[] parameterClasses) {
+		return ArrayDataContainerInterface1.class;
 	}
 
 	@Override

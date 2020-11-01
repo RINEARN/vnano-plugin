@@ -2,7 +2,7 @@ package org.vcssl.nano.plugin.math.xfci1;
 
 import org.vcssl.connect.ExternalFunctionConnectorInterface1;
 
-import org.vcssl.connect.ArrayDataContainerInterface1;
+import org.vcssl.connect.ArrayDataAccessorInterface1;
 import org.vcssl.connect.ConnectorException;
 
 public class PowXfci1Plugin implements ExternalFunctionConnectorInterface1 {
@@ -19,7 +19,7 @@ public class PowXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 
 	@Override
 	public Class<?>[] getParameterUnconvertedClasses() {
-		return new Class<?>[] { ArrayDataContainerInterface1.class };
+		return new Class<?>[] { ArrayDataAccessorInterface1.class };
 	}
 
 	@Override
@@ -69,7 +69,7 @@ public class PowXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 
 	@Override
 	public Class<?> getReturnUnconvertedClass(Class<?>[] parameterClasses) {
-		return ArrayDataContainerInterface1.class;
+		return ArrayDataAccessorInterface1.class;
 	}
 
 	@Override
@@ -81,22 +81,22 @@ public class PowXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 	public final Object invoke(Object[] arguments) throws ConnectorException {
 
 		// Check types of data containers.
-		if (!(arguments[0] instanceof ArrayDataContainerInterface1)
-				|| !(arguments[1] instanceof ArrayDataContainerInterface1)
-				|| !(arguments[2] instanceof ArrayDataContainerInterface1)) {
+		if (!(arguments[0] instanceof ArrayDataAccessorInterface1)
+				|| !(arguments[1] instanceof ArrayDataAccessorInterface1)
+				|| !(arguments[2] instanceof ArrayDataAccessorInterface1)) {
 			throw new ConnectorException("The type of the data container is not supported by this plug-in.");
 		}
 
 		// Check types of data in data containers, and cast data.
-		Object inputDataObject = ( (ArrayDataContainerInterface1<?>)arguments[1] ).getData();
-		Object exponentDataObject = ( (ArrayDataContainerInterface1<?>)arguments[2] ).getData();
+		Object inputDataObject = ( (ArrayDataAccessorInterface1<?>)arguments[1] ).getData();
+		Object exponentDataObject = ( (ArrayDataAccessorInterface1<?>)arguments[2] ).getData();
 		if (!(inputDataObject instanceof double[]) || !(exponentDataObject instanceof double[])) {
 			throw new ConnectorException("The data type of the argument of \"sin\" function should be \"float\" or \"double\".");
 		}
 		@SuppressWarnings("unchecked")
-		ArrayDataContainerInterface1<double[]> inputDataContainer = (ArrayDataContainerInterface1<double[]>)arguments[1];
+		ArrayDataAccessorInterface1<double[]> inputDataContainer = (ArrayDataAccessorInterface1<double[]>)arguments[1];
 		@SuppressWarnings("unchecked")
-		ArrayDataContainerInterface1<double[]> exponentDataContainer = (ArrayDataContainerInterface1<double[]>)arguments[2];
+		ArrayDataAccessorInterface1<double[]> exponentDataContainer = (ArrayDataAccessorInterface1<double[]>)arguments[2];
 		int inputDataSize = inputDataContainer.getSize();
 		int inputDataOffset = inputDataContainer.getOffset();
 		int exponentDataOffset = exponentDataContainer.getOffset();
@@ -105,7 +105,7 @@ public class PowXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 
 		// Get or allocate output data
 		@SuppressWarnings("unchecked")
-		ArrayDataContainerInterface1<double[]> outputDataContainer = (ArrayDataContainerInterface1<double[]>)arguments[0];
+		ArrayDataAccessorInterface1<double[]> outputDataContainer = (ArrayDataAccessorInterface1<double[]>)arguments[0];
 		double[] outputData = outputDataContainer.getData();
 		int outputDataSize = outputDataContainer.getSize();
 		int outputDataOffset = outputDataContainer.getOffset();

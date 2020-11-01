@@ -5,7 +5,6 @@
 
 package org.vcssl.nano.plugin.system.xfci1;
 
-import org.vcssl.connect.ArrayDataContainerInterface1;
 import org.vcssl.connect.ConnectorException;
 import org.vcssl.connect.ExternalFunctionConnectorInterface1;
 

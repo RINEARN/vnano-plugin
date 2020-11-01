@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.vcssl.connect.ArrayDataContainerInterface1;
+import org.vcssl.connect.ArrayDataAccessorInterface1;
 import org.vcssl.connect.ConnectorException;
 import org.vcssl.connect.ExternalFunctionConnectorInterface1;
 
@@ -55,8 +55,8 @@ public class SumXfci1PluginTest {
 		// 入出力データを用意
 		DataContainer<double[]> inputDataContainer = new DataContainer<double[]>();
 		DataContainer<double[]> outputDataContainer = new DataContainer<double[]>();
-		inputDataContainer.setData(new double[] { 1.23 }, 0, ArrayDataContainerInterface1.SCALAR_LENGTHS);
-		outputDataContainer.setData(new double[] { 0.0 }, 0, ArrayDataContainerInterface1.SCALAR_LENGTHS);
+		inputDataContainer.setData(new double[] { 1.23 }, 0, ArrayDataAccessorInterface1.SCALAR_LENGTHS);
+		outputDataContainer.setData(new double[] { 0.0 }, 0, ArrayDataAccessorInterface1.SCALAR_LENGTHS);
 
 		// Operate data
 		// 演算を実行
@@ -88,9 +88,9 @@ public class SumXfci1PluginTest {
 		DataContainer<double[]> inputDataContainer1 = new DataContainer<double[]>();
 		DataContainer<double[]> inputDataContainer2 = new DataContainer<double[]>();
 		DataContainer<double[]> outputDataContainer = new DataContainer<double[]>();
-		inputDataContainer1.setData(new double[] { 1.23 }, 0, ArrayDataContainerInterface1.SCALAR_LENGTHS);
-		inputDataContainer2.setData(new double[] { 4.56 }, 0, ArrayDataContainerInterface1.SCALAR_LENGTHS);
-		outputDataContainer.setData(new double[] { 0.0 }, 0, ArrayDataContainerInterface1.SCALAR_LENGTHS);
+		inputDataContainer1.setData(new double[] { 1.23 }, 0, ArrayDataAccessorInterface1.SCALAR_LENGTHS);
+		inputDataContainer2.setData(new double[] { 4.56 }, 0, ArrayDataAccessorInterface1.SCALAR_LENGTHS);
+		outputDataContainer.setData(new double[] { 0.0 }, 0, ArrayDataAccessorInterface1.SCALAR_LENGTHS);
 
 		// Operate data
 		// 演算を実行
@@ -123,10 +123,10 @@ public class SumXfci1PluginTest {
 		DataContainer<double[]> inputDataContainer2 = new DataContainer<double[]>();
 		DataContainer<double[]> inputDataContainer3 = new DataContainer<double[]>();
 		DataContainer<double[]> outputDataContainer = new DataContainer<double[]>();
-		inputDataContainer1.setData(new double[] { 1.23 }, 0, ArrayDataContainerInterface1.SCALAR_LENGTHS);
-		inputDataContainer2.setData(new double[] { 4.56 }, 0, ArrayDataContainerInterface1.SCALAR_LENGTHS);
-		inputDataContainer3.setData(new double[] { 7.89 }, 0, ArrayDataContainerInterface1.SCALAR_LENGTHS);
-		outputDataContainer.setData(new double[] { 0.0 }, 0, ArrayDataContainerInterface1.SCALAR_LENGTHS);
+		inputDataContainer1.setData(new double[] { 1.23 }, 0, ArrayDataAccessorInterface1.SCALAR_LENGTHS);
+		inputDataContainer2.setData(new double[] { 4.56 }, 0, ArrayDataAccessorInterface1.SCALAR_LENGTHS);
+		inputDataContainer3.setData(new double[] { 7.89 }, 0, ArrayDataAccessorInterface1.SCALAR_LENGTHS);
+		outputDataContainer.setData(new double[] { 0.0 }, 0, ArrayDataAccessorInterface1.SCALAR_LENGTHS);
 
 		// Operate data
 		// 演算を実行
@@ -164,10 +164,10 @@ public class SumXfci1PluginTest {
 		int inputDataOffset2 = 1;
 		int inputDataOffset3 = 2;
 		int outputDataOffset = 2;
-		inputDataContainer1.setData(new double[] { 1.23, 4.56, 7.89 }, inputDataOffset1, ArrayDataContainerInterface1.SCALAR_LENGTHS);
-		inputDataContainer2.setData(new double[] { 1.23, 4.56, 7.89 }, inputDataOffset2, ArrayDataContainerInterface1.SCALAR_LENGTHS);
-		inputDataContainer3.setData(new double[] { 1.23, 4.56, 7.89 }, inputDataOffset3, ArrayDataContainerInterface1.SCALAR_LENGTHS);
-		outputDataContainer.setData(new double[] { 0.0, 0.0, 0.0 }, outputDataOffset, ArrayDataContainerInterface1.SCALAR_LENGTHS);
+		inputDataContainer1.setData(new double[] { 1.23, 4.56, 7.89 }, inputDataOffset1, ArrayDataAccessorInterface1.SCALAR_LENGTHS);
+		inputDataContainer2.setData(new double[] { 1.23, 4.56, 7.89 }, inputDataOffset2, ArrayDataAccessorInterface1.SCALAR_LENGTHS);
+		inputDataContainer3.setData(new double[] { 1.23, 4.56, 7.89 }, inputDataOffset3, ArrayDataAccessorInterface1.SCALAR_LENGTHS);
+		outputDataContainer.setData(new double[] { 0.0, 0.0, 0.0 }, outputDataOffset, ArrayDataAccessorInterface1.SCALAR_LENGTHS);
 
 		// Operate data
 		// 演算を実行

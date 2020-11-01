@@ -11,7 +11,7 @@ import java.math.RoundingMode;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.vcssl.connect.ArrayDataContainerInterface1;
+import org.vcssl.connect.ArrayDataAccessorInterface1;
 import org.vcssl.connect.ConnectorException;
 import org.vcssl.connect.ExternalFunctionConnectorInterface1;
 
@@ -64,8 +64,8 @@ public class DegXfci1PluginTest {
 		// 入出力データを用意
 		DataContainer<double[]> inputDataContainer = new DataContainer<double[]>();
 		DataContainer<double[]> outputDataContainer = new DataContainer<double[]>();
-		inputDataContainer.setData(new double[] { Math.PI }, 0, ArrayDataContainerInterface1.SCALAR_LENGTHS);
-		outputDataContainer.setData(new double[] { 0.0 }, 0, ArrayDataContainerInterface1.SCALAR_LENGTHS);
+		inputDataContainer.setData(new double[] { Math.PI }, 0, ArrayDataAccessorInterface1.SCALAR_LENGTHS);
+		outputDataContainer.setData(new double[] { 0.0 }, 0, ArrayDataAccessorInterface1.SCALAR_LENGTHS);
 
 		// Operate data
 		// 演算を実行
@@ -220,8 +220,8 @@ public class DegXfci1PluginTest {
 		DataContainer<double[]> outputDataContainer = new DataContainer<double[]>();
 		int inputDataOffset = 1;
 		int outputDataOffset = 2;
-		inputDataContainer.setData(new double[] { Math.PI, 2*Math.PI, 3*Math.PI }, inputDataOffset, ArrayDataContainerInterface1.SCALAR_LENGTHS);
-		outputDataContainer.setData(new double[] { 0.0, 0.0, 0.0 }, outputDataOffset, ArrayDataContainerInterface1.SCALAR_LENGTHS);
+		inputDataContainer.setData(new double[] { Math.PI, 2*Math.PI, 3*Math.PI }, inputDataOffset, ArrayDataAccessorInterface1.SCALAR_LENGTHS);
+		outputDataContainer.setData(new double[] { 0.0, 0.0, 0.0 }, outputDataOffset, ArrayDataAccessorInterface1.SCALAR_LENGTHS);
 
 		// Operate data
 		// 演算を実行

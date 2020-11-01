@@ -2,7 +2,7 @@ package org.vcssl.nano.plugin.math.xfci1;
 
 import org.vcssl.connect.ExternalFunctionConnectorInterface1;
 
-import org.vcssl.connect.ArrayDataContainerInterface1;
+import org.vcssl.connect.ArrayDataAccessorInterface1;
 import org.vcssl.connect.ConnectorException;
 
 public class Float64VectorizableOperationXfci1Plugin implements ExternalFunctionConnectorInterface1 {
@@ -19,7 +19,7 @@ public class Float64VectorizableOperationXfci1Plugin implements ExternalFunction
 
 	@Override
 	public Class<?>[] getParameterUnconvertedClasses() {
-		return new Class<?>[] { ArrayDataContainerInterface1.class };
+		return new Class<?>[] { ArrayDataAccessorInterface1.class };
 	}
 
 	@Override
@@ -70,7 +70,7 @@ public class Float64VectorizableOperationXfci1Plugin implements ExternalFunction
 
 	@Override
 	public Class<?> getReturnUnconvertedClass(Class<?>[] parameterClasses) {
-		return ArrayDataContainerInterface1.class;
+		return ArrayDataAccessorInterface1.class;
 	}
 
 	@Override
@@ -82,13 +82,13 @@ public class Float64VectorizableOperationXfci1Plugin implements ExternalFunction
 	public Object invoke(Object[] arguments) throws ConnectorException {
 
 		// Check types of data containers.
-		if (!(arguments[0] instanceof ArrayDataContainerInterface1) || !(arguments[1] instanceof ArrayDataContainerInterface1)) {
+		if (!(arguments[0] instanceof ArrayDataAccessorInterface1) || !(arguments[1] instanceof ArrayDataAccessorInterface1)) {
 			throw new ConnectorException("The type of the data container is not supported by this plug-in.");
 		}
 
 		// Check types of stored data.
-		Object inputDataObject = ( (ArrayDataContainerInterface1<?> )arguments[1]).getData();
-		Object outputDataObject = ( (ArrayDataContainerInterface1<?> )arguments[0]).getData(); // データ型変換無効化時は [0] が戻り値格納用
+		Object inputDataObject = ( (ArrayDataAccessorInterface1<?> )arguments[1]).getData();
+		Object outputDataObject = ( (ArrayDataAccessorInterface1<?> )arguments[0]).getData(); // データ型変換無効化時は [0] が戻り値格納用
 		if (!( inputDataObject instanceof double[] )) {
 			throw new ConnectorException("The data type of the argument of this function should be \"float\" or \"double\".");
 		}
@@ -97,9 +97,9 @@ public class Float64VectorizableOperationXfci1Plugin implements ExternalFunction
 		}
 
 		@SuppressWarnings("unchecked")
-		ArrayDataContainerInterface1<double[]> inputDataContainer = (ArrayDataContainerInterface1<double[]>)arguments[1];
+		ArrayDataAccessorInterface1<double[]> inputDataContainer = (ArrayDataAccessorInterface1<double[]>)arguments[1];
 		@SuppressWarnings("unchecked")
-		ArrayDataContainerInterface1<double[]> outputDataContainer = (ArrayDataContainerInterface1<double[]>)arguments[0];
+		ArrayDataAccessorInterface1<double[]> outputDataContainer = (ArrayDataAccessorInterface1<double[]>)arguments[0];
 
 		// Get or allocate input data
 		double[] inputData = (double[])inputDataContainer.getData();

@@ -7,7 +7,7 @@ package org.vcssl.nano.plugin.system.xfci1;
 
 import java.util.Locale;
 
-import org.vcssl.connect.ArrayDataContainerInterface1;
+import org.vcssl.connect.ArrayDataAccessorInterface1;
 import org.vcssl.connect.ConnectorException;
 import org.vcssl.connect.EngineConnectorInterface1;
 import org.vcssl.connect.ExternalFunctionConnectorInterface1;
@@ -67,7 +67,7 @@ public class AssertXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 	// データの自動変換を無効化しているので、処理系とやり取りする際に使う型を返す
 	@Override
 	public Class<?>[] getParameterUnconvertedClasses() {
-		return new Class<?>[] { ArrayDataContainerInterface1.class };
+		return new Class<?>[] { ArrayDataAccessorInterface1.class };
 	}
 
 	// 引数名が定義されているので true を返す
@@ -127,7 +127,7 @@ public class AssertXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 	// データの自動変換を無効化しているので、処理系とやり取りする際に使う型を返す
 	@Override
 	public Class<?> getReturnUnconvertedClass(Class<?>[] parameterClasses) {
-		return ArrayDataContainerInterface1.class;
+		return ArrayDataAccessorInterface1.class;
 	}
 
 	// 自動変換を介さず、処理系のデータコンテナそのものを取得したいので false を返す
@@ -143,7 +143,7 @@ public class AssertXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 		// ※ データ変換を無効化している場合、arguments[0] は戻り値格納用で、arguments[1] が最初の引数
 
 		// データ変換を無効化しているため、処理系依存のデータコンテナそのものを扱う必要があるため、まずその互換性を検査
-		if (!(arguments[1] instanceof ArrayDataContainerInterface1)) {
+		if (!(arguments[1] instanceof ArrayDataAccessorInterface1)) {
 			throw new ConnectorException(
 				"The type of the data container \"" +
 				arguments[1].getClass().getCanonicalName() +
@@ -153,7 +153,7 @@ public class AssertXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 
 		// データコンテナの型に変換（型パラメータは、このクラスの型宣言メソッドが正しく認識されていれば合っているはず）
 		@SuppressWarnings("unchecked")
-		ArrayDataContainerInterface1<boolean[]> inputDataContainer = (ArrayDataContainerInterface1<boolean[]>)arguments[1];
+		ArrayDataAccessorInterface1<boolean[]> inputDataContainer = (ArrayDataAccessorInterface1<boolean[]>)arguments[1];
 
 		// 引数データコンテナから値を取り出す（ getData() の戻り値は常に1次元配列で、スカラの場合は getOffset() 番目に値が格納されている ）
 		boolean inputValue = inputDataContainer.getData()[ inputDataContainer.getOffset() ];

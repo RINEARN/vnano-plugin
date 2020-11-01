@@ -5,7 +5,7 @@
 
 package org.vcssl.nano.plugin.system.xfci1;
 
-import org.vcssl.connect.ArrayDataContainerInterface1;
+import org.vcssl.connect.ArrayDataAccessorInterface1;
 import org.vcssl.connect.ConnectorException;
 import org.vcssl.connect.ExternalFunctionConnectorInterface1;
 
@@ -46,7 +46,7 @@ public class NanXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 	// データの自動変換を無効化しているので、処理系とやり取りする際に使う型を返す
 	@Override
 	public Class<?>[] getParameterUnconvertedClasses() {
-		return new Class<?>[] { ArrayDataContainerInterface1.class };
+		return new Class<?>[] { ArrayDataAccessorInterface1.class };
 	}
 
 	// 引数名が定義されているので true を返す
@@ -106,7 +106,7 @@ public class NanXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 	// データの自動変換を無効化しているので、処理系とやり取りする際に使う型を返す
 	@Override
 	public Class<?> getReturnUnconvertedClass(Class<?>[] parameterClasses) {
-		return ArrayDataContainerInterface1.class;
+		return ArrayDataAccessorInterface1.class;
 	}
 
 	// 自動変換を介さず、処理系のデータコンテナそのものを取得したいので false を返す
@@ -124,7 +124,7 @@ public class NanXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 		// データ変換を無効化しているため、処理系依存のデータコンテナそのものを扱う必要があるため、まずその互換性を検査
 		int argLength = arguments.length;
 		for (int argIndex=0; argIndex<argLength; argIndex++) {
-			if (!(arguments[argIndex] instanceof ArrayDataContainerInterface1)) {
+			if (!(arguments[argIndex] instanceof ArrayDataAccessorInterface1)) {
 				throw new ConnectorException(
 					"The type of the data container \"" +
 					arguments[argIndex].getClass().getCanonicalName() +
@@ -135,13 +135,13 @@ public class NanXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 
 		// データコンテナの型に変換（型パラメータは、このクラスの型宣言メソッドが正しく認識されていれば合っているはず）
 		@SuppressWarnings("unchecked")
-		ArrayDataContainerInterface1<boolean[]> outputDataContainer = (ArrayDataContainerInterface1<boolean[]>)arguments[0];
+		ArrayDataAccessorInterface1<boolean[]> outputDataContainer = (ArrayDataAccessorInterface1<boolean[]>)arguments[0];
 		@SuppressWarnings("unchecked")
-		ArrayDataContainerInterface1<double[]> inputDataContainer = (ArrayDataContainerInterface1<double[]>)arguments[1];
+		ArrayDataAccessorInterface1<double[]> inputDataContainer = (ArrayDataAccessorInterface1<double[]>)arguments[1];
 
 		// 戻り値格納用データコンテナのデータ領域が未確保なら確保する
 		if (outputDataContainer.getData() == null) {
-			outputDataContainer.setData(new boolean[1], 0, ArrayDataContainerInterface1.SCALAR_LENGTHS);
+			outputDataContainer.setData(new boolean[1], 0, ArrayDataAccessorInterface1.SCALAR_LENGTHS);
 		}
 
 		// 引数データコンテナから値を取り出す（ getData() の戻り値は常に1次元配列で、スカラの場合は getOffset() 番目に値が格納されている ）

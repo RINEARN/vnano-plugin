@@ -2,7 +2,7 @@ package org.vcssl.nano.plugin.math.xfci1;
 
 import org.vcssl.connect.ExternalFunctionConnectorInterface1;
 
-import org.vcssl.connect.ArrayDataContainerInterface1;
+import org.vcssl.connect.ArrayDataAccessorInterface1;
 import org.vcssl.connect.ConnectorException;
 
 public class Float64VectorToScalarOperationXfci1Plugin implements ExternalFunctionConnectorInterface1 {
@@ -19,7 +19,7 @@ public class Float64VectorToScalarOperationXfci1Plugin implements ExternalFuncti
 
 	@Override
 	public Class<?>[] getParameterUnconvertedClasses() {
-		return new Class<?>[] { ArrayDataContainerInterface1.class };
+		return new Class<?>[] { ArrayDataAccessorInterface1.class };
 	}
 
 	@Override
@@ -39,7 +39,7 @@ public class Float64VectorToScalarOperationXfci1Plugin implements ExternalFuncti
 
 	@Override
 	public Class<?> getReturnUnconvertedClass(Class<?>[] parameterClasses) {
-		return ArrayDataContainerInterface1.class;
+		return ArrayDataAccessorInterface1.class;
 	}
 
 	@Override
@@ -83,14 +83,14 @@ public class Float64VectorToScalarOperationXfci1Plugin implements ExternalFuncti
 
 		// Check types of data containers.
 		for (Object arg: arguments) {
-			if (!(arg instanceof ArrayDataContainerInterface1)) {
+			if (!(arg instanceof ArrayDataAccessorInterface1)) {
 				throw new ConnectorException("The type of the data container is not supported by this plug-in.");
 			}
 		}
 
 		// Get or allocate output data
 		@SuppressWarnings("unchecked")
-		ArrayDataContainerInterface1<double[]> outputDataContainer = (ArrayDataContainerInterface1<double[]>)arguments[0];
+		ArrayDataAccessorInterface1<double[]> outputDataContainer = (ArrayDataAccessorInterface1<double[]>)arguments[0];
 		int outputDataOffset = outputDataContainer.getOffset();
 		double[] outputData = outputDataContainer.getData();
 		if (outputData == null || outputDataContainer.getSize() != 1) {
@@ -103,7 +103,7 @@ public class Float64VectorToScalarOperationXfci1Plugin implements ExternalFuncti
 		double[] inputData = new double[inputArgN];
 		for (int inputArgIndex=0; inputArgIndex<inputArgN; inputArgIndex++) {
 			int argIndex = inputArgIndex + 1;
-			ArrayDataContainerInterface1<?> inputDataContainer = (ArrayDataContainerInterface1<?>)arguments[argIndex];
+			ArrayDataAccessorInterface1<?> inputDataContainer = (ArrayDataAccessorInterface1<?>)arguments[argIndex];
 			Object inputDataObject = inputDataContainer.getData();
 			int inputDataOffset = inputDataContainer.getOffset();
 			if (!(inputDataObject instanceof double[])) {
@@ -116,7 +116,7 @@ public class Float64VectorToScalarOperationXfci1Plugin implements ExternalFuncti
 		this.operate(outputData, inputData, outputDataOffset);
 
 		// Store result data
-		outputDataContainer.setData(outputData, outputDataOffset, ArrayDataContainerInterface1.SCALAR_LENGTHS);
+		outputDataContainer.setData(outputData, outputDataOffset, ArrayDataAccessorInterface1.SCALAR_LENGTHS);
 
 		return null;
 	}

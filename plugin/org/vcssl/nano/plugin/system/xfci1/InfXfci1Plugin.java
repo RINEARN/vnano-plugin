@@ -140,18 +140,18 @@ public class InfXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 		ArrayDataAccessorInterface1<double[]> inputDataContainer = (ArrayDataAccessorInterface1<double[]>)arguments[1];
 
 		// 戻り値格納用データコンテナのデータ領域が未確保なら確保する
-		if (outputDataContainer.getData() == null) {
-			outputDataContainer.setData(new boolean[1], 0, ArrayDataAccessorInterface1.SCALAR_LENGTHS);
+		if (outputDataContainer.getArrayData() == null) {
+			outputDataContainer.setArrayData(new boolean[1], 0, ArrayDataAccessorInterface1.ARRAY_LENGTHS_OF_SCALAR);
 		}
 
 		// 引数データコンテナから値を取り出す（ getData() の戻り値は常に1次元配列で、スカラの場合は getOffset() 番目に値が格納されている ）
-		double inputValue = inputDataContainer.getData()[ inputDataContainer.getOffset() ];
+		double inputValue = inputDataContainer.getArrayData()[ inputDataContainer.getArrayOffset() ];
 
 		// 無限大かどうか確認する
 		boolean isInf = Double.isInfinite(inputValue);
 
 		// 結果を戻り値データコンテナに格納する
-		outputDataContainer.getData()[ outputDataContainer.getOffset() ] = isInf;
+		outputDataContainer.getArrayData()[ outputDataContainer.getArrayOffset() ] = isInf;
 
 		// 自動データ型変換を無効化している場合は、戻り値は arguments[0] に格納するため、メソッドの戻り値としては何も返さない
 		return null;

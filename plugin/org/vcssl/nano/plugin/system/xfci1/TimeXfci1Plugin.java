@@ -139,15 +139,15 @@ public class TimeXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 		ArrayDataAccessorInterface1<long[]> outputDataContainer = (ArrayDataAccessorInterface1<long[]>)arguments[0];
 
 		// 戻り値格納用データコンテナのデータ領域が未確保なら確保する
-		if (outputDataContainer.getData() == null) {
-			outputDataContainer.setData(new long[1], 0, ArrayDataAccessorInterface1.SCALAR_LENGTHS);
+		if (outputDataContainer.getArrayData() == null) {
+			outputDataContainer.setArrayData(new long[1], 0, ArrayDataAccessorInterface1.ARRAY_LENGTHS_OF_SCALAR);
 		}
 
 		// 現在の時刻を取得し、ミリ秒に変換
 		long currentMilliTime = (System.nanoTime() - this.initialNanoTime) / 1000000L;
 
 		// 結果を戻り値データコンテナに格納する
-		outputDataContainer.getData()[ outputDataContainer.getOffset() ] = currentMilliTime;
+		outputDataContainer.getArrayData()[ outputDataContainer.getArrayOffset() ] = currentMilliTime;
 
 		// 自動データ型変換を無効化している場合は、戻り値は arguments[0] に格納するため、メソッドの戻り値としては何も返さない
 		return null;

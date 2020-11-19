@@ -177,9 +177,9 @@ public class PrintXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 			ArrayDataAccessorInterface1<?> inputDataContainer = (ArrayDataAccessorInterface1<?>) arguments[argIndex];
 
 			// データコンテナの格納データ、要素数、要素格納位置を取得
-			Object inputDataObject = ( (ArrayDataAccessorInterface1<?>)arguments[argIndex] ).getData();
-			int inputDataSize = inputDataContainer.getSize();
-			int inputDataOffset = inputDataContainer.getOffset();
+			Object inputDataObject = ( (ArrayDataAccessorInterface1<?>)arguments[argIndex] ).getArrayData();
+			int inputDataSize = inputDataContainer.getArraySize();
+			int inputDataOffset = inputDataContainer.getArrayOffset();
 
 			// ArrayDataContainerInterface1 型のデータコンテナでは、
 			// スクリプト上での配列次元数に関わらず、全てのデータは1次元配列として保持される。

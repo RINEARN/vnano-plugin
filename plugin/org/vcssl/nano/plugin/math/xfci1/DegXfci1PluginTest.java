@@ -64,8 +64,8 @@ public class DegXfci1PluginTest {
 		// 入出力データを用意
 		DataContainer<double[]> inputDataContainer = new DataContainer<double[]>();
 		DataContainer<double[]> outputDataContainer = new DataContainer<double[]>();
-		inputDataContainer.setData(new double[] { Math.PI }, 0, ArrayDataAccessorInterface1.SCALAR_LENGTHS);
-		outputDataContainer.setData(new double[] { 0.0 }, 0, ArrayDataAccessorInterface1.SCALAR_LENGTHS);
+		inputDataContainer.setArrayData(new double[] { Math.PI }, 0, ArrayDataAccessorInterface1.ARRAY_LENGTHS_OF_SCALAR);
+		outputDataContainer.setArrayData(new double[] { 0.0 }, 0, ArrayDataAccessorInterface1.ARRAY_LENGTHS_OF_SCALAR);
 
 		// Operate data
 		// 演算を実行
@@ -73,12 +73,12 @@ public class DegXfci1PluginTest {
 
 		// Check dimensions of the operation result
 		// 演算結果の次元を確認
-		assertEquals(RANK_OF_SCALAR, outputDataContainer.getRank());
-		assertEquals(0, outputDataContainer.getLengths().length);
+		assertEquals(RANK_OF_SCALAR, outputDataContainer.getArrayRank());
+		assertEquals(0, outputDataContainer.getArrayLengths().length);
 
 		// Get result data in data container, and check its length
 		// 演算結果のデータを取り出し、データ長を確認
-		double[] resultData = outputDataContainer.getData();
+		double[] resultData = outputDataContainer.getArrayData();
 		assertEquals(1, resultData.length);
 
 		// Check result value
@@ -99,8 +99,8 @@ public class DegXfci1PluginTest {
 		DataContainer<double[]> outputDataContainer = new DataContainer<double[]>();
 		int[] inputArrayLengths = new int[] { 3 };
 		int[] outputArrayLengths = new int[] { 3 };
-		inputDataContainer.setData(new double[] { Math.PI, Math.PI/2, Math.PI/3 }, 0, inputArrayLengths);
-		outputDataContainer.setData(new double[] { 0.0, 0.0, 0.0 }, 0, outputArrayLengths);
+		inputDataContainer.setArrayData(new double[] { Math.PI, Math.PI/2, Math.PI/3 }, 0, inputArrayLengths);
+		outputDataContainer.setArrayData(new double[] { 0.0, 0.0, 0.0 }, 0, outputArrayLengths);
 
 		// Operate data
 		// 演算を実行
@@ -108,13 +108,13 @@ public class DegXfci1PluginTest {
 
 		// Check dimensions of the operation result
 		// 演算結果の次元を確認
-		assertEquals(1, outputDataContainer.getRank());
-		assertEquals(1, outputDataContainer.getLengths().length);
-		assertEquals(3, outputDataContainer.getLengths()[0]);
+		assertEquals(1, outputDataContainer.getArrayRank());
+		assertEquals(1, outputDataContainer.getArrayLengths().length);
+		assertEquals(3, outputDataContainer.getArrayLengths()[0]);
 
 		// Get result data in data container, and check its length
 		// 演算結果のデータを取り出し、データ長を確認
-		double[] resultData = outputDataContainer.getData();
+		double[] resultData = outputDataContainer.getArrayData();
 		assertEquals(3, resultData.length);
 
 		Double expected;
@@ -150,8 +150,8 @@ public class DegXfci1PluginTest {
 		DataContainer<double[]> outputDataContainer = new DataContainer<double[]>();
 		int[] inputArrayLengths = new int[] { 2, 3 };
 		int[] outputArrayLengths = new int[] { 2, 3 };
-		inputDataContainer.setData(new double[] { 2*Math.PI, 3*Math.PI/2, Math.PI, Math.PI/2, Math.PI/3, Math.PI/6 }, 0, inputArrayLengths);
-		outputDataContainer.setData(new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 }, 0, outputArrayLengths);
+		inputDataContainer.setArrayData(new double[] { 2*Math.PI, 3*Math.PI/2, Math.PI, Math.PI/2, Math.PI/3, Math.PI/6 }, 0, inputArrayLengths);
+		outputDataContainer.setArrayData(new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 }, 0, outputArrayLengths);
 
 		// Operate data
 		// 演算を実行
@@ -159,14 +159,14 @@ public class DegXfci1PluginTest {
 
 		// Check dimensions of the operation result
 		// 演算結果の次元を確認
-		assertEquals(2, outputDataContainer.getRank());
-		assertEquals(2, outputDataContainer.getLengths().length);
-		assertEquals(2, outputDataContainer.getLengths()[0]);
-		assertEquals(3, outputDataContainer.getLengths()[1]);
+		assertEquals(2, outputDataContainer.getArrayRank());
+		assertEquals(2, outputDataContainer.getArrayLengths().length);
+		assertEquals(2, outputDataContainer.getArrayLengths()[0]);
+		assertEquals(3, outputDataContainer.getArrayLengths()[1]);
 
 		// Get result data in data container, and check its length
 		// 演算結果のデータを取り出し、データ長を確認
-		double[] resultData = outputDataContainer.getData();
+		double[] resultData = outputDataContainer.getArrayData();
 		assertEquals(2*3, resultData.length);
 
 		Double expected;
@@ -220,8 +220,8 @@ public class DegXfci1PluginTest {
 		DataContainer<double[]> outputDataContainer = new DataContainer<double[]>();
 		int inputDataOffset = 1;
 		int outputDataOffset = 2;
-		inputDataContainer.setData(new double[] { Math.PI, 2*Math.PI, 3*Math.PI }, inputDataOffset, ArrayDataAccessorInterface1.SCALAR_LENGTHS);
-		outputDataContainer.setData(new double[] { 0.0, 0.0, 0.0 }, outputDataOffset, ArrayDataAccessorInterface1.SCALAR_LENGTHS);
+		inputDataContainer.setArrayData(new double[] { Math.PI, 2*Math.PI, 3*Math.PI }, inputDataOffset, ArrayDataAccessorInterface1.ARRAY_LENGTHS_OF_SCALAR);
+		outputDataContainer.setArrayData(new double[] { 0.0, 0.0, 0.0 }, outputDataOffset, ArrayDataAccessorInterface1.ARRAY_LENGTHS_OF_SCALAR);
 
 		// Operate data
 		// 演算を実行
@@ -229,15 +229,15 @@ public class DegXfci1PluginTest {
 
 		// Check dimensions of the operation result
 		// 演算結果の次元を確認
-		assertEquals(0, outputDataContainer.getRank());
-		assertEquals(0, outputDataContainer.getLengths().length);
+		assertEquals(0, outputDataContainer.getArrayRank());
+		assertEquals(0, outputDataContainer.getArrayLengths().length);
 
 		// Get result data in data container, and check its length
 		// 演算結果のデータを取り出し、データ長や使用サイズ、格納位置などを確認
-		double[] resultData = outputDataContainer.getData();
-		int resultDataSize = outputDataContainer.getSize();
-		int resultDataOffset = outputDataContainer.getOffset();
-		int resultDataRank = outputDataContainer.getRank();
+		double[] resultData = outputDataContainer.getArrayData();
+		int resultDataSize = outputDataContainer.getArraySize();
+		int resultDataOffset = outputDataContainer.getArrayOffset();
+		int resultDataRank = outputDataContainer.getArrayRank();
 		assertEquals(3, resultData.length); // 変わっていないはず
 		assertEquals(1, resultDataSize); // スカラなので1のはず
 		assertEquals(0, resultDataRank); // スカラなので0のはず

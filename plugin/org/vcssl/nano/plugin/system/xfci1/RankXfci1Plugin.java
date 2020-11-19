@@ -112,17 +112,17 @@ public class RankXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 
 		// Get rank of the array argument
 		ArrayDataAccessorInterface1<?> arrayArgDataContainer = (ArrayDataAccessorInterface1<?>)arguments[1];
-		int rank = arrayArgDataContainer.getRank();
+		int rank = arrayArgDataContainer.getArrayRank();
 
 		// Get or allocate output data
 		@SuppressWarnings("unchecked")
 		ArrayDataAccessorInterface1<long[]> outputContainer = (ArrayDataAccessorInterface1<long[]>)arguments[0];
-		Object outputDataObject = outputContainer.getData();
+		Object outputDataObject = outputContainer.getArrayData();
 		long[] outputData = null;
 		int outputOffset = -1;
-		if (outputContainer.getRank() == 0 && outputDataObject instanceof long[] && 1 <= ((long[])outputDataObject).length) {
+		if (outputContainer.getArrayRank() == 0 && outputDataObject instanceof long[] && 1 <= ((long[])outputDataObject).length) {
 			outputData = (long[])outputDataObject;
-			outputOffset = outputContainer.getOffset();
+			outputOffset = outputContainer.getArrayOffset();
 		} else {
 			outputData = new long[ 1 ];
 			outputOffset = 0;
@@ -133,7 +133,7 @@ public class RankXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 
 		@SuppressWarnings("unchecked")
 		ArrayDataAccessorInterface1<long[]> outputDataContainer = (ArrayDataAccessorInterface1<long[]>)arguments[0];
-		outputDataContainer.setData(outputData, outputOffset, ArrayDataAccessorInterface1.SCALAR_LENGTHS);
+		outputDataContainer.setArrayData(outputData, outputOffset, ArrayDataAccessorInterface1.ARRAY_LENGTHS_OF_SCALAR);
 
 		return null;
 	}

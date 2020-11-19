@@ -87,8 +87,8 @@ public class Float64VectorizableOperationXfci1Plugin implements ExternalFunction
 		}
 
 		// Check types of stored data.
-		Object inputDataObject = ( (ArrayDataAccessorInterface1<?> )arguments[1]).getData();
-		Object outputDataObject = ( (ArrayDataAccessorInterface1<?> )arguments[0]).getData(); // データ型変換無効化時は [0] が戻り値格納用
+		Object inputDataObject = ( (ArrayDataAccessorInterface1<?> )arguments[1]).getArrayData();
+		Object outputDataObject = ( (ArrayDataAccessorInterface1<?> )arguments[0]).getArrayData(); // データ型変換無効化時は [0] が戻り値格納用
 		if (!( inputDataObject instanceof double[] )) {
 			throw new ConnectorException("The data type of the argument of this function should be \"float\" or \"double\".");
 		}
@@ -102,14 +102,14 @@ public class Float64VectorizableOperationXfci1Plugin implements ExternalFunction
 		ArrayDataAccessorInterface1<double[]> outputDataContainer = (ArrayDataAccessorInterface1<double[]>)arguments[0];
 
 		// Get or allocate input data
-		double[] inputData = (double[])inputDataContainer.getData();
-		int inputDataOffset = inputDataContainer.getOffset();
-		int inputDataSize = inputDataContainer.getSize();
+		double[] inputData = (double[])inputDataContainer.getArrayData();
+		int inputDataOffset = inputDataContainer.getArrayOffset();
+		int inputDataSize = inputDataContainer.getArraySize();
 
 		// Get or allocate output data
-		double[] outputData = outputDataContainer.getData();
-		int outputDataOffset = outputDataContainer.getOffset();
-		int outputDataSize = outputDataContainer.getSize();
+		double[] outputData = outputDataContainer.getArrayData();
+		int outputDataOffset = outputDataContainer.getArrayOffset();
+		int outputDataSize = outputDataContainer.getArraySize();
 		if (outputDataObject == null || outputDataSize != inputDataSize) {
 			outputData = new double[ inputDataSize ];
 			outputDataSize = inputDataSize;
@@ -120,9 +120,9 @@ public class Float64VectorizableOperationXfci1Plugin implements ExternalFunction
 		this.operate(outputData, inputData, outputDataOffset, inputDataOffset, inputDataSize);
 
 		// Store result data
-		int[] outputDataLengths = new int[ inputDataContainer.getRank() ];
-		System.arraycopy(inputDataContainer.getLengths(), 0, outputDataLengths, 0, inputDataContainer.getRank());
-		outputDataContainer.setData(outputData, outputDataOffset, outputDataLengths);
+		int[] outputDataLengths = new int[ inputDataContainer.getArrayRank() ];
+		System.arraycopy(inputDataContainer.getArrayLengths(), 0, outputDataLengths, 0, inputDataContainer.getArrayRank());
+		outputDataContainer.setArrayData(outputData, outputDataOffset, outputDataLengths);
 
 		return null;
 	}

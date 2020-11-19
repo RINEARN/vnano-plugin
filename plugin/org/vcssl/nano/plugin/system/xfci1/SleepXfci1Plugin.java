@@ -135,7 +135,7 @@ public class SleepXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 		ArrayDataAccessorInterface1<long[]> inputDataContainer = (ArrayDataAccessorInterface1<long[]>)arguments[1];
 
 		// 引数データコンテナから値を取り出す（ getData() の戻り値は常に1次元配列で、スカラの場合は getOffset() 番目に値が格納されている ）
-		long inputValue = inputDataContainer.getData()[ inputDataContainer.getOffset() ];
+		long inputValue = inputDataContainer.getArrayData()[ inputDataContainer.getArrayOffset() ];
 
 		// 引数に指定されたミリ秒だけ、呼び出し元スレッド（＝スクリプト実行スレッド）を停止
 		try {

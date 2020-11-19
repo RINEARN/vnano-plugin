@@ -91,9 +91,9 @@ public class Float64VectorToScalarOperationXfci1Plugin implements ExternalFuncti
 		// Get or allocate output data
 		@SuppressWarnings("unchecked")
 		ArrayDataAccessorInterface1<double[]> outputDataContainer = (ArrayDataAccessorInterface1<double[]>)arguments[0];
-		int outputDataOffset = outputDataContainer.getOffset();
-		double[] outputData = outputDataContainer.getData();
-		if (outputData == null || outputDataContainer.getSize() != 1) {
+		int outputDataOffset = outputDataContainer.getArrayOffset();
+		double[] outputData = outputDataContainer.getArrayData();
+		if (outputData == null || outputDataContainer.getArraySize() != 1) {
 			outputData = new double[ 1 ];
 			outputDataOffset = 0;
 		}
@@ -104,8 +104,8 @@ public class Float64VectorToScalarOperationXfci1Plugin implements ExternalFuncti
 		for (int inputArgIndex=0; inputArgIndex<inputArgN; inputArgIndex++) {
 			int argIndex = inputArgIndex + 1;
 			ArrayDataAccessorInterface1<?> inputDataContainer = (ArrayDataAccessorInterface1<?>)arguments[argIndex];
-			Object inputDataObject = inputDataContainer.getData();
-			int inputDataOffset = inputDataContainer.getOffset();
+			Object inputDataObject = inputDataContainer.getArrayData();
+			int inputDataOffset = inputDataContainer.getArrayOffset();
 			if (!(inputDataObject instanceof double[])) {
 				throw new ConnectorException("The data type of the argument of this function should be \"float\" or \"double\".");
 			}
@@ -116,7 +116,7 @@ public class Float64VectorToScalarOperationXfci1Plugin implements ExternalFuncti
 		this.operate(outputData, inputData, outputDataOffset);
 
 		// Store result data
-		outputDataContainer.setData(outputData, outputDataOffset, ArrayDataAccessorInterface1.SCALAR_LENGTHS);
+		outputDataContainer.setArrayData(outputData, outputDataOffset, ArrayDataAccessorInterface1.ARRAY_LENGTHS_OF_SCALAR);
 
 		return null;
 	}

@@ -88,8 +88,8 @@ public class PowXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 		}
 
 		// Check types of data in data containers, and cast data.
-		Object inputDataObject = ( (ArrayDataAccessorInterface1<?>)arguments[1] ).getData();
-		Object exponentDataObject = ( (ArrayDataAccessorInterface1<?>)arguments[2] ).getData();
+		Object inputDataObject = ( (ArrayDataAccessorInterface1<?>)arguments[1] ).getArrayData();
+		Object exponentDataObject = ( (ArrayDataAccessorInterface1<?>)arguments[2] ).getArrayData();
 		if (!(inputDataObject instanceof double[]) || !(exponentDataObject instanceof double[])) {
 			throw new ConnectorException("The data type of the argument of \"sin\" function should be \"float\" or \"double\".");
 		}
@@ -97,18 +97,18 @@ public class PowXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 		ArrayDataAccessorInterface1<double[]> inputDataContainer = (ArrayDataAccessorInterface1<double[]>)arguments[1];
 		@SuppressWarnings("unchecked")
 		ArrayDataAccessorInterface1<double[]> exponentDataContainer = (ArrayDataAccessorInterface1<double[]>)arguments[2];
-		int inputDataSize = inputDataContainer.getSize();
-		int inputDataOffset = inputDataContainer.getOffset();
-		int exponentDataOffset = exponentDataContainer.getOffset();
+		int inputDataSize = inputDataContainer.getArraySize();
+		int inputDataOffset = inputDataContainer.getArrayOffset();
+		int exponentDataOffset = exponentDataContainer.getArrayOffset();
 		double[] inputData = (double[])inputDataObject;
 		double[] exponentData = (double[])exponentDataObject;
 
 		// Get or allocate output data
 		@SuppressWarnings("unchecked")
 		ArrayDataAccessorInterface1<double[]> outputDataContainer = (ArrayDataAccessorInterface1<double[]>)arguments[0];
-		double[] outputData = outputDataContainer.getData();
-		int outputDataSize = outputDataContainer.getSize();
-		int outputDataOffset = outputDataContainer.getOffset();
+		double[] outputData = outputDataContainer.getArrayData();
+		int outputDataSize = outputDataContainer.getArraySize();
+		int outputDataOffset = outputDataContainer.getArrayOffset();
 		if (outputData == null || outputDataSize != inputDataSize) {
 			outputData = new double[ inputDataSize ];
 			outputDataSize = inputDataSize;
@@ -122,9 +122,9 @@ public class PowXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 		}
 
 		// Store result data
-		int[] outputDataLengths = new int[ inputDataContainer.getRank() ];
-		System.arraycopy(inputDataContainer.getLengths(), 0, outputDataLengths, 0, inputDataContainer.getRank());
-		outputDataContainer.setData(outputData, outputDataOffset, outputDataLengths);
+		int[] outputDataLengths = new int[ inputDataContainer.getArrayRank() ];
+		System.arraycopy(inputDataContainer.getArrayLengths(), 0, outputDataLengths, 0, inputDataContainer.getArrayRank());
+		outputDataContainer.setArrayData(outputData, outputDataOffset, outputDataLengths);
 
 		return null;
 	}

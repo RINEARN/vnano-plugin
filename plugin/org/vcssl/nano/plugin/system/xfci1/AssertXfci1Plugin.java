@@ -156,7 +156,7 @@ public class AssertXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 		ArrayDataAccessorInterface1<boolean[]> inputDataContainer = (ArrayDataAccessorInterface1<boolean[]>)arguments[1];
 
 		// 引数データコンテナから値を取り出す（ getData() の戻り値は常に1次元配列で、スカラの場合は getOffset() 番目に値が格納されている ）
-		boolean inputValue = inputDataContainer.getData()[ inputDataContainer.getOffset() ];
+		boolean inputValue = inputDataContainer.getArrayData()[ inputDataContainer.getArrayOffset() ];
 
 		// 引数が true なら何もせず、false ならエラーを発生させる
 		if (!inputValue) {

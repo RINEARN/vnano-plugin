@@ -26,6 +26,11 @@ public class SystemTimeXnci1Plugin implements ExternalNamespaceConnectorInterfac
 	}
 
 	@Override
+	public boolean isAbbreviatable() {
+		return true;
+	}
+
+	@Override
 	public ExternalFunctionConnectorInterface1[] getFunctions() {
 		List<ExternalFunctionConnectorInterface1> functionList = new LinkedList<ExternalFunctionConnectorInterface1>();
 		functionList.add(new TimeXfci1Plugin());

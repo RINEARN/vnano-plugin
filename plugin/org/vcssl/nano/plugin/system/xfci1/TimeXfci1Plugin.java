@@ -5,7 +5,7 @@
 
 package org.vcssl.nano.plugin.system.xfci1;
 
-import org.vcssl.connect.ArrayDataContainerInterface1;
+import org.vcssl.connect.ArrayDataAccessorInterface1;
 import org.vcssl.connect.ConnectorException;
 import org.vcssl.connect.ExternalFunctionConnectorInterface1;
 
@@ -45,6 +45,12 @@ public class TimeXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 	@Override
 	public Class<?>[] getParameterClasses() {
 		return new Class<?>[0];
+	}
+
+	// データの自動変換を無効化しているので、処理系とやり取りする際に使う型を返す
+	@Override
+	public Class<?>[] getParameterUnconvertedClasses() {
+		return new Class<?>[] { ArrayDataAccessorInterface1.class };
 	}
 
 	// 引数名は定義されていないので false を返す
@@ -101,6 +107,12 @@ public class TimeXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 		return long.class;
 	}
 
+	// データの自動変換を無効化しているので、処理系とやり取りする際に使う型を返す
+	@Override
+	public Class<?> getReturnUnconvertedClass(Class<?>[] parameterClasses) {
+		return ArrayDataAccessorInterface1.class;
+	}
+
 	// 自動変換を介さず、処理系のデータコンテナそのものを取得したいので false を返す
 	@Override
 	public boolean isDataConversionNecessary() {
@@ -114,7 +126,7 @@ public class TimeXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 		// ※ データ変換を無効化している場合、arguments[0] は戻り値格納用で、arguments[1] が最初の引数
 
 		// データ変換を無効化しているため、処理系依存のデータコンテナそのものを扱う必要があるため、まずその互換性を検査
-		if (!(arguments[0] instanceof ArrayDataContainerInterface1)) {
+		if (!(arguments[0] instanceof ArrayDataAccessorInterface1)) {
 			throw new ConnectorException(
 				"The type of the data container \"" +
 				arguments[0].getClass().getCanonicalName() +
@@ -124,18 +136,18 @@ public class TimeXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 
 		// データコンテナの型に変換（型パラメータは、このクラスの型宣言メソッドが正しく認識されていれば合っているはず）
 		@SuppressWarnings("unchecked")
-		ArrayDataContainerInterface1<long[]> outputDataContainer = (ArrayDataContainerInterface1<long[]>)arguments[0];
+		ArrayDataAccessorInterface1<long[]> outputDataContainer = (ArrayDataAccessorInterface1<long[]>)arguments[0];
 
 		// 戻り値格納用データコンテナのデータ領域が未確保なら確保する
-		if (outputDataContainer.getData() == null) {
-			outputDataContainer.setData(new long[1], 0, ArrayDataContainerInterface1.SCALAR_LENGTHS);
+		if (outputDataContainer.getArrayData() == null) {
+			outputDataContainer.setArrayData(new long[1], 0, ArrayDataAccessorInterface1.ARRAY_LENGTHS_OF_SCALAR);
 		}
 
 		// 現在の時刻を取得し、ミリ秒に変換
 		long currentMilliTime = (System.nanoTime() - this.initialNanoTime) / 1000000L;
 
 		// 結果を戻り値データコンテナに格納する
-		outputDataContainer.getData()[ outputDataContainer.getOffset() ] = currentMilliTime;
+		outputDataContainer.getArrayData()[ outputDataContainer.getArrayOffset() ] = currentMilliTime;
 
 		// 自動データ型変換を無効化している場合は、戻り値は arguments[0] に格納するため、メソッドの戻り値としては何も返さない
 		return null;

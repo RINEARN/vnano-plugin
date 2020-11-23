@@ -7,7 +7,7 @@ package org.vcssl.nano.plugin.system.xfci1;
 
 import java.io.PrintStream;
 
-import org.vcssl.connect.ArrayDataContainerInterface1;
+import org.vcssl.connect.ArrayDataAccessorInterface1;
 import org.vcssl.connect.ConnectorException;
 import org.vcssl.connect.EngineConnectorInterface1;
 import org.vcssl.connect.ExternalFunctionConnectorInterface1;
@@ -79,6 +79,12 @@ public class PrintXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 		return new Class<?>[] { Object.class };
 	}
 
+	// データの自動変換を無効化しているので、処理系とやり取りする際に使う型を返す
+	@Override
+	public Class<?>[] getParameterUnconvertedClasses() {
+		return new Class<?>[] { ArrayDataAccessorInterface1.class };
+	}
+
 	// 引数名が定義されているので true を返す
 	@Override
 	public boolean hasParameterNames() {
@@ -133,6 +139,12 @@ public class PrintXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 		return void.class;
 	}
 
+	// データの自動変換を無効化しているので、処理系とやり取りする際に使う型を返す
+	@Override
+	public Class<?> getReturnUnconvertedClass(Class<?>[] parameterClasses) {
+		return ArrayDataAccessorInterface1.class;
+	}
+
 	// 自動変換を介さず、処理系のデータコンテナそのものを取得したいので false を返す
 	@Override
 	public boolean isDataConversionNecessary() {
@@ -147,7 +159,7 @@ public class PrintXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 
 		// データ変換を無効化しているため、処理系依存のデータコンテナそのものを扱う必要があるため、まずその互換性を検査
 		for (int argIndex=1; argIndex<argLength; argIndex++) { // データ変換を無効化している場合、[0] は戻り値格納用
-			if (!(arguments[argIndex] instanceof ArrayDataContainerInterface1)) {
+			if (!(arguments[argIndex] instanceof ArrayDataAccessorInterface1)) {
 				throw new ConnectorException(
 					"The type of the data container \"" +
 					arguments[argIndex].getClass().getCanonicalName() +
@@ -162,12 +174,12 @@ public class PrintXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 		// 引数のデータを上記バッファに print していく
 		for (int argIndex=1; argIndex<argLength; argIndex++) { // データ変換を無効化している場合、[0] は戻り値格納用
 
-			ArrayDataContainerInterface1<?> inputDataContainer = (ArrayDataContainerInterface1<?>) arguments[argIndex];
+			ArrayDataAccessorInterface1<?> inputDataContainer = (ArrayDataAccessorInterface1<?>) arguments[argIndex];
 
 			// データコンテナの格納データ、要素数、要素格納位置を取得
-			Object inputDataObject = ( (ArrayDataContainerInterface1<?>)arguments[argIndex] ).getData();
-			int inputDataSize = inputDataContainer.getSize();
-			int inputDataOffset = inputDataContainer.getOffset();
+			Object inputDataObject = ( (ArrayDataAccessorInterface1<?>)arguments[argIndex] ).getArrayData();
+			int inputDataSize = inputDataContainer.getArraySize();
+			int inputDataOffset = inputDataContainer.getArrayOffset();
 
 			// ArrayDataContainerInterface1 型のデータコンテナでは、
 			// スクリプト上での配列次元数に関わらず、全てのデータは1次元配列として保持される。

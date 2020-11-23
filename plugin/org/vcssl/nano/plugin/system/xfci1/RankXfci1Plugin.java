@@ -2,7 +2,7 @@ package org.vcssl.nano.plugin.system.xfci1;
 
 import java.util.Locale;
 
-import org.vcssl.connect.ArrayDataContainerInterface1;
+import org.vcssl.connect.ArrayDataAccessorInterface1;
 import org.vcssl.connect.ConnectorException;
 import org.vcssl.connect.ExternalFunctionConnectorInterface1;
 
@@ -35,6 +35,12 @@ public class RankXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 	@Override
 	public Class<?>[] getParameterClasses() {
 		return new Class<?>[] { Object.class };
+	}
+
+	// データの自動変換を無効化しているので、処理系とやり取りする際に使う型を返す
+	@Override
+	public Class<?>[] getParameterUnconvertedClasses() {
+		return new Class<?>[] { ArrayDataAccessorInterface1.class };
 	}
 
 	@Override
@@ -83,6 +89,12 @@ public class RankXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 		return long.class;
 	}
 
+	// データの自動変換を無効化しているので、処理系とやり取りする際に使う型を返す
+	@Override
+	public Class<?> getReturnUnconvertedClass(Class<?>[] parameterClasses) {
+		return ArrayDataAccessorInterface1.class;
+	}
+
 	@Override
 	public boolean isDataConversionNecessary() {
 		return false;
@@ -92,25 +104,25 @@ public class RankXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 	public Object invoke(Object[] arguments) throws ConnectorException {
 
 		// Check types of data containers.
-		if (!(arguments[0] instanceof ArrayDataContainerInterface1)
-				|| !(arguments[1] instanceof ArrayDataContainerInterface1) ) {
+		if (!(arguments[0] instanceof ArrayDataAccessorInterface1)
+				|| !(arguments[1] instanceof ArrayDataAccessorInterface1) ) {
 
 			throw new ConnectorException("The type of the data container is not supported by this plug-in.");
 		}
 
 		// Get rank of the array argument
-		ArrayDataContainerInterface1<?> arrayArgDataContainer = (ArrayDataContainerInterface1<?>)arguments[1];
-		int rank = arrayArgDataContainer.getRank();
+		ArrayDataAccessorInterface1<?> arrayArgDataContainer = (ArrayDataAccessorInterface1<?>)arguments[1];
+		int rank = arrayArgDataContainer.getArrayRank();
 
 		// Get or allocate output data
 		@SuppressWarnings("unchecked")
-		ArrayDataContainerInterface1<long[]> outputContainer = (ArrayDataContainerInterface1<long[]>)arguments[0];
-		Object outputDataObject = outputContainer.getData();
+		ArrayDataAccessorInterface1<long[]> outputContainer = (ArrayDataAccessorInterface1<long[]>)arguments[0];
+		Object outputDataObject = outputContainer.getArrayData();
 		long[] outputData = null;
 		int outputOffset = -1;
-		if (outputContainer.getRank() == 0 && outputDataObject instanceof long[] && 1 <= ((long[])outputDataObject).length) {
+		if (outputContainer.getArrayRank() == 0 && outputDataObject instanceof long[] && 1 <= ((long[])outputDataObject).length) {
 			outputData = (long[])outputDataObject;
-			outputOffset = outputContainer.getOffset();
+			outputOffset = outputContainer.getArrayOffset();
 		} else {
 			outputData = new long[ 1 ];
 			outputOffset = 0;
@@ -120,8 +132,8 @@ public class RankXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 		outputData[outputOffset] = (long)rank;
 
 		@SuppressWarnings("unchecked")
-		ArrayDataContainerInterface1<long[]> outputDataContainer = (ArrayDataContainerInterface1<long[]>)arguments[0];
-		outputDataContainer.setData(outputData, outputOffset, ArrayDataContainerInterface1.SCALAR_LENGTHS);
+		ArrayDataAccessorInterface1<long[]> outputDataContainer = (ArrayDataAccessorInterface1<long[]>)arguments[0];
+		outputDataContainer.setArrayData(outputData, outputOffset, ArrayDataAccessorInterface1.ARRAY_LENGTHS_OF_SCALAR);
 
 		return null;
 	}

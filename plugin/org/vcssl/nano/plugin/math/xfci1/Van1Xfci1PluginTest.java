@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.vcssl.connect.ArrayDataContainerInterface1;
+import org.vcssl.connect.ArrayDataAccessorInterface1;
 import org.vcssl.connect.ConnectorException;
 import org.vcssl.connect.ExternalFunctionConnectorInterface1;
 
@@ -55,8 +55,8 @@ public class Van1Xfci1PluginTest {
 		// 入出力データを用意
 		DataContainer<double[]> inputDataContainer = new DataContainer<double[]>();
 		DataContainer<double[]> outputDataContainer = new DataContainer<double[]>();
-		inputDataContainer.setData(new double[] { 1.23 }, 0, ArrayDataContainerInterface1.SCALAR_LENGTHS);
-		outputDataContainer.setData(new double[] { 0.0 }, 0, ArrayDataContainerInterface1.SCALAR_LENGTHS);
+		inputDataContainer.setArrayData(new double[] { 1.23 }, 0, ArrayDataAccessorInterface1.ARRAY_LENGTHS_OF_SCALAR);
+		outputDataContainer.setArrayData(new double[] { 0.0 }, 0, ArrayDataAccessorInterface1.ARRAY_LENGTHS_OF_SCALAR);
 
 		// Operate data
 		// 演算を実行
@@ -64,12 +64,12 @@ public class Van1Xfci1PluginTest {
 
 		// Check dimensions of the operation result
 		// 演算結果の次元を確認
-		assertEquals(RANK_OF_SCALAR, outputDataContainer.getRank());
-		assertEquals(0, outputDataContainer.getLengths().length);
+		assertEquals(RANK_OF_SCALAR, outputDataContainer.getArrayRank());
+		assertEquals(0, outputDataContainer.getArrayLengths().length);
 
 		// Get result data in data container, and check its length
 		// 演算結果のデータを取り出し、データ長を確認
-		double[] resultData = outputDataContainer.getData();
+		double[] resultData = outputDataContainer.getArrayData();
 		assertEquals(1, resultData.length);
 
 		// Check result value
@@ -86,9 +86,9 @@ public class Van1Xfci1PluginTest {
 		DataContainer<double[]> inputDataContainer1 = new DataContainer<double[]>();
 		DataContainer<double[]> inputDataContainer2 = new DataContainer<double[]>();
 		DataContainer<double[]> outputDataContainer = new DataContainer<double[]>();
-		inputDataContainer1.setData(new double[] { 1.23 }, 0, ArrayDataContainerInterface1.SCALAR_LENGTHS);
-		inputDataContainer2.setData(new double[] { 4.56 }, 0, ArrayDataContainerInterface1.SCALAR_LENGTHS);
-		outputDataContainer.setData(new double[] { 0.0 }, 0, ArrayDataContainerInterface1.SCALAR_LENGTHS);
+		inputDataContainer1.setArrayData(new double[] { 1.23 }, 0, ArrayDataAccessorInterface1.ARRAY_LENGTHS_OF_SCALAR);
+		inputDataContainer2.setArrayData(new double[] { 4.56 }, 0, ArrayDataAccessorInterface1.ARRAY_LENGTHS_OF_SCALAR);
+		outputDataContainer.setArrayData(new double[] { 0.0 }, 0, ArrayDataAccessorInterface1.ARRAY_LENGTHS_OF_SCALAR);
 
 		// Operate data
 		// 演算を実行
@@ -96,12 +96,12 @@ public class Van1Xfci1PluginTest {
 
 		// Check dimensions of the operation result
 		// 演算結果の次元を確認
-		assertEquals(RANK_OF_SCALAR, outputDataContainer.getRank());
-		assertEquals(0, outputDataContainer.getLengths().length);
+		assertEquals(RANK_OF_SCALAR, outputDataContainer.getArrayRank());
+		assertEquals(0, outputDataContainer.getArrayLengths().length);
 
 		// Get result data in data container, and check its length
 		// 演算結果のデータを取り出し、データ長を確認
-		double[] resultData = outputDataContainer.getData();
+		double[] resultData = outputDataContainer.getArrayData();
 		assertEquals(1, resultData.length);
 
 		// Check result value
@@ -126,10 +126,10 @@ public class Van1Xfci1PluginTest {
 		DataContainer<double[]> inputDataContainer2 = new DataContainer<double[]>();
 		DataContainer<double[]> inputDataContainer3 = new DataContainer<double[]>();
 		DataContainer<double[]> outputDataContainer = new DataContainer<double[]>();
-		inputDataContainer1.setData(new double[] { 1.23 }, 0, ArrayDataContainerInterface1.SCALAR_LENGTHS);
-		inputDataContainer2.setData(new double[] { 4.56 }, 0, ArrayDataContainerInterface1.SCALAR_LENGTHS);
-		inputDataContainer3.setData(new double[] { 7.89 }, 0, ArrayDataContainerInterface1.SCALAR_LENGTHS);
-		outputDataContainer.setData(new double[] { 0.0 }, 0, ArrayDataContainerInterface1.SCALAR_LENGTHS);
+		inputDataContainer1.setArrayData(new double[] { 1.23 }, 0, ArrayDataAccessorInterface1.ARRAY_LENGTHS_OF_SCALAR);
+		inputDataContainer2.setArrayData(new double[] { 4.56 }, 0, ArrayDataAccessorInterface1.ARRAY_LENGTHS_OF_SCALAR);
+		inputDataContainer3.setArrayData(new double[] { 7.89 }, 0, ArrayDataAccessorInterface1.ARRAY_LENGTHS_OF_SCALAR);
+		outputDataContainer.setArrayData(new double[] { 0.0 }, 0, ArrayDataAccessorInterface1.ARRAY_LENGTHS_OF_SCALAR);
 
 		// Operate data
 		// 演算を実行
@@ -137,12 +137,12 @@ public class Van1Xfci1PluginTest {
 
 		// Check dimensions of the operation result
 		// 演算結果の次元を確認
-		assertEquals(RANK_OF_SCALAR, outputDataContainer.getRank());
-		assertEquals(0, outputDataContainer.getLengths().length);
+		assertEquals(RANK_OF_SCALAR, outputDataContainer.getArrayRank());
+		assertEquals(0, outputDataContainer.getArrayLengths().length);
 
 		// Get result data in data container, and check its length
 		// 演算結果のデータを取り出し、データ長を確認
-		double[] resultData = outputDataContainer.getData();
+		double[] resultData = outputDataContainer.getArrayData();
 		assertEquals(1, resultData.length);
 
 		// Check result value
@@ -172,10 +172,10 @@ public class Van1Xfci1PluginTest {
 		int inputDataOffset2 = 1;
 		int inputDataOffset3 = 2;
 		int outputDataOffset = 2;
-		inputDataContainer1.setData(new double[] { 1.23, 4.56, 7.89 }, inputDataOffset1, ArrayDataContainerInterface1.SCALAR_LENGTHS);
-		inputDataContainer2.setData(new double[] { 1.23, 4.56, 7.89 }, inputDataOffset2, ArrayDataContainerInterface1.SCALAR_LENGTHS);
-		inputDataContainer3.setData(new double[] { 1.23, 4.56, 7.89 }, inputDataOffset3, ArrayDataContainerInterface1.SCALAR_LENGTHS);
-		outputDataContainer.setData(new double[] { 0.0, 0.0, 0.0 }, outputDataOffset, ArrayDataContainerInterface1.SCALAR_LENGTHS);
+		inputDataContainer1.setArrayData(new double[] { 1.23, 4.56, 7.89 }, inputDataOffset1, ArrayDataAccessorInterface1.ARRAY_LENGTHS_OF_SCALAR);
+		inputDataContainer2.setArrayData(new double[] { 1.23, 4.56, 7.89 }, inputDataOffset2, ArrayDataAccessorInterface1.ARRAY_LENGTHS_OF_SCALAR);
+		inputDataContainer3.setArrayData(new double[] { 1.23, 4.56, 7.89 }, inputDataOffset3, ArrayDataAccessorInterface1.ARRAY_LENGTHS_OF_SCALAR);
+		outputDataContainer.setArrayData(new double[] { 0.0, 0.0, 0.0 }, outputDataOffset, ArrayDataAccessorInterface1.ARRAY_LENGTHS_OF_SCALAR);
 
 		// Operate data
 		// 演算を実行
@@ -183,11 +183,11 @@ public class Van1Xfci1PluginTest {
 
 		// Check dimensions, size, offset, and so on of the operation result
 		// 演算結果のデータを取り出し、データ長や使用サイズ、格納位置などを確認
-		double[] resultData = outputDataContainer.getData();
-		assertEquals(RANK_OF_SCALAR, outputDataContainer.getRank());
+		double[] resultData = outputDataContainer.getArrayData();
+		assertEquals(RANK_OF_SCALAR, outputDataContainer.getArrayRank());
 		assertEquals(3, resultData.length);
-		assertEquals(1, outputDataContainer.getSize());
-		assertEquals(2, outputDataContainer.getOffset());
+		assertEquals(1, outputDataContainer.getArraySize());
+		assertEquals(2, outputDataContainer.getArrayOffset());
 
 		// Check result value
 		// 以下、演算結果の値を確認

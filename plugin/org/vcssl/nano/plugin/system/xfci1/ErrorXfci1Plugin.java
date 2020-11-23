@@ -42,6 +42,12 @@ public class ErrorXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 		return new Class<?>[] { String.class };
 	}
 
+	// データの自動変換を有効化しているので参照されない
+	@Override
+	public Class<?>[] getParameterUnconvertedClasses() {
+		return null;
+	}
+
 	// 引数名が定義されているので true を返す
 	@Override
 	public boolean hasParameterNames() {
@@ -94,6 +100,12 @@ public class ErrorXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 	@Override
 	public Class<?> getReturnClass(Class<?>[] parameterClasses) {
 		return void.class;
+	}
+
+	// データの自動変換を有効化しているので参照されない
+	@Override
+	public Class<?> getReturnUnconvertedClass(Class<?>[] parameterClasses) {
+		return null;
 	}
 
 	// データ型の自動変換機能を利用するので true を返す

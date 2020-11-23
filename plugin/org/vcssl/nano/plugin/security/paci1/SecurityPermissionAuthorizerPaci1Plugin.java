@@ -71,6 +71,12 @@ public class SecurityPermissionAuthorizerPaci1Plugin implements PermissionAuthor
 	private boolean isJapanese;
 
 
+	/**
+	 * synchronized ブロック用のロック対象オブジェクトです。
+	 */
+	private final Object lock;
+
+
 	private static final Map<String, String> PERMISSION_JAJP_NAME_MAP;
 	static {
 		PERMISSION_JAJP_NAME_MAP = new HashMap<String, String>();
@@ -100,6 +106,11 @@ public class SecurityPermissionAuthorizerPaci1Plugin implements PermissionAuthor
 	}
 
 
+	public SecurityPermissionAuthorizerPaci1Plugin() {
+		this.lock = new Object();
+	}
+
+
 	/**
 	 * パーミッション項目の名前と値を格納するマップ（パーミッションマップ）によって, 各パーミッションの値を設定します。
 	 *
@@ -107,32 +118,24 @@ public class SecurityPermissionAuthorizerPaci1Plugin implements PermissionAuthor
 	 */
 	@Override
 	public void setPermissionMap(Map<String, String> permissionMap) throws ConnectorException {
-		this.specifiedPermissionMap = permissionMap;
+		synchronized (this.lock) {
 
-		if (permissionMap.containsKey(ConnectorPermissionName.ALL)) {
-			String errorMessage = this.isJapanese ?
-				"パーミッション項目名「 ALL 」は、パーミッションマップのキーとしては使用できません（代わりに「 DEFAULT 」が有用かもしれません）。" :
-				"The permission item name \"ALL\" can not be used as a key of permission maps (\"DEFAULT\" might be suitable for your needs)" ;
-			throw new ConnectorException(errorMessage);
+			this.specifiedPermissionMap = permissionMap;
+
+			if (this.specifiedPermissionMap.containsKey(ConnectorPermissionName.ALL)) {
+				String errorMessage = this.isJapanese ?
+					"パーミッション項目名「 ALL 」は、パーミッションマップのキーとしては使用できません（代わりに「 DEFAULT 」が有用かもしれません）。" :
+					"The permission item name \"ALL\" can not be used as a key of permission maps (\"DEFAULT\" might be suitable for your needs)" ;
+				throw new ConnectorException(errorMessage);
+			}
+
+			if (this.specifiedPermissionMap.containsKey(ConnectorPermissionName.NONE)) {
+				String errorMessage = this.isJapanese ?
+					"パーミッション項目名「 NONE 」は、パーミッションマップのキーとしては使用できません。" :
+					"The permission item name \"NONE\" can not be used as a key of permission maps" ;
+				throw new ConnectorException(errorMessage);
+			}
 		}
-
-		if (permissionMap.containsKey(ConnectorPermissionName.NONE)) {
-			String errorMessage = this.isJapanese ?
-				"パーミッション項目名「 NONE 」は、パーミッションマップのキーとしては使用できません。" :
-				"The permission item name \"NONE\" can not be used as a key of permission maps" ;
-			throw new ConnectorException(errorMessage);
-		}
-	}
-
-
-	/**
-	 * パーミッション項目の名前と値を格納するマップ（パーミッションマップ）の形で, 各パーミッションの値を取得します。
-	 *
-	 * @return permissionMap パーミッション項目の名前と値を格納するマップ（パーミッションマップ）
-	 */
-	@Override
-	public Map<String, String> getPermissionMap() throws ConnectorException {
-		return this.specifiedPermissionMap;
 	}
 
 
@@ -147,43 +150,46 @@ public class SecurityPermissionAuthorizerPaci1Plugin implements PermissionAuthor
 	 */
 	@Override
 	public void initializeForConnection(Object engineConnector) throws ConnectorException {
+		synchronized (this.lock) {
 
-		// 処理系の情報を取得するコネクタ（処理系依存）の互換性を検査
-		if (!(engineConnector instanceof EngineConnectorInterface1)) {
-			throw new ConnectorException(
-				"The type of the engine connector \"" +
-				engineConnector.getClass().getCanonicalName() +
-				"\" is not supported by this plug-in."
-			);
-		}
-		EngineConnectorInterface1 eci1Connector = (EngineConnectorInterface1)engineConnector;
-
-		// 処理系のオプションから、UIモードがGUIかどうかを取得
-		if (eci1Connector.hasOptionValue("UI_MODE")) {
-			this.isGuiMode = ( (String)eci1Connector.getOptionValue("UI_MODE") ).equals("GUI");
-		}
-
-		// CUIモードの場合、処理系のオプションに指定されている標準入出力ストリームを取得
-		if (!this.isGuiMode) {
-			if (eci1Connector.hasOptionValue("STDIN_STREAM")) {
-				this.stdinStream = (InputStream) eci1Connector.getOptionValue("STDIN_STREAM");
-			} else {
-				throw new ConnectorException("The option \"STDIN_STREAM\" is required for using the permission authorizer on CUI mode, but it is not set.");
+			// 処理系の情報を取得するコネクタ（処理系依存）の互換性を検査
+			if (!(engineConnector instanceof EngineConnectorInterface1)) {
+				throw new ConnectorException(
+					"The type of the engine connector \"" +
+					engineConnector.getClass().getCanonicalName() +
+					"\" is not supported by this plug-in."
+				);
 			}
-			if (eci1Connector.hasOptionValue("STDOUT_STREAM")) {
-				this.stdoutStream = (PrintStream) eci1Connector.getOptionValue("STDOUT_STREAM");
-			} else {
-				throw new ConnectorException("The option \"STDOUT_STREAM\" is required for using the permission authorizer on CUI mode, but it is not set.");
-			}
-		}
 
-		// メッセージのロケール設定を取得し、日本語かどうかを調べる
-		Locale locale = Locale.getDefault();
-		if (eci1Connector.hasOptionValue("LOCALE")) {
-			locale = (Locale)eci1Connector.getOptionValue("LOCALE");
-		}
-		this.isJapanese = ( locale.getLanguage()!=null && locale.getLanguage().equals("ja") )
+			EngineConnectorInterface1 eci1Connector = (EngineConnectorInterface1)engineConnector;
+
+			// 処理系のオプションから、UIモードがGUIかどうかを取得
+			if (eci1Connector.hasOptionValue("UI_MODE")) {
+				this.isGuiMode = ( (String)eci1Connector.getOptionValue("UI_MODE") ).equals("GUI");
+			}
+
+			// CUIモードの場合、処理系のオプションに指定されている標準入出力ストリームを取得
+			if (!this.isGuiMode) {
+				if (eci1Connector.hasOptionValue("STDIN_STREAM")) {
+					this.stdinStream = (InputStream) eci1Connector.getOptionValue("STDIN_STREAM");
+				} else {
+					throw new ConnectorException("The option \"STDIN_STREAM\" is required for using the permission authorizer on CUI mode, but it is not set.");
+				}
+				if (eci1Connector.hasOptionValue("STDOUT_STREAM")) {
+					this.stdoutStream = (PrintStream) eci1Connector.getOptionValue("STDOUT_STREAM");
+				} else {
+					throw new ConnectorException("The option \"STDOUT_STREAM\" is required for using the permission authorizer on CUI mode, but it is not set.");
+				}
+			}
+
+			// メッセージのロケール設定を取得し、日本語かどうかを調べる
+			Locale locale = Locale.getDefault();
+			if (eci1Connector.hasOptionValue("LOCALE")) {
+				locale = (Locale)eci1Connector.getOptionValue("LOCALE");
+			}
+			this.isJapanese = ( locale.getLanguage()!=null && locale.getLanguage().equals("ja") )
 				|| ( locale.getCountry()!=null && locale.getCountry().equals("JP") );
+		}
 	}
 
 
@@ -194,14 +200,16 @@ public class SecurityPermissionAuthorizerPaci1Plugin implements PermissionAuthor
 	 */
 	@Override
 	public void finalizeForDisconnection(Object engineConnector) throws ConnectorException {
-		this.specifiedPermissionMap = null;
-		this.temporaryPermissionMap = null;
+		synchronized (this.lock) {
+			this.specifiedPermissionMap = null;
+			this.temporaryPermissionMap = null;
 
-		// close すると標準入力も close してしまう（標準入力は再度開けない）
-		//this.standardInputScanner.close();
-		this.standardInputScanner = null;
-		this.stdoutStream = null;
-		this.stdinStream = null;
+			// close すると標準入力も close してしまう（標準入力は再度開けない）
+			//this.standardInputScanner.close();
+			this.standardInputScanner = null;
+			this.stdoutStream = null;
+			this.stdinStream = null;
+		}
 	}
 
 
@@ -212,12 +220,15 @@ public class SecurityPermissionAuthorizerPaci1Plugin implements PermissionAuthor
 	 */
 	@Override
 	public void initializeForExecution(Object engineConnector) throws ConnectorException {
-		// temporaryPermissionMap を、specifiedPermissionMap と同内容で初期化/再初期化する
-		this.temporaryPermissionMap = new HashMap<String, String>();
-		if (this.specifiedPermissionMap != null) {
-			Set<Map.Entry<String, String>> permissionEntrySet = this.specifiedPermissionMap.entrySet();
-			for (Map.Entry<String, String> permissionEntry: permissionEntrySet) {
-				this.temporaryPermissionMap.put(permissionEntry.getKey(), permissionEntry.getValue());
+		synchronized (this.lock) {
+
+			// 以下、temporaryPermissionMap を、specifiedPermissionMap と同内容で初期化/再初期化する
+			this.temporaryPermissionMap = new HashMap<String, String>();
+			if (this.specifiedPermissionMap != null) {
+				Set<Map.Entry<String, String>> permissionEntrySet = this.specifiedPermissionMap.entrySet();
+				for (Map.Entry<String, String> permissionEntry: permissionEntrySet) {
+					this.temporaryPermissionMap.put(permissionEntry.getKey(), permissionEntry.getValue());
+				}
 			}
 		}
 	}
@@ -230,7 +241,9 @@ public class SecurityPermissionAuthorizerPaci1Plugin implements PermissionAuthor
 	 */
 	@Override
 	public void finalizeForTermination(Object engineConnector) throws ConnectorException {
-		this.temporaryPermissionMap = null;
+		synchronized (this.lock) {
+			this.temporaryPermissionMap = null;
+		}
 	}
 
 
@@ -241,6 +254,7 @@ public class SecurityPermissionAuthorizerPaci1Plugin implements PermissionAuthor
 	 * @return YESが選択された場合に true
 	 */
 	private boolean confirmOnGui(String confirmMessage) {
+
 		// ユーザーによる選択
 		int userDecision = JOptionPane.showConfirmDialog(null, confirmMessage, "!", JOptionPane.YES_NO_OPTION);
 
@@ -367,68 +381,71 @@ public class SecurityPermissionAuthorizerPaci1Plugin implements PermissionAuthor
 	public void requestPermission(String permissionName, Object requester, Object metaInformation)
 			throws ConnectorException {
 
-		// 以下、指定されたパーミッション名に対応した設定値を取得し、この変数に控える
-		String permissionValue = null;
+		synchronized (this.lock) {
 
-		// 指定されたパーミッション名がマップに登録されている場合は、その設定値を用いる
-		if (this.temporaryPermissionMap.containsKey(permissionName)) {
-			permissionValue = this.temporaryPermissionMap.get(permissionName);
+			// 以下、指定されたパーミッション名に対応した設定値を取得し、この変数に控える
+			String permissionValue = null;
 
-		// 上記以外で、メタパーミッション名 "DEFAULT" がマップに登録されている場合は、その設定値を用いる
-		// （分岐順序に注意: 上の分岐のように、指定パーミッション名が明示的に登録されている場合は、そちらを優先すべき）
-		} else if (this.temporaryPermissionMap.containsKey(ConnectorPermissionName.DEFAULT)) {
-			permissionValue = this.temporaryPermissionMap.get(ConnectorPermissionName.DEFAULT);
+			// 指定されたパーミッション名がマップに登録されている場合は、その設定値を用いる
+			if (this.temporaryPermissionMap.containsKey(permissionName)) {
+				permissionValue = this.temporaryPermissionMap.get(permissionName);
 
-		// 指定パーミッション名も "DEFAULT" もどちらも登録されていない場合はエラー
-		} else {
-			String errorMessage = this.isJapanese ?
-				"パーミッション「 " + permissionName + " 」が要求されましたが、このパーミッション項目に対する許可/拒否が設定されていません。" :
-				"The permission for \"" + permissionName + "\" has been requested, but whether it should be allowed or denied is not set" ;
-			throw new ConnectorException(errorMessage);
-		}
+			// 上記以外で、メタパーミッション名 "DEFAULT" がマップに登録されている場合は、その設定値を用いる
+			// （分岐順序に注意: 上の分岐のように、指定パーミッション名が明示的に登録されている場合は、そちらを優先すべき）
+			} else if (this.temporaryPermissionMap.containsKey(ConnectorPermissionName.DEFAULT)) {
+				permissionValue = this.temporaryPermissionMap.get(ConnectorPermissionName.DEFAULT);
+
+			// 指定パーミッション名も "DEFAULT" もどちらも登録されていない場合はエラー
+			} else {
+				String errorMessage = this.isJapanese ?
+					"パーミッション「 " + permissionName + " 」が要求されましたが、このパーミッション項目に対する許可/拒否が設定されていません。" :
+					"The permission for \"" + permissionName + "\" has been requested, but whether it should be allowed or denied is not set" ;
+				throw new ConnectorException(errorMessage);
+			}
 
 
-		// 以下、上で取得したパーミッション設定値に応じて、許可するか拒否するかを判断する
+			// 以下、上で取得したパーミッション設定値に応じて、許可するか拒否するかを判断する
 
-		// "ALLOW" の場合は常に許可
-		if (permissionValue.equals(ConnectorPermissionValue.ALLOW)) {
-			return;
-
-		// "DENY" の場合は常に拒否
-		} else if (permissionValue.equals(ConnectorPermissionValue.DENY)) {
-
-			String errorMessage = this.isJapanese ?
-				"パーミッション「 " + permissionName + " 」が要求されましたが、設定またはユーザーの選択によって拒否されました。" :
-				"The permission for \"" + permissionName + "\" has been requested, but it has been denied by settings or the user's decision" ;
-			throw new ConnectorException(errorMessage);
-
-		// "ASK" の場合はユーザーに尋ねる
-		} else if (permissionValue.equals(ConnectorPermissionValue.ASK)) {
-
-			// ユーザーに尋ねて結果を取得
-			// (次回以降の返答を省略するか尋ねたり、その結果 temporaryPermissionMap を更新したり、その後の自動判断なども下記メソッド内に実装 )
-			boolean allowedByUser = this.askPermissionToUser(permissionName, requester, metaInformation);
-
-			// 許可された場合はそのまま終了
-			if (allowedByUser) {
+			// "ALLOW" の場合は常に許可
+			if (permissionValue.equals(ConnectorPermissionValue.ALLOW)) {
 				return;
 
-			// 拒否された場合はエラー
-			} else {
+			// "DENY" の場合は常に拒否
+			} else if (permissionValue.equals(ConnectorPermissionValue.DENY)) {
 
 				String errorMessage = this.isJapanese ?
 					"パーミッション「 " + permissionName + " 」が要求されましたが、設定またはユーザーの選択によって拒否されました。" :
 					"The permission for \"" + permissionName + "\" has been requested, but it has been denied by settings or the user's decision" ;
 				throw new ConnectorException(errorMessage);
+
+			// "ASK" の場合はユーザーに尋ねる
+			} else if (permissionValue.equals(ConnectorPermissionValue.ASK)) {
+
+				// ユーザーに尋ねて結果を取得
+				// (次回以降の返答を省略するか尋ねたり、その結果 temporaryPermissionMap を更新したり、その後の自動判断なども下記メソッド内に実装 )
+				boolean allowedByUser = this.askPermissionToUser(permissionName, requester, metaInformation);
+
+				// 許可された場合はそのまま終了
+				if (allowedByUser) {
+					return;
+
+				// 拒否された場合はエラー
+				} else {
+
+					String errorMessage = this.isJapanese ?
+						"パーミッション「 " + permissionName + " 」が要求されましたが、設定またはユーザーの選択によって拒否されました。" :
+						"The permission for \"" + permissionName + "\" has been requested, but it has been denied by settings or the user's decision" ;
+					throw new ConnectorException(errorMessage);
+				}
+
+			// それ以外はこのプラグインではサポートしていないパーミッション値
+			} else {
+
+				String errorMessage = this.isJapanese ?
+					"パーミッション「 " + permissionName + " 」が要求されましたが、このパーミッションの現在の設定値「 " + permissionValue + " 」は、このシステムではサポートされていません。" :
+					"The permission for \"" + permissionName + "\" has been requested, but its value \"" + permissionValue + "\" on the current settings is unsupported on this system" ;
+				throw new ConnectorException(errorMessage);
 			}
-
-		// それ以外はこのプラグインではサポートしていないパーミッション値
-		} else {
-
-			String errorMessage = this.isJapanese ?
-				"パーミッション「 " + permissionName + " 」が要求されましたが、このパーミッションの現在の設定値「 " + permissionValue + " 」は、このシステムではサポートされていません。" :
-				"The permission for \"" + permissionName + "\" has been requested, but its value \"" + permissionValue + "\" on the current settings is unsupported on this system" ;
-			throw new ConnectorException(errorMessage);
 		}
 	}
 }

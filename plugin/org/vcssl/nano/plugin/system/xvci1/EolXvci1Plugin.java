@@ -13,7 +13,15 @@ public class EolXvci1Plugin implements ExternalVariableConnectorInterface1 {
 	@Override
 	public Class<?> getDataClass() { return String.class; }
 	@Override
+	public Class<?> getDataUnconvertedClass() { return null; }
+	@Override
+	public boolean isDataClassArbitrary() { return false; }
+	@Override
+	public boolean isDataRankArbitrary() { return false; }
+	@Override
 	public boolean isConstant() { return true; }
+	@Override
+	public boolean isReference() { return false; }
 	@Override
 	public void initializeForConnection(Object engineConnector) { }
 	@Override

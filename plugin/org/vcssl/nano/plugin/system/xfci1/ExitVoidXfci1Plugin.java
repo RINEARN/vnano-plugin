@@ -78,13 +78,13 @@ public class ExitVoidXfci1Plugin implements ExternalFunctionConnectorInterface1 
 
 	// 任意型の引数を取る場合に true を返すが、引数が無いので空配列を返す
 	@Override
-	public boolean[] getParameterClassArbitrarinesses() {
+	public boolean[] getParameterDataTypeArbitrarinesses() {
 		return new boolean[0];
 	}
 
 	// 任意次元の引数を取る場合に true を返すが、引数が無いので空配列を返す
 	@Override
-	public boolean[] getParameterRankArbitrarinesses() {
+	public boolean[] getParameterArrayRankArbitrarinesses() {
 		return new boolean[0];
 	}
 
@@ -122,6 +122,18 @@ public class ExitVoidXfci1Plugin implements ExternalFunctionConnectorInterface1 
 	@Override
 	public Class<?> getReturnUnconvertedClass(Class<?>[] parameterClasses) {
 		return null;
+	}
+
+	// 戻り値のデータ型は固定なので false
+	@Override
+	public boolean isReturnDataTypeArbitrary() {
+		return false;
+	}
+
+	// 戻り値の配列次元数は固定なので false
+	@Override
+	public boolean isReturnArrayRankArbitrary() {
+		return false;
 	}
 
 	// データ型の自動変換機能は利用するので true を返す

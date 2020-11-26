@@ -31,8 +31,8 @@ public class LengthXfci1PluginTest {
 		assertEquals("length", function.getFunctionName());
 
 		// 引数 [0] は任意型・任意次元を許容する事を検査
-		assertTrue(function.getParameterClassArbitrarinesses()[0]);
-		assertTrue(function.getParameterRankArbitrarinesses()[0]);
+		assertTrue(function.getParameterDataTypeArbitrarinesses()[0]);
+		assertTrue(function.getParameterArrayRankArbitrarinesses()[0]);
 
 		// Check number and types of arguments
 		// 引数 [1] の個数と型を検査

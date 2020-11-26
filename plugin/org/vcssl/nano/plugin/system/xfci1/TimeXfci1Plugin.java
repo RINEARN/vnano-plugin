@@ -67,13 +67,13 @@ public class TimeXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 
 	// 任意型の引数を取る場合に true を返すが、引数が無いので空配列を返す
 	@Override
-	public boolean[] getParameterClassArbitrarinesses() {
+	public boolean[] getParameterDataTypeArbitrarinesses() {
 		return new boolean[0];
 	}
 
 	// 任意次元の引数を取る場合に true を返すが、引数が無いので空配列を返す
 	@Override
-	public boolean[] getParameterRankArbitrarinesses() {
+	public boolean[] getParameterArrayRankArbitrarinesses() {
 		return new boolean[0];
 	}
 
@@ -111,6 +111,18 @@ public class TimeXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 	@Override
 	public Class<?> getReturnUnconvertedClass(Class<?>[] parameterClasses) {
 		return ArrayDataAccessorInterface1.class;
+	}
+
+	// 戻り値のデータ型は固定なので false
+	@Override
+	public boolean isReturnDataTypeArbitrary() {
+		return false;
+	}
+
+	// 戻り値の配列次元数は固定なので false
+	@Override
+	public boolean isReturnArrayRankArbitrary() {
+		return false;
 	}
 
 	// 自動変換を介さず、処理系のデータコンテナそのものを取得したいので false を返す

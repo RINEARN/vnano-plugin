@@ -12,9 +12,9 @@ public class LfXvci1Plugin implements ExternalVariableConnectorInterface1 {
 	@Override
 	public Class<?> getDataUnconvertedClass() { return null; }
 	@Override
-	public boolean isDataClassArbitrary() { return false; }
+	public boolean isDataTypeArbitrary() { return false; }
 	@Override
-	public boolean isDataRankArbitrary() { return false; }
+	public boolean isArrayRankArbitrary() { return false; }
 	@Override
 	public boolean isConstant() { return true; }
 	@Override

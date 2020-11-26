@@ -71,13 +71,13 @@ public class LengthXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 	}
 
 	@Override
-	public boolean[] getParameterClassArbitrarinesses() {
+	public boolean[] getParameterDataTypeArbitrarinesses() {
 		return new boolean[]{ true, false };
 	}
 
 
 	@Override
-	public boolean[] getParameterRankArbitrarinesses() {
+	public boolean[] getParameterArrayRankArbitrarinesses() {
 		return new boolean[]{ true, false };
 	}
 
@@ -110,6 +110,18 @@ public class LengthXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 	@Override
 	public Class<?> getReturnUnconvertedClass(Class<?>[] parameterClasses) {
 		return ArrayDataAccessorInterface1.class;
+	}
+
+	// 戻り値のデータ型は固定なので false
+	@Override
+	public boolean isReturnDataTypeArbitrary() {
+		return false;
+	}
+
+	// 戻り値の配列次元数は固定なので false
+	@Override
+	public boolean isReturnArrayRankArbitrary() {
+		return false;
 	}
 
 	@Override

@@ -54,13 +54,13 @@ public class RankXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 	}
 
 	@Override
-	public boolean[] getParameterClassArbitrarinesses() {
+	public boolean[] getParameterDataTypeArbitrarinesses() {
 		return new boolean[]{ true };
 	}
 
 
 	@Override
-	public boolean[] getParameterRankArbitrarinesses() {
+	public boolean[] getParameterArrayRankArbitrarinesses() {
 		return new boolean[]{ true };
 	}
 
@@ -87,6 +87,18 @@ public class RankXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 	@Override
 	public Class<?> getReturnClass(Class<?>[] parameterClasses) {
 		return long.class;
+	}
+
+	// 戻り値のデータ型は固定なので false
+	@Override
+	public boolean isReturnDataTypeArbitrary() {
+		return false;
+	}
+
+	// 戻り値の配列次元数は固定なので false
+	@Override
+	public boolean isReturnArrayRankArbitrary() {
+		return false;
 	}
 
 	// データの自動変換を無効化しているので、処理系とやり取りする際に使う型を返す

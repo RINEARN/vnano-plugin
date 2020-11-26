@@ -33,12 +33,12 @@ public class PowXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 	}
 
 	@Override
-	public final boolean[] getParameterClassArbitrarinesses() {
+	public final boolean[] getParameterDataTypeArbitrarinesses() {
 		return new boolean[]{ false, false };
 	}
 
 	@Override
-	public final boolean[] getParameterRankArbitrarinesses() {
+	public final boolean[] getParameterArrayRankArbitrarinesses() {
 		return new boolean[]{ true, false };
 	}
 
@@ -65,6 +65,16 @@ public class PowXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 	@Override
 	public final Class<?> getReturnClass(Class<?>[] parameterClasses) {
 		return parameterClasses[0];
+	}
+
+	@Override
+	public boolean isReturnDataTypeArbitrary() {
+		return false;
+	}
+
+	@Override
+	public boolean isReturnArrayRankArbitrary() {
+		return true;
 	}
 
 	@Override

@@ -63,13 +63,13 @@ public class NanXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 
 	// 任意型の引数は取らないので false を返す
 	@Override
-	public boolean[] getParameterClassArbitrarinesses() {
+	public boolean[] getParameterDataTypeArbitrarinesses() {
 		return new boolean[]{ false };
 	}
 
 	// 任意次元の引数は取らないので false を返す
 	@Override
-	public boolean[] getParameterRankArbitrarinesses() {
+	public boolean[] getParameterArrayRankArbitrarinesses() {
 		return new boolean[]{ false };
 	}
 
@@ -107,6 +107,18 @@ public class NanXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 	@Override
 	public Class<?> getReturnUnconvertedClass(Class<?>[] parameterClasses) {
 		return ArrayDataAccessorInterface1.class;
+	}
+
+	// 戻り値のデータ型は固定なので false
+	@Override
+	public boolean isReturnDataTypeArbitrary() {
+		return false;
+	}
+
+	// 戻り値の配列次元数は固定なので false
+	@Override
+	public boolean isReturnArrayRankArbitrary() {
+		return false;
 	}
 
 	// 自動変換を介さず、処理系のデータコンテナそのものを取得したいので false を返す

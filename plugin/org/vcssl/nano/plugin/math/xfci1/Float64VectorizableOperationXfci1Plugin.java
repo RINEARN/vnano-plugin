@@ -33,13 +33,13 @@ public class Float64VectorizableOperationXfci1Plugin implements ExternalFunction
 	}
 
 	@Override
-	public boolean[] getParameterClassArbitrarinesses() {
+	public boolean[] getParameterDataTypeArbitrarinesses() {
 		return new boolean[]{ false };
 	}
 
 
 	@Override
-	public boolean[] getParameterRankArbitrarinesses() {
+	public boolean[] getParameterArrayRankArbitrarinesses() {
 		return new boolean[]{ true };
 	}
 
@@ -71,6 +71,16 @@ public class Float64VectorizableOperationXfci1Plugin implements ExternalFunction
 	@Override
 	public Class<?> getReturnUnconvertedClass(Class<?>[] parameterClasses) {
 		return ArrayDataAccessorInterface1.class;
+	}
+
+	@Override
+	public boolean isReturnDataTypeArbitrary() {
+		return false;
+	}
+
+	@Override
+	public boolean isReturnArrayRankArbitrary() {
+		return true;
 	}
 
 	@Override

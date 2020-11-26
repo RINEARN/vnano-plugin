@@ -43,13 +43,23 @@ public class Float64VectorToScalarOperationXfci1Plugin implements ExternalFuncti
 	}
 
 	@Override
-	public boolean[] getParameterClassArbitrarinesses() {
+	public boolean isReturnDataTypeArbitrary() {
+		return false;
+	}
+
+	@Override
+	public boolean isReturnArrayRankArbitrary() {
+		return false;
+	}
+
+	@Override
+	public boolean[] getParameterDataTypeArbitrarinesses() {
 		return new boolean[]{ false };
 	}
 
 
 	@Override
-	public boolean[] getParameterRankArbitrarinesses() {
+	public boolean[] getParameterArrayRankArbitrarinesses() {
 		return new boolean[]{ false };
 	}
 

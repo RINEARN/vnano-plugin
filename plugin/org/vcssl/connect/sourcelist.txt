@@ -9,6 +9,7 @@ org/vcssl/connect/ConnectorPermissionValue.java
 org/vcssl/connect/EngineConnectorInterface1.java
 org/vcssl/connect/ExternalFunctionConnectorInterface1.java
 org/vcssl/connect/ExternalNamespaceConnectorInterface1.java
+org/vcssl/connect/ExternalStructConnectorInterface1.java
 org/vcssl/connect/ExternalVariableConnectorInterface1.java
 org/vcssl/connect/FieldToXvci1Adapter.java
 org/vcssl/connect/Float64ScalarDataAccessorInterface1.java

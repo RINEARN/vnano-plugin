@@ -6,6 +6,7 @@ import java.util.List;
 import org.vcssl.connect.ConnectorException;
 import org.vcssl.connect.ExternalFunctionConnectorInterface1;
 import org.vcssl.connect.ExternalNamespaceConnectorInterface1;
+import org.vcssl.connect.ExternalStructConnectorInterface1;
 import org.vcssl.connect.ExternalVariableConnectorInterface1;
 import org.vcssl.nano.plugin.math.xvci1.PiXvci1Plugin;
 import org.vcssl.nano.plugin.math.xfci1.AbsXfci1Plugin;
@@ -48,8 +49,8 @@ public class MathElementaryXnci1Plugin implements ExternalNamespaceConnectorInte
 	}
 
 	@Override
-	public boolean isAbbreviatable() {
-		return true;
+	public boolean isMandatoryToAccessMembers() {
+		return false;
 	}
 
 	@Override
@@ -100,6 +101,11 @@ public class MathElementaryXnci1Plugin implements ExternalNamespaceConnectorInte
 		List<ExternalVariableConnectorInterface1> variableList = new LinkedList<ExternalVariableConnectorInterface1>();
 		variableList.add(new PiXvci1Plugin());
 		return variableList.toArray(new ExternalVariableConnectorInterface1[0]);
+	}
+
+	@Override
+	public ExternalStructConnectorInterface1[] getStructs() {
+		return new ExternalStructConnectorInterface1[0];
 	}
 
 	@Override

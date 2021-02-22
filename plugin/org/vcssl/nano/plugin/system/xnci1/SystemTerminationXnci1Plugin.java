@@ -1,5 +1,5 @@
 /*
- * Author:  RINEARN (Fumihiro Matsui), 2020
+ * Author:  RINEARN (Fumihiro Matsui), 2020-2021
  * License: CC0
  */
 
@@ -11,6 +11,7 @@ import java.util.List;
 import org.vcssl.connect.ConnectorException;
 import org.vcssl.connect.ExternalFunctionConnectorInterface1;
 import org.vcssl.connect.ExternalNamespaceConnectorInterface1;
+import org.vcssl.connect.ExternalStructConnectorInterface1;
 import org.vcssl.connect.ExternalVariableConnectorInterface1;
 import org.vcssl.nano.plugin.system.xfci1.ErrorXfci1Plugin;
 import org.vcssl.nano.plugin.system.xfci1.ExitIntXfci1Plugin;
@@ -27,8 +28,8 @@ public class SystemTerminationXnci1Plugin implements ExternalNamespaceConnectorI
 	}
 
 	@Override
-	public boolean isAbbreviatable() {
-		return true;
+	public boolean isMandatoryToAccessMembers() {
+		return false;
 	}
 
 	@Override
@@ -45,6 +46,11 @@ public class SystemTerminationXnci1Plugin implements ExternalNamespaceConnectorI
 		List<ExternalVariableConnectorInterface1> variableList = new LinkedList<ExternalVariableConnectorInterface1>();
 		// variableList.add(...);
 		return variableList.toArray(new ExternalVariableConnectorInterface1[0]);
+	}
+
+	@Override
+	public ExternalStructConnectorInterface1[] getStructs() {
+		return new ExternalStructConnectorInterface1[0];
 	}
 
 	@Override

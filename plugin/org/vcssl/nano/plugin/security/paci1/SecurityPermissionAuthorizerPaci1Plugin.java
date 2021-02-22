@@ -1,5 +1,5 @@
 /*
- * Author:  RINEARN (Fumihiro Matsui), 2020
+ * Author:  RINEARN (Fumihiro Matsui), 2020-2021
  * License: CC0
  */
 
@@ -29,7 +29,7 @@ public class SecurityPermissionAuthorizerPaci1Plugin implements PermissionAuthor
 	/**
 	 * setPermissionMap で指定されたパーミッション内容を保持します。
 	 */
-	private Map<String, String> specifiedPermissionMap;
+	private Map<String, String> permanentPermissionMap;
 
 
 	/**
@@ -113,29 +113,48 @@ public class SecurityPermissionAuthorizerPaci1Plugin implements PermissionAuthor
 
 	/**
 	 * パーミッション項目の名前と値を格納するマップ（パーミッションマップ）によって, 各パーミッションの値を設定します。
+	 * この操作は、常にエンジン側から直接呼び出され、スクリプトの処理から呼ばれる事はありません。
 	 *
 	 * @param permissionMap パーミッション項目の名前と値を格納するマップ（パーミッションマップ）
+	 * @param setsToPermanent パーマネント値を設定したい場合は true、一時的な値を設定したい場合は false
 	 */
 	@Override
-	public void setPermissionMap(Map<String, String> permissionMap) throws ConnectorException {
+	public void setPermissionMap(Map<String, String> permissionMap, boolean setsToPermanent) throws ConnectorException {
 		synchronized (this.lock) {
 
-			this.specifiedPermissionMap = permissionMap;
-
-			if (this.specifiedPermissionMap.containsKey(ConnectorPermissionName.ALL)) {
+			if (permissionMap.containsKey(ConnectorPermissionName.ALL)) {
 				String errorMessage = this.isJapanese ?
 					"パーミッション項目名「 ALL 」は、パーミッションマップのキーとしては使用できません（代わりに「 DEFAULT 」が有用かもしれません）。" :
 					"The permission item name \"ALL\" can not be used as a key of permission maps (\"DEFAULT\" might be suitable for your needs)" ;
 				throw new ConnectorException(errorMessage);
 			}
 
-			if (this.specifiedPermissionMap.containsKey(ConnectorPermissionName.NONE)) {
+			if (permissionMap.containsKey(ConnectorPermissionName.NONE)) {
 				String errorMessage = this.isJapanese ?
 					"パーミッション項目名「 NONE 」は、パーミッションマップのキーとしては使用できません。" :
 					"The permission item name \"NONE\" can not be used as a key of permission maps" ;
 				throw new ConnectorException(errorMessage);
 			}
+
+			if (setsToPermanent) {
+				this.permanentPermissionMap = permissionMap;
+			} else {
+				this.temporaryPermissionMap = permissionMap;
+			}
 		}
+	}
+
+
+	/**
+	 * 最新の状態を表す、パーミッション項目の名前と値を格納するマップ（パーミッションマップ）を返します。
+	 * この操作は、常にエンジン側から直接呼び出され、スクリプトの処理から呼ばれる事はありません。
+	 *
+	 * @param getsFromPermanent パーマネント値を取得したい場合は true、一時的な値を取得したい場合は false
+	 * @return permissionMap パーミッション項目の名前と値を格納するマップ（パーミッションマップ）
+	 */
+	@Override
+	public Map<String, String> getPermissionMap(boolean getsFromPermanent) throws ConnectorException {
+		return getsFromPermanent ? this.permanentPermissionMap : this.temporaryPermissionMap;
 	}
 
 
@@ -201,7 +220,7 @@ public class SecurityPermissionAuthorizerPaci1Plugin implements PermissionAuthor
 	@Override
 	public void finalizeForDisconnection(Object engineConnector) throws ConnectorException {
 		synchronized (this.lock) {
-			this.specifiedPermissionMap = null;
+			this.permanentPermissionMap = null;
 			this.temporaryPermissionMap = null;
 
 			// close すると標準入力も close してしまう（標準入力は再度開けない）
@@ -224,8 +243,8 @@ public class SecurityPermissionAuthorizerPaci1Plugin implements PermissionAuthor
 
 			// 以下、temporaryPermissionMap を、specifiedPermissionMap と同内容で初期化/再初期化する
 			this.temporaryPermissionMap = new HashMap<String, String>();
-			if (this.specifiedPermissionMap != null) {
-				Set<Map.Entry<String, String>> permissionEntrySet = this.specifiedPermissionMap.entrySet();
+			if (this.permanentPermissionMap != null) {
+				Set<Map.Entry<String, String>> permissionEntrySet = this.permanentPermissionMap.entrySet();
 				for (Map.Entry<String, String> permissionEntry: permissionEntrySet) {
 					this.temporaryPermissionMap.put(permissionEntry.getKey(), permissionEntry.getValue());
 				}
@@ -448,4 +467,103 @@ public class SecurityPermissionAuthorizerPaci1Plugin implements PermissionAuthor
 			}
 		}
 	}
+
+
+	/**
+	 * 指定された名称のパーミッションの状態値を設定します。
+	 *
+	 * この操作は、エンジンから直接呼ばれる場合と、
+	 * スクリプトの処理から（操作用の関数を提供するプラグインを通して）呼ばれる場合の両方が想定されます。
+	 *
+	 * 後者の場合は、併せて事前に
+	 * {@link PermissionAuthorizerConnectorInterface1#requestPermission(String,Object,Object) requestPermission(...)}
+	 * メソッドによって、この操作に必要なパーミッションが検査/取得される事を前提とします。
+	 * （処理系側において、このメソッドをラップして別プラグインに提供するエンジンコネクタが、そのように実装されます。）
+	 * 従ってこのメソッド内では、そのような検査/取得処理は行いません。
+	 *
+	 * @param permissionName パーミッションの名称
+	 * @param value パーミッションの状態値
+	 * @param setsToPermanent パーマネント値を設定したい場合は true、一時的な値を設定したい場合は false
+	 */
+	@Override
+	public void setPermissionValue(String permissionName, String value, boolean setsToPermanent) {
+		Map<String, String> targetMap = setsToPermanent ? this.permanentPermissionMap : this.temporaryPermissionMap;
+		targetMap.put(permissionName, value);
+	}
+
+
+	/**
+	 * 指定された名称のパーミッションの状態値を取得します。
+	 *
+	 * この操作は、エンジンから直接呼ばれる場合と、
+	 * スクリプトの処理から（操作用の関数を提供するプラグインを通して）呼ばれる場合の両方が想定されます。
+	 *
+	 * 後者の場合は、併せて事前に
+	 * {@link PermissionAuthorizerConnectorInterface1#requestPermission(String,Object,Object) requestPermission(...)}
+	 * メソッドによって、この操作に必要なパーミッションが検査/取得される事を前提とします。
+	 * （処理系側において、このメソッドをラップして別プラグインに提供するエンジンコネクタが、そのように実装されます。）
+	 * 従ってこのメソッド内では、そのような検査/取得処理は行いません。
+	 *
+	 * @param permissionName パーミッションの名称
+	 * @return パーミッションの状態値
+	 * @param getsFromPermanent パーマネント値を取得したい場合は true、一時的な値を取得したい場合は false
+	 * @throws ConnectorException 指定された名称のパーミッションが設定されていなかった場合にスローされます。
+	 */
+	@Override
+	public String getPermissionValue(String permissionName, boolean getsFromPermanent)
+			throws ConnectorException {
+
+		Map<String, String> targetMap = getsFromPermanent ? this.permanentPermissionMap : this.temporaryPermissionMap;
+		if (targetMap.containsKey(permissionName)) {
+			return targetMap.get(permissionName);
+		} else {
+			String errorMessage = this.isJapanese ?
+					"取得対象のパーミッション項目名「" + permissionName + "」の値が設定されていません。" :
+					"The value of the specified permission \"" + permissionName + "\" is not set" ;
+			throw new ConnectorException(errorMessage);
+		}
+	}
+
+
+	/**
+	 * 実行中における一時的なパーミッション状態を保存します。
+	 *
+	 * この操作は、エンジンから直接呼ばれる場合と、
+	 * スクリプトの処理から（操作用の関数を提供するプラグインを通して）呼ばれる場合の両方が想定されます。
+	 *
+	 * 後者の場合は、併せて事前に
+	 * {@link PermissionAuthorizerConnectorInterface1#requestPermission(String,Object,Object) requestPermission(...)}
+	 * メソッドによって、この操作に必要なパーミッションが検査/取得される事を前提とします。
+	 * （処理系側において、このメソッドをラップして別プラグインに提供するエンジンコネクタが、そのように実装されます。）
+	 * 従ってこのメソッド内では、そのような検査/取得処理は行いません。
+	 *
+	 * @param storesToPermanent パーマネント値として保存する場合に true、一時的に保存する場合は false
+	 * @throws ConnectorException この機能がサポートされていない場合にスローされます。
+	 */
+	@Override
+	public void storeTemporaryPermissionValues(boolean storesToPermanent) throws ConnectorException {
+		throw new ConnectorException("This feature is unsupported yet.");
+	}
+
+
+	/**
+	 * 実行中における一時的なパーミッション状態を復元します。
+	 *
+	 * この操作は、エンジンから直接呼ばれる場合と、
+	 * スクリプトの処理から（操作用の関数を提供するプラグインを通して）呼ばれる場合の両方が想定されます。
+	 *
+	 * 後者の場合は、併せて事前に
+	 * {@link PermissionAuthorizerConnectorInterface1#requestPermission(String,Object,Object) requestPermission(...)}
+	 * メソッドによって、この操作に必要なパーミッションが検査/取得される事を前提とします。
+	 * （処理系側において、このメソッドをラップして別プラグインに提供するエンジンコネクタが、そのように実装されます。）
+	 * 従ってこのメソッド内では、そのような検査/取得処理は行いません。
+	 *
+	 * @param restoresFromPermanent パーマネント値から復元する場合に true、一時的に store した値からの場合は false
+	 * @throws ConnectorException この機能がサポートされていない場合にスローされます。
+	 */
+	@Override
+	public void restoreTemporaryPermissionValues(boolean restoresFromPermanent) throws ConnectorException {
+		throw new ConnectorException("This feature is unsupported yet.");
+	}
+
 }

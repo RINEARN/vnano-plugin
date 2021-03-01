@@ -13,13 +13,13 @@ This repository provides/manages plug-ins to extend build-in functions and varia
 
 &nbsp;&nbsp;- master branch -
 <br />
-&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://github.com/RINEARN/vnano-standard-plugin/workflows/Standard%20Build%2FTest%20CI/badge.svg?branch=master" alt="Standard CI Result" /> on JDK 14
+&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://github.com/RINEARN/vnano-standard-plugin/workflows/Standard%20Build%2FTest%20CI/badge.svg?branch=master" alt="Standard CI Result" /> on JDK 15
 &nbsp;&nbsp;&nbsp;&nbsp;<img src="https://github.com/RINEARN/vnano-standard-plugin/workflows/Old-Env%20Build%2FTest%20CI/badge.svg?branch=master" alt="Old-Env CI Result" /> on JDK 8
 &nbsp;&nbsp;
 <br />
 &nbsp;&nbsp;- develop branch -
 <br />
-&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://github.com/RINEARN/vnano-standard-plugin/workflows/Standard%20Build%2FTest%20CI/badge.svg?branch=develop" alt="Standard CI Result" /> on JDK 14
+&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://github.com/RINEARN/vnano-standard-plugin/workflows/Standard%20Build%2FTest%20CI/badge.svg?branch=develop" alt="Standard CI Result" /> on JDK 15
 &nbsp;&nbsp;&nbsp;&nbsp;<img src="https://github.com/RINEARN/vnano-standard-plugin/workflows/Old-Env%20Build%2FTest%20CI/badge.svg?branch=develop" alt="Old-Env CI Result" /> on JDK 8
 &nbsp;&nbsp;
 <br />
@@ -58,10 +58,16 @@ Then next, compile souce files of plug-ins:
 
 続いて、プラグインのソースコードをコンパイルします：
 
+For Microsoft&reg; Windows&reg;:
+
     cd vnano-standard-plugin
-    cd plugin
-    javac -encoding UTF-8 @org/vcssl/connect/sourcelist.txt
-    javac -encoding UTF-8 @org/vcssl/nano/plugin/sourcelist.txt
+    .\build.bat
+
+For Linux&reg;, etc.:
+
+    cd vnano-standard-plugin
+    chmod +x ./build.sh          # if necessary: sudo ...
+    ./build.sh
 
 After the compilation will be completed successfully, class files of plug-ins will be generated in "plugin/..." directory. Copy them in the directory specified by the application you are using, 
 and specify them in the setting file for loading plug-ins (e.g.: plugin/VnanoPluginList.txt ) of the application.
@@ -85,6 +91,7 @@ For Microsoft&reg; Windows&reg;:
 For Linux&reg;, etc.:
 
     cd <working-directory>/vnano-standard-plugin
+    chmod +x ./test.sh          # if necessary: sudo ...
     ./test.sh
 
 Result:

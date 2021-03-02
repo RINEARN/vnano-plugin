@@ -53,7 +53,7 @@ so same features are also available in scripts of the VCSSL by default.
 			<br />
 			Variables: <a href="#INT_MAX">INT_MAX</a> / <a href="#INT_MIN">INT_MIN</a> / <a href="#FLOAT_MAX">FLOAT_MAX</a> / <a href="#FLOAT_MIN_ABS_NORMAL">FLOAT_MIN_ABS_NORMAL</a> / <a href="#FLOAT_MIN_ABS_DENORMAL">FLOAT_MIN_ABS_DENORMAL</a> / <a href="#NAN">NAN</a> / <a href="#INF">INF</a>
 			<br />
-			Functions: <a href="#nan">nan(value)</a> / <a href="#inf">inf(value)</a> / <a href="#length">length(array, dimIndex)</a> / <a href="#rank">rank(array)</a>
+			Functions: <a href="#nan">nan(value)</a> / <a href="#inf">inf(value)</a> / <a href="#length">length(array, dimIndex)</a> / <a href="#arrayrank">arrayrank(array)</a>
 		</dd>
 	<dt><a href="#SystemTerminalIOXnci1Plugin">SystemTerminalIOXnci1Plugin</a></dt>
 		<dd>
@@ -354,7 +354,7 @@ The plug-in providing data-type-utility functions/variables.
 	<tr>
 		<td class="lcol">Params</td>
 		<td class="rcol">
-			(any type, any rank) array: The array you want to get the length of it.
+			(any type, any arrayrank) array: The array you want to get the length of it.
 			<br />
 			(int型) dimIndex: The index of the array-dimension you want to get the length on it (regarding the most left dimension as 0-th).
 		</td>
@@ -370,18 +370,18 @@ The plug-in providing data-type-utility functions/variables.
 </table>
 
 
-<table id="rank" class="spec-table">
+<table id="arrayrank" class="spec-table">
 	<tr>
 		<th class="lcol">Function</th>
-		<th class="rcol">rank(array)</th>
+		<th class="rcol">arrayrank(array)</th>
 	</tr>
 	<tr>
 		<td class="lcol">Feature</td>
-		<td class="rcol">Gets the number of dimensions of the specified array.</td>
+		<td class="rcol">Gets the number of dimensions (array rank) of the specified array.</td>
 	</tr>
 	<tr>
 		<td class="lcol">Signature</td>
-		<td class="rcol">int rank(any array[...])</td>
+		<td class="rcol">int arrayrank(any array[...])</td>
 	</tr>
 	<tr>
 		<td class="lcol">Params</td>
@@ -395,7 +395,7 @@ The plug-in providing data-type-utility functions/variables.
 	</tr>
 	<tr>
 		<td class="lcol">Example</td>
-		<td class="rcol">int a[10][11][12];<br />print( rank(a) ); // 3</td>
+		<td class="rcol">int a[10][11][12];<br />print( arrayrank(a) ); // 3</td>
 	</tr>
 </table>
 

@@ -52,7 +52,7 @@
 			<br />
 			変数: <a href="#INT_MAX">INT_MAX</a> / <a href="#INT_MIN">INT_MIN</a> / <a href="#FLOAT_MAX">FLOAT_MAX</a> / <a href="#FLOAT_MIN_ABS_NORMAL">FLOAT_MIN_ABS_NORMAL</a> / <a href="#FLOAT_MIN_ABS_DENORMAL">FLOAT_MIN_ABS_DENORMAL</a> / <a href="#NAN">NAN</a> / <a href="#INF">INF</a>
 			<br />
-			関数: <a href="#nan">nan(value)</a> / <a href="#inf">inf(value)</a> / <a href="#length">length(array, dimIndex)</a> / <a href="#rank">rank(array)</a>
+			関数: <a href="#nan">nan(value)</a> / <a href="#inf">inf(value)</a> / <a href="#length">length(array, dimIndex)</a> / <a href="#arrayrank">arrayrank(array)</a>
 		</dd>
 	<dt><a href="#SystemTerminalIOXnci1Plugin">SystemTerminalIOXnci1Plugin</a></dt>
 		<dd>
@@ -369,10 +369,10 @@
 </table>
 
 
-<table id="rank" class="spec-table">
+<table id="arrayrank" class="spec-table">
 	<tr>
 		<th class="lcol">関数</th>
-		<th class="rcol">rank(array)</th>
+		<th class="rcol">arrayrank(array)</th>
 	</tr>
 	<tr>
 		<td class="lcol">機能</td>
@@ -380,7 +380,7 @@
 	</tr>
 	<tr>
 		<td class="lcol">宣言形式</td>
-		<td class="rcol">int rank(any array[...])</td>
+		<td class="rcol">int arrayrank(any array[...])</td>
 	</tr>
 	<tr>
 		<td class="lcol">引数</td>
@@ -394,7 +394,7 @@
 	</tr>
 	<tr>
 		<td class="lcol">使用例</td>
-		<td class="rcol">int a[10][11][12];<br />print( rank(a) ); // 3</td>
+		<td class="rcol">int a[10][11][12];<br />print( arrayrank(a) ); // 3</td>
 	</tr>
 </table>
 

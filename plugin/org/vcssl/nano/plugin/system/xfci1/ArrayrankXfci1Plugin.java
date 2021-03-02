@@ -6,7 +6,7 @@ import org.vcssl.connect.ArrayDataAccessorInterface1;
 import org.vcssl.connect.ConnectorException;
 import org.vcssl.connect.ExternalFunctionConnectorInterface1;
 
-public class RankXfci1Plugin implements ExternalFunctionConnectorInterface1 {
+public class ArrayrankXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 
 	Locale locale = null;
 
@@ -29,7 +29,7 @@ public class RankXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 
 	@Override
 	public final String getFunctionName() {
-		return "rank";
+		return "arrayrank";
 	}
 
 	@Override

@@ -65,7 +65,7 @@ so same features are also available in scripts of the VCSSL by default.
 		<dd>
 			Provides interactive I/O functions from/to the user.
 			<br />
-			Functions: <a href="#popup">popup(message)</a> / <a href="#alert">alert(message)</a> / <a href="#confirm">confirm(message)</a>
+			Functions: <a href="#popup">popup(message)</a> / <a href="#alert">alert(message)</a> / <a href="#confirm">confirm(message)</a> / <a href="#input">input(message)</a> / <a href="#input-string-any">input(message, defaultValue)</a>
 	<dt><a href="#SystemTimeXnci1Plugin">SystemTimeXnci1Plugin</a></dt>
 		<dd>
 			Provides time-utility functions.
@@ -518,7 +518,7 @@ and I/O will be performed interactively by user's actions on the window.
 	</tr>
 	<tr>
 		<td class="lcol">Params</td>
-		<td class="rcol">(any type) The message or the value to be displayed.</td>
+		<td class="rcol">(any type) message: The message or the value to be displayed.</td>
 	</tr>
 	<tr>
 		<td class="lcol">Return</td>
@@ -546,7 +546,7 @@ and I/O will be performed interactively by user's actions on the window.
 	</tr>
 	<tr>
 		<td class="lcol">Params</td>
-		<td class="rcol">(string type) The message to be displayed.</td>
+		<td class="rcol">(string type) message: The message to be displayed.</td>
 	</tr>
 	<tr>
 		<td class="lcol">Return</td>
@@ -574,7 +574,7 @@ and I/O will be performed interactively by user's actions on the window.
 	</tr>
 	<tr>
 		<td class="lcol">Params</td>
-		<td class="rcol">(string type) The message to be displayed.</td>
+		<td class="rcol">(string type) message: The message to be displayed.</td>
 	</tr>
 	<tr>
 		<td class="lcol">Return</td>
@@ -583,6 +583,66 @@ and I/O will be performed interactively by user's actions on the window.
 	<tr>
 		<td class="lcol">Example</td>
 		<td class="rcol">bool isYes = confirm( &quot;OK?&quot; );</td>
+	</tr>
+</table>
+
+
+<table id="input" class="spec-table">
+	<tr>
+		<th class="lcol">Function</th>
+		<th class="rcol">input(message)</th>
+	</tr>
+	<tr>
+		<td class="lcol">Feature</td>
+		<td class="rcol">Displays a message, and asks for input.</td>
+	</tr>
+	<tr>
+		<td class="lcol">Signature</td>
+		<td class="rcol">string[] input(string message)</td>
+	</tr>
+	<tr>
+		<td class="lcol">Params</td>
+		<td class="rcol">(string type) message: The message to be displayed.</td>
+	</tr>
+	<tr>
+		<td class="lcol">Return</td>
+		<td class="rcol">(string[] type) The inputted value. (The array-length is normally 1, so you can receive it by a scalar variable, if you want.)</td>
+	</tr>
+	<tr>
+		<td class="lcol">Example</td>
+		<td class="rcol">string inputtedValue[] = input( &quot;Please input&quot; );</td>
+	</tr>
+</table>
+
+
+<table id="input-string-any" class="spec-table">
+	<tr>
+		<th class="lcol">Function</th>
+		<th class="rcol">input(message)</th>
+	</tr>
+	<tr>
+		<td class="lcol">Feature</td>
+		<td class="rcol">Displays a message, and asks for input. A default value can be specified by the second argument.</td>
+	</tr>
+	<tr>
+		<td class="lcol">Signature</td>
+		<td class="rcol">string[] input(string message, any defaultValue)</td>
+	</tr>
+	<tr>
+		<td class="lcol">Params</td>
+		<td class="rcol">
+			(string type) message: The message to be displayed.
+			<br />
+			(any type) defaultValue: The default value.
+		</td>
+	</tr>
+	<tr>
+		<td class="lcol">Return</td>
+		<td class="rcol">(string[] type) The inputted value. (The array-length is normally 1, so you can receive it by a scalar variable, if you want.)</td>
+	</tr>
+	<tr>
+		<td class="lcol">Example</td>
+		<td class="rcol">string inputtedValue[] = input( &quot;Please input&quot;, &quot;defaultValue&quot; );</td>
 	</tr>
 </table>
 

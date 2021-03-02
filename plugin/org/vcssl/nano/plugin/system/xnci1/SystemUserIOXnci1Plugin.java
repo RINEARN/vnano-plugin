@@ -14,6 +14,7 @@ import org.vcssl.connect.ExternalNamespaceConnectorInterface1;
 import org.vcssl.connect.ExternalStructConnectorInterface1;
 import org.vcssl.connect.ExternalVariableConnectorInterface1;
 import org.vcssl.nano.plugin.system.xfci1.AlertXfci1Plugin;
+import org.vcssl.nano.plugin.system.xfci1.ConfirmXfci1Plugin;
 import org.vcssl.nano.plugin.system.xfci1.PopupXfci1Plugin;
 
 //Interface Specification: https://www.vcssl.org/en-us/dev/code/main-jimpl/api/org/vcssl/connect/ExternalNamespaceConnectorInterface1.html
@@ -36,6 +37,7 @@ public class SystemUserIOXnci1Plugin implements ExternalNamespaceConnectorInterf
 		List<ExternalFunctionConnectorInterface1> functionList = new LinkedList<ExternalFunctionConnectorInterface1>();
 		functionList.add( new PopupXfci1Plugin() );
 		functionList.add( new AlertXfci1Plugin() );
+		functionList.add( new ConfirmXfci1Plugin() );
 		return functionList.toArray(new ExternalFunctionConnectorInterface1[0]);
 	}
 

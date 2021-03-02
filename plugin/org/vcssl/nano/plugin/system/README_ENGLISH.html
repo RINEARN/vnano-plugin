@@ -65,7 +65,7 @@ so same features are also available in scripts of the VCSSL by default.
 		<dd>
 			Provides interactive I/O functions from/to the user.
 			<br />
-			Functions: <a href="#popup">popup(message)</a> / <a href="#alert">alert(message)</a>
+			Functions: <a href="#popup">popup(message)</a> / <a href="#alert">alert(message)</a> / <a href="#confirm">confirm(message)</a>
 	<dt><a href="#SystemTimeXnci1Plugin">SystemTimeXnci1Plugin</a></dt>
 		<dd>
 			Provides time-utility functions.
@@ -555,6 +555,34 @@ and I/O will be performed interactively by user's actions on the window.
 	<tr>
 		<td class="lcol">Example</td>
 		<td class="rcol">alert( &quot;Oops&quot; );</td>
+	</tr>
+</table>
+
+
+<table id="confirm" class="spec-table">
+	<tr>
+		<th class="lcol">Function</th>
+		<th class="rcol">confirm(message)</th>
+	</tr>
+	<tr>
+		<td class="lcol">Feature</td>
+		<td class="rcol">Displays a confirmation message, and asks for the answer in the form of: Yes (y) or No (n).</td>
+	</tr>
+	<tr>
+		<td class="lcol">Signature</td>
+		<td class="rcol">bool confirm(string message)</td>
+	</tr>
+	<tr>
+		<td class="lcol">Params</td>
+		<td class="rcol">(string type) The message to be displayed.</td>
+	</tr>
+	<tr>
+		<td class="lcol">Return</td>
+		<td class="rcol">(bool type) Returns true if the user has answered "Yes" (or inputted "y" on the CUI mode).</td>
+	</tr>
+	<tr>
+		<td class="lcol">Example</td>
+		<td class="rcol">bool isYes = confirm( &quot;OK?&quot; );</td>
 	</tr>
 </table>
 

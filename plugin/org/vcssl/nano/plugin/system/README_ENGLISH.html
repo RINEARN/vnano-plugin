@@ -61,6 +61,11 @@ so same features are also available in scripts of the VCSSL by default.
 			<br />
 			Functions: <a href="#print">print(...)</a> / <a href="#println">println(...)</a>
 		</dd>
+	<dt><a href="#SystemUserIOXnci1Plugin">SystemUserIOXnci1Plugin</a></dt>
+		<dd>
+			Provides interactive I/O functions from/to the user.
+			<br />
+			Functions: <a href="#popup">popup(message)</a> / <a href="#alert">alert(message)</a>
 	<dt><a href="#SystemTimeXnci1Plugin">SystemTimeXnci1Plugin</a></dt>
 		<dd>
 			Provides time-utility functions.
@@ -473,6 +478,83 @@ and I/O will be performed from/to it.
 	<tr>
 		<td class="lcol">Example</td>
 		<td class="rcol">println( &quot;Hello&quot;, 123, 4.56, true ); // Hello 123, 4.56, true (line feed)</td>
+	</tr>
+</table>
+
+
+
+<!-- ==================================================================================================== -->
+
+<hr style="page-break-before: always" />
+
+<h2 id="SystemUserIOXnci1Plugin">SystemUserIOXnci1Plugin<br /><span class="spec-path">(org.vcssl.nano.plugin.system.xnci1.SystemUserIOXnci1Plugin)</span></h2>
+
+<p>
+The plug-in providing interactive I/O functions from/to the user.
+<br />
+When the option "UI_MODE" of the script engine is set to "CUI",
+I/O will be performed from/to the standard input/output.
+When the option "UI_MODE" of the script engine is set to "GUI", 
+a pop-up window will be displayed, 
+and I/O will be performed interactively by user's actions on the window.
+</p>
+
+
+<h3>Functions</h3>
+
+
+<table id="popup" class="spec-table">
+	<tr>
+		<th class="lcol">Function</th>
+		<th class="rcol">popup(message)</th>
+	</tr>
+	<tr>
+		<td class="lcol">Feature</td>
+		<td class="rcol">Displays a message or a value.</td>
+	</tr>
+	<tr>
+		<td class="lcol">Signature</td>
+		<td class="rcol">void popup(any message)</td>
+	</tr>
+	<tr>
+		<td class="lcol">Params</td>
+		<td class="rcol">(any type) The message or the value to be displayed.</td>
+	</tr>
+	<tr>
+		<td class="lcol">Return</td>
+		<td class="rcol">None</td>
+	</tr>
+	<tr>
+		<td class="lcol">Example</td>
+		<td class="rcol">popup( &quot;Hello&quot; );</td>
+	</tr>
+</table>
+
+
+<table id="alert" class="spec-table">
+	<tr>
+		<th class="lcol">Function</th>
+		<th class="rcol">alert(message)</th>
+	</tr>
+	<tr>
+		<td class="lcol">Feature</td>
+		<td class="rcol">Displays a message. Compared with "popup" function, the window title, behaviour, and so on are tuned for displaying warning messages.</td>
+	</tr>
+	<tr>
+		<td class="lcol">Signature</td>
+		<td class="rcol">void alert(string message)</td>
+	</tr>
+	<tr>
+		<td class="lcol">Params</td>
+		<td class="rcol">(string type) The message to be displayed.</td>
+	</tr>
+	<tr>
+		<td class="lcol">Return</td>
+		<td class="rcol">None</td>
+	</tr>
+	<tr>
+		<td class="lcol">Example</td>
+		<td class="rcol">alert( &quot;Oops&quot; );</td>
 	</tr>
 </table>
 

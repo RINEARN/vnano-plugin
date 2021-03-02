@@ -104,21 +104,21 @@ coding UTF-8;
 }
 
 
-// Test of rank(value)
+// Test of arrayrank(value)
 {
-	print("rank(array): ");
+	print("arrayrank(array): ");
 	
 	int scalar;
-	assert( rank(scalar) == 0 );
+	assert( arrayrank(scalar) == 0 );
 	
 	int array1d[10];
-	assert( rank(array1d) == 1 );
+	assert( arrayrank(array1d) == 1 );
 	
 	int array2d[10][11];
-	assert( rank(array2d) == 2 );
+	assert( arrayrank(array2d) == 2 );
 	
 	int array3d[10][11][12];
-	assert( rank(array3d) == 3 );
+	assert( arrayrank(array3d) == 3 );
 	
 	println("OK.");
 }

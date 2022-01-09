@@ -5,6 +5,7 @@
 
 package org.vcssl.nano.plugin.system.xfci1;
 
+import org.vcssl.connect.EngineConnectorInterface1;
 import org.vcssl.connect.ArrayDataAccessorInterface1;
 import org.vcssl.connect.ConnectorException;
 import org.vcssl.connect.ExternalFunctionConnectorInterface1;
@@ -15,6 +16,12 @@ import org.vcssl.connect.ExternalFunctionConnectorInterface1;
 public class TimeXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 
 	private long initialNanoTime = 0;
+
+	// 初期化/終了時処理の引数に渡される、スクリプトエンジンと情報をやり取りするインターフェースの指定
+	@Override
+	public Class<?> getEngineConnectorClass() {
+		return EngineConnectorInterface1.class;
+	}
 
 	// 接続時の初期化
 	@Override

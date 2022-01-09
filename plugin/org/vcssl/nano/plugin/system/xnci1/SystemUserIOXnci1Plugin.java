@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.vcssl.connect.ConnectorException;
+import org.vcssl.connect.EngineConnectorInterface1;
 import org.vcssl.connect.ExternalFunctionConnectorInterface1;
 import org.vcssl.connect.ExternalNamespaceConnectorInterface1;
 import org.vcssl.connect.ExternalStructConnectorInterface1;
@@ -55,6 +56,11 @@ public class SystemUserIOXnci1Plugin implements ExternalNamespaceConnectorInterf
 	@Override
 	public ExternalStructConnectorInterface1[] getStructs() {
 		return new ExternalStructConnectorInterface1[0];
+	}
+
+	@Override
+	public Class<?> getEngineConnectorClass() {
+		return EngineConnectorInterface1.class;
 	}
 
 	@Override

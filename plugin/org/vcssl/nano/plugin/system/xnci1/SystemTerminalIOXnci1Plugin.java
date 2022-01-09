@@ -57,6 +57,11 @@ public class SystemTerminalIOXnci1Plugin implements ExternalNamespaceConnectorIn
 	}
 
 	@Override
+	public Class<?> getEngineConnectorClass() {
+		return EngineConnectorInterface1.class;
+	}
+
+	@Override
 	public void preInitializeForConnection(Object engineConnector) throws ConnectorException {
 
 		// 処理系の情報を取得するコネクタ（処理系依存）の互換性を検査

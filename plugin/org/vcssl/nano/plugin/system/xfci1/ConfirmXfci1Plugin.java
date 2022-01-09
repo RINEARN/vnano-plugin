@@ -27,6 +27,12 @@ public class ConfirmXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 	protected Locale locale = null;
 	protected boolean isJapanese = false;
 
+	// 初期化/終了時処理の引数に渡される、スクリプトエンジンと情報をやり取りするインターフェースの指定
+	@Override
+	public Class<?> getEngineConnectorClass() {
+		return EngineConnectorInterface1.class;
+	}
+
 	// 接続時の初期化
 	@Override
 	public void initializeForConnection(Object engineConnector) throws ConnectorException { }

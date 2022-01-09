@@ -1,6 +1,7 @@
 package org.vcssl.nano.plugin.system.xvci1;
 
 import org.vcssl.connect.ConnectorException;
+import org.vcssl.connect.EngineConnectorInterface1;
 import org.vcssl.connect.ExternalVariableConnectorInterface1;
 
 public class FloatMinAbsNormalXvci1Plugin implements ExternalVariableConnectorInterface1 {
@@ -19,6 +20,8 @@ public class FloatMinAbsNormalXvci1Plugin implements ExternalVariableConnectorIn
 	public boolean isConstant() { return true; }
 	@Override
 	public boolean isReference() { return false; }
+	@Override
+	public Class<?> getEngineConnectorClass() { return EngineConnectorInterface1.class; }
 	@Override
 	public void initializeForConnection(Object engineConnector) { }
 	@Override

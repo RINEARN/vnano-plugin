@@ -4,212 +4,526 @@
  * ( for VCSSL / Vnano Plug-in Development )
  * --------------------------------------------------
  * This file is released under CC0.
- * Written in 2019-2021 by RINEARN (Fumihiro Matsui)
+ * Written in 2019-2022 by RINEARN (Fumihiro Matsui)
  * ==================================================
  */
 
 package org.vcssl.connect;
 
+
 /**
  * <p>
- * XNCI 1 (External Namespace Connector Interface 1) 形式のプラグインを開発するための、
- * プラグイン側のコネクター・インターフェースです。
+ * <span class="lang-en">
+ * An interface (abbreviated as XNCI1) for implementing namespace plug-ins 
+ * which provides multiple functions and variables available in scripts
+ * </span>
+ * <span class="lang-ja">
+ * スクリプト内で使用可能な, 複数の関数/変数をまとめて提供する, 
+ * 名前空間プラグインを実装するためのインターフェース（略称 XNCI 1）です
+ * </span>
+ * .
  * </p>
- *
+ * 
  * <p>
- * <span style="font-weight: bold;">
- * ※ このインターフェースは未確定であり、
- * このインターフェースをサポートする処理系が正式にリリースされるまでの間、
- * 一部仕様が変更される可能性があります。
+ * <span class="lang-en">
+ * Currently, this interface is supported on the Vnano Engine, 
+ * and has not been supported on the VCSSL Engine yet.
+ * </span>
+ * <span class="lang-ja">
+ * このインターフェースは現在, Vnano 処理系では既にサポートされていますが, 
+ * VCSSL 処理系ではまだサポートされていません.
  * </span>
  * </p>
- *
- * <p>
- * XNCIは、関数や変数の集合を、共通の名前空間に属する形で1つにまとめ、
- * いわゆるモジュラープログラミングにおけるモジュールを構成するために用います。
- * つまり、このインターフェースの抽象化対象は「固有の名前空間を持つモジュール」です。
- * ただし、「モジュール」という語が指す概念や粒度の大きさは、プログラミング言語や文脈によって大きく異なるため、
- * 混乱を避ける目的で、このインターフェースの名称はModuleという語を含まないように命名されました。
- * 代わりに、集合の単位を区切るという機能面を重視して、Namespaceの語が採用されました。
- * （ ただし、概念上は必ずしもモジュールと名前空間の単位は一致する必要は無いため、
- * 将来的には、このインターフェースの子要素または親要素として、
- * さらにモジュール相当のインターフェースが新設される可能性もあり得ます。 ）
- * </p>
- *
- * <p>
- * XNCI 1 では、関数に {@link ExternalFunctionConnectorInterface1 XFCI 1} 形式、
- * 変数に {@link ExternalVariableConnectorInterface1 XVCI 1} 形式のインターフェースを採用しています。
- * それらの形式で実装された関数/変数プラグインの集合（配列）を、この名前空間に属するものとして保持し、
- * それぞれ {@link ExternalNamespaceConnectorInterface1#getFunctions() getFunctions()} メソッドおよび
- * {@link ExternalNamespaceConnectorInterface1#getVariables() getVariables()} メソッドの戻り値として、
- * 処理系に提供します。
- * </p>
- *
- * @author RINEARN (Fumihiro Matsui)
  */
 public interface ExternalNamespaceConnectorInterface1 {
 
+	/**
+	 * <span class="lang-en">The type ID of this interface (value: "XNCI") referred when the plug-in will be loaded</span>
+	 * <span class="lang-ja">プラグインのロード時に参照される, このインターフェースの形式ID（値: "XNCI"）です</span>
+	 * .
+	 */
+	public static final String INTERFACE_TYPE_ID = "XNCI";
 
-	/** 動的ロード時などに処理系側から参照される、インターフェースの形式名（値は"XNCI"）です。 */
-	public static final String INTERFACE_TYPE = "XNCI";
-
-	/** 動的ロード時などに処理系側から参照される、インターフェースの世代名（値は"1"）です。*/
+	/**
+	 * <span class="lang-en">The generation of this interface (value: "1")</span>
+	 * <span class="lang-ja">このインターフェースの世代名です（値: "1"）</span>
+	 * .
+	 */
 	public static final String INTERFACE_GENERATION = "1";
 
 
 	/**
-	 * 名前空間の名称を取得します。
-	 *
-	 * @return 名前空間の名称
+	 * <span class="lang-en">Returns the name of this namespace</span>
+	 * <span class="lang-ja">この名前空間の名称を返します</span>
+	 * .
+	 * @return
+	 *     <span class="lang-en">The name of this namespace</span>
+	 *     <span class="lang-ja">この名前空間の名称</span>
 	 */
 	public abstract String getNamespaceName();
 
 
 	/**
-	 * スクリプト内で、この名前空間に属する関数/変数にアクセスする際に、名前空間の指定が必須かどうかを返します。
-	 *
-	 * なお、このメソッドに対応する機能は、処理系によってはサポートされません。
-	 * サポートされていない処理系では、恐らく名前空間は常に省略可能（つまりこのメソッドの値が false であるのと同等）となります。
-	 * そのため現状では、特に必要性がなければ、このメソッドは false を返すように実装する事が推奨されます。
-	 * このメソッドは将来的には有用になる可能性があるため、予約的に定義されています。
-	 *
-	 * @return 名前空間の明示指定が必須である場合は true、省略可能な場合は false
+	 * <p>
+	 * <span class="lang-en">
+	 * Returns whether it is mandatory to specify of this namespace explicitly 
+	 * when accessing member functions/variables
+	 * </span>
+	 * <span class="lang-ja">
+	 * この名前空間に属する関数/変数にアクセスする際に, 名前空間の明示的な指定が必須であるかどうかを返します
+	 * </span>
+	 * .
+	 * </p>
+	 * 
+	 * <p>
+	 * <span class="lang-en">
+	 * This feature may be ignored on the script engine which does not support it.
+	 * </span>
+	 * <span class="lang-ja">
+	 * この機能は, 未対応の処理系においては無視される可能性があります.
+	 * </span>
+	 * </p>
+	 * 
+	 * @return
+	 *     <span class="lang-en">Returns "true" if this namespace is mandatory to be specified to access members</span>
+	 *     <span class="lang-ja">メンバーへのアクセスの際に, この名前空間の指定が必須である場合は true が返されます</span>
+	 * 
 	 */
 	public abstract boolean isMandatoryToAccessMembers();
 
 
 	/**
-	 * この名前空間に属する全ての関数を、配列にまとめて返します。
-	 *
-	 * @return この名前空間に属する関数をまとめた配列
+	 * <span class="lang-en">Returns all functions belong to this namespace</span>
+	 * <span class="lang-ja">この名前空間に属する全ての関数を返します</span>
+	 * .
+	 * @return
+	 *     <span class="lang-en">An array storing all functions belong to this namespace</span>
+	 *     <span class="lang-ja">この名前空間に属する全ての関数を格納する配列</span>
 	 */
 	public abstract ExternalFunctionConnectorInterface1[] getFunctions();
 
 
 	/**
-	 * この名前空間に属する全ての変数を、配列にまとめて返します。
-	 *
-	 * @return この名前空間に属する変数をまとめた配列
+	 * <span class="lang-en">Returns all variables belong to this namespace</span>
+	 * <span class="lang-ja">この名前空間に属する全ての変数を返します</span>
+	 * .
+	 * @return
+	 *     <span class="lang-en">An array storing all variables belong to this namespace</span>
+	 *     <span class="lang-ja">この名前空間に属する全ての変数を格納する配列</span>
 	 */
 	public abstract ExternalVariableConnectorInterface1[] getVariables();
 
 
 	/**
-	 * この名前空間に属する全ての構造体を、配列にまとめて返します。
-	 *
-	 * @return この名前空間に属する構造体をまとめた配列
+	 * <span class="lang-en">Returns all structs belong to this namespace</span>
+	 * <span class="lang-ja">この名前空間に属する全ての構造体を返します</span>
+	 * .
+	 * @return
+	 *     <span class="lang-en">An array storing all structs belong to this namespace</span>
+	 *     <span class="lang-ja">この名前空間に属する全ての構造体を格納する配列</span>
 	 */
 	public abstract ExternalStructConnectorInterface1[] getStructs();
 
 
 	/**
-	 * 処理系への接続時に必要な初期化処理を行います。
-	 * この処理は、この名前空間に属する全ての変数/関数の初期化処理よりも前に呼び出されます。
+	 * <p>
+	 * <span class="lang-en">
+	 * Returns the Class-instance representing the interface or the class for communicating with the script engine
+	 * </span>
+	 * <span class="lang-ja">
+	 * スクリプトエンジンと情報をやり取りする際に使用するオブジェクトの, インターフェースまたはクラスを返します
+	 * </span>
+	 * .
+	 * </p>
+	 * 
+	 * <p>
+	 * <span class="lang-en">
+	 * The instance of the specified interface/class by this method will be passed to the argument of 
+	 * {@link preInitializeForConnection(Object)}, {@link preInitializeForExecution(Object)},
+	 * {@link preFinalizeForTermination(Object)}, {@link preFinalizeForDisconnection(Object)},
+	 * {@link postInitializeForConnection(Object)}, {@link postInitializeForExecution(Object)},
+	 * {@link postFinalizeForTermination(Object)}, {@link postFinalizeForDisconnection(Object)} methods.
+	 * </span>
+	 * <span class="lang-ja">
+	 * このメソッドで戻り値として指定したインターフェースまたはクラスの実装インスタンスが, 
+	 * {@link preInitializeForConnection(Object)}, {@link preInitializeForExecution(Object)},
+	 * {@link preFinalizeForTermination(Object)}, {@link preFinalizeForDisconnection(Object)},
+	 * {@link postInitializeForConnection(Object)}, {@link postInitializeForExecution(Object)},
+	 * {@link postFinalizeForTermination(Object)}, {@link postFinalizeForDisconnection(Object)} 
+	 * メソッドの引数として渡されます.
+	 * </span>
+	 * </p>
+	 * 
+	 * <p>
+	 * <span class="lang-en">
+	 * Available interfaces depend on the script engine, but at least, 
+	 * {@link EngineConnectorInterface1 ECI 1} is guaranteed to be available by the specification of XNCI 1.
+	 * </span>
+	 * <span class="lang-ja">
+	 * どのようなインターフェース/クラスが利用可能かはスクリプトエンジンに依存しますが, 
+	 * 少なくとも {@link EngineConnectorInterface1 ECI 1} は利用可能である事が, XNCI 1 の仕様上保証されます. 
+	 * </span>
+	 * </p>
+	 * 
+	 * @return
+	 *     <span class="lang-en">
+	 *         Class-instances representing the interface/class for communicating with the script engine
+	 *     </span>
+	 *     <span class="lang-ja">
+	 *         スクリプトエンジンと情報をやり取りする際に使用するインターフェースまたはクラス
+	 *     </span>
+	 */
+	public abstract Class<?> getEngineConnectorClass();
+
+
+	/**
+	 * <p>
+	 * <span class="lang-en">
+	 * Performs the initialization process necessary when this plug-in is connected to the script engine
+	 * </span>
+	 * <span class="lang-ja">
+	 * このプラグインが, スクリプトエンジンに接続される際に必要となる初期化処理を実行します
+	 * </span>
+	 * .
+	 * </p>
+	 * 
+	 * <p>
+	 * <span class="lang-en">
+	 * On this interface, two connection-initialization (pre- and post-) processes can be implemented.
+	 * This process (pre-) will be performed before when all member variables/functions are initialized.
+	 * </span>
+	 * <span class="lang-ja">
+	 * このインターフェースでは, 接続初期化処理は 2 通り（pre- と post-）実装可能です. 
+	 * こちらの処理（pre-）は, この名前空間に属する全ての変数/関数の初期化処理よりも前に実行されます.
+	 * </span>
+	 * </p>
 	 *
-	 * 引数には、スクリプトエンジンに依存するやり取りを行うためのオブジェクトが渡されます。
-	 * このオブジェクトは、恐らく {@link EngineConnectorInterface1 EngineConnectorInterface1}
-	 * もしくはその後継の、抽象化されたインターフェースでラップされた形で渡されます。
+	 * <p>
+	 * <span class="lang-en">
+	 * As an argument "engineConnector", an object for communicating with the script engine will be passed.
+	 * The type of the object is specified by {@link getEngineConnectorClass()} method.
+	 * At least, {@link EngineConnectorInterface1 ECI 1} is guaranteed to be available by the specification of XNCI 1.
+	 * </span>
+	 * <span class="lang-ja">
+	 * 引数 engineConnector には, スクリプトエンジンと情報をやり取りする際に使用するオブジェクトが渡されます. 
+	 * そのオブジェクトの型は, {@link getEngineConnectorClass()} メソッドの戻り値として指定します.
+	 * 少なくとも {@link EngineConnectorInterface1 ECI 1} は利用可能である事が, XNCI 1 の仕様上保証されます.
+	 * </span>
+	 * </p>
 	 *
-	 * @param engineConnector エンジンに依存するやり取りを行うためのオブジェクト
-	 * @throws ConnectorException 初期化処理に失敗した場合にスローされます。
+	 * @param engineConnector
+	 *     <span class="lang-en">An object for communicating with the script engine</span>
+	 *     <span class="lang-ja">スクリプトエンジンと情報をやり取りする際に使用するオブジェクト</span>
+	 * 
+	 * @throws ConnectorException
+	 *     <span class="lang-en">Thrown when the initialization has failed</span>
+	 *     <span class="lang-ja">初期化処理に失敗した場合にスローされます</span>
 	 */
 	public abstract void preInitializeForConnection(Object engineConnector) throws ConnectorException;
 
 
 	/**
-	 * 処理系への接続時に必要な初期化処理を行います。
-	 * この処理は、この名前空間に属する全ての変数/関数の初期化処理よりも後に呼び出されます。
+	 * <p>
+	 * <span class="lang-en">
+	 * Performs the initialization process necessary when this plug-in is connected to the script engine
+	 * </span>
+	 * <span class="lang-ja">
+	 * このプラグインが, スクリプトエンジンに接続される際に必要となる初期化処理を実行します
+	 * </span>
+	 * .
+	 * </p>
+	 * 
+	 * <p>
+	 * <span class="lang-en">
+	 * On this interface, two connection-initialization (pre- and post-) processes can be implemented.
+	 * This process (post-) will be performed after when all member variables/functions are initialized.
+	 * </span>
+	 * <span class="lang-ja">
+	 * このインターフェースでは, 接続初期化処理は 2 通り（pre- と post-）実装可能です. 
+	 * こちらの処理（post-）は, この名前空間に属する全ての変数/関数の接続初期化処理よりも後に実行されます.
+	 * </span>
+	 * </p>
 	 *
-	 * 引数には、スクリプトエンジンに依存するやり取りを行うためのオブジェクトが渡されます。
-	 * このオブジェクトは、恐らく {@link EngineConnectorInterface1 EngineConnectorInterface1}
-	 * もしくはその後継の、抽象化されたインターフェースでラップされた形で渡されます。
+	 * <p>
+	 * <span class="lang-en">
+	 * As an argument "engineConnector", an object for communicating with the script engine will be passed.
+	 * The type of the object is specified by {@link getEngineConnectorClass()} method.
+	 * At least, {@link EngineConnectorInterface1 ECI 1} is guaranteed to be available by the specification of XNCI 1.
+	 * </span>
+	 * <span class="lang-ja">
+	 * 引数 engineConnector には, スクリプトエンジンと情報をやり取りする際に使用するオブジェクトが渡されます. 
+	 * そのオブジェクトの型は, {@link getEngineConnectorClass()} メソッドの戻り値として指定します.
+	 * 少なくとも {@link EngineConnectorInterface1 ECI 1} は利用可能である事が, XNCI 1 の仕様上保証されます.
+	 * </span>
+	 * </p>
 	 *
-	 * @param engineConnector エンジンに依存するやり取りを行うためのオブジェクト
-	 * @throws ConnectorException 初期化処理に失敗した場合にスローされます。
+	 * @param engineConnector
+	 *     <span class="lang-en">An object for communicating with the script engine</span>
+	 *     <span class="lang-ja">スクリプトエンジンと情報をやり取りする際に使用するオブジェクト</span>
+	 * 
+	 * @throws ConnectorException
+	 *     <span class="lang-en">Thrown when the initialization has failed</span>
+	 *     <span class="lang-ja">初期化処理に失敗した場合にスローされます</span>
 	 */
 	public abstract void postInitializeForConnection(Object engineConnector) throws ConnectorException;
 
 
 	/**
-	 * 処理系からの接続解除時に必要な終了時処理を行います。
-	 * この処理は、この名前空間に属する全ての変数/関数の終了時処理よりも前に呼び出されます。
+	 * <p>
+	 * <span class="lang-en">
+	 * Performs the finalization process necessary when this plug-in is disconnected from the script engine
+	 * </span>
+	 * <span class="lang-ja">
+	 * このプラグインが, スクリプトエンジンから接続解除される際に必要となる終了時処理を実行します
+	 * </span>
+	 * .
+	 * </p>
+	 * 
+	 * <p>
+	 * <span class="lang-en">
+	 * On this interface, two connection-finalization (pre- and post-) processes can be implemented.
+	 * This process (pre-) will be performed before when all member variables/functions are finalized.
+	 * </span>
+	 * <span class="lang-ja">
+	 * このインターフェースでは, 接続終了時処理は 2 通り（pre- と post-）実装可能です. 
+	 * こちらの処理（pre-）は, この名前空間に属する全ての変数/関数の接続終了時処理よりも前に実行されます.
+	 * </span>
+	 * </p>
 	 *
-	 * 引数には、スクリプトエンジンに依存するやり取りを行うためのオブジェクトが渡されます。
-	 * このオブジェクトは、恐らく {@link EngineConnectorInterface1 EngineConnectorInterface1}
-	 * もしくはその後継の、抽象化されたインターフェースでラップされた形で渡されます。
+	 * <p>
+	 * <span class="lang-en">
+	 * As an argument "engineConnector", an object for communicating with the script engine will be passed.
+	 * The type of the object is specified by {@link getEngineConnectorClass()} method.
+	 * At least, {@link EngineConnectorInterface1 ECI 1} is guaranteed to be available by the specification of XNCI 1.
+	 * </span>
+	 * <span class="lang-ja">
+	 * 引数 engineConnector には, スクリプトエンジンと情報をやり取りする際に使用するオブジェクトが渡されます. 
+	 * そのオブジェクトの型は, {@link getEngineConnectorClass()} メソッドの戻り値として指定します.
+	 * 少なくとも {@link EngineConnectorInterface1 ECI 1} は利用可能である事が, XNCI 1 の仕様上保証されます.
+	 * </span>
+	 * </p>
 	 *
-	 * @param engineConnector エンジンに依存するやり取りを行うためのオブジェクト
-	 * @throws ConnectorException 終了時処理に失敗した場合にスローされます。
+	 * @param engineConnector
+	 *     <span class="lang-en">An object for communicating with the script engine</span>
+	 *     <span class="lang-ja">スクリプトエンジンと情報をやり取りする際に使用するオブジェクト</span>
+	 * 
+	 * @throws ConnectorException
+	 *     <span class="lang-en">Thrown when the finalization has failed</span>
+	 *     <span class="lang-ja">終了時処理に失敗した場合にスローされます</span>
 	 */
 	public abstract void preFinalizeForDisconnection(Object engineConnector) throws ConnectorException;
 
 
 	/**
-	 * 処理系からの接続解除時に必要な終了時処理を行います。
-	 * この処理は、この名前空間に属する全ての変数/関数の終了時処理よりも後に呼び出されます。
+	 * <p>
+	 * <span class="lang-en">
+	 * Performs the finalization process necessary when this plug-in is disconnected from the script engine
+	 * </span>
+	 * <span class="lang-ja">
+	 * このプラグインが, スクリプトエンジンから接続解除される際に必要となる終了時処理を実行します
+	 * </span>
+	 * .
+	 * </p>
+	 * 
+	 * <p>
+	 * <span class="lang-en">
+	 * On this interface, two connection-finalization (pre- and post-) processes can be implemented.
+	 * This process (post-) will be performed after when all member variables/functions are finalized.
+	 * </span>
+	 * <span class="lang-ja">
+	 * このインターフェースでは, 接続終了時処理は 2 通り（pre- と post-）実装可能です. 
+	 * こちらの処理（post-）は, この名前空間に属する全ての変数/関数の接続終了時処理よりも後に実行されます.
+	 * </span>
+	 * </p>
 	 *
-	 * 引数には、スクリプトエンジンに依存するやり取りを行うためのオブジェクトが渡されます。
-	 * このオブジェクトは、恐らく {@link EngineConnectorInterface1 EngineConnectorInterface1}
-	 * もしくはその後継の、抽象化されたインターフェースでラップされた形で渡されます。
+	 * <p>
+	 * <span class="lang-en">
+	 * As an argument "engineConnector", an object for communicating with the script engine will be passed.
+	 * The type of the object is specified by {@link getEngineConnectorClass()} method.
+	 * At least, {@link EngineConnectorInterface1 ECI 1} is guaranteed to be available by the specification of XNCI 1.
+	 * </span>
+	 * <span class="lang-ja">
+	 * 引数 engineConnector には, スクリプトエンジンと情報をやり取りする際に使用するオブジェクトが渡されます. 
+	 * そのオブジェクトの型は, {@link getEngineConnectorClass()} メソッドの戻り値として指定します.
+	 * 少なくとも {@link EngineConnectorInterface1 ECI 1} は利用可能である事が, XNCI 1 の仕様上保証されます.
+	 * </span>
+	 * </p>
 	 *
-	 * @param engineConnector エンジンに依存するやり取りを行うためのオブジェクト
-	 * @throws ConnectorException 終了時処理に失敗した場合にスローされます。
+	 * @param engineConnector
+	 *     <span class="lang-en">An object for communicating with the script engine</span>
+	 *     <span class="lang-ja">スクリプトエンジンと情報をやり取りする際に使用するオブジェクト</span>
+	 * 
+	 * @throws ConnectorException
+	 *     <span class="lang-en">Thrown when the finalization has failed</span>
+	 *     <span class="lang-ja">終了時処理に失敗した場合にスローされます</span>
 	 */
 	public abstract void postFinalizeForDisconnection(Object engineConnector) throws ConnectorException;
 
 
 	/**
-	 * スクリプト実行毎の初期化処理を行います。
-	 * この処理は、この名前空間に属する全ての変数/関数の初期化処理よりも前に呼び出されます。
+	 * <p>
+	 * <span class="lang-en">Performs the initialization process necessary for each execution of a script</span>
+	 * <span class="lang-ja">スクリプトの実行毎に必要な初期化処理を実行します</span>
+	 * .
+	 * </p>
+	 * 
+	 * <p>
+	 * <span class="lang-en">
+	 * On this interface, two execution-initialization (pre- and post-) processes can be implemented.
+	 * This process (pre-) will be performed before when all member variables/functions are initialized.
+	 * </span>
+	 * <span class="lang-ja">
+	 * このインターフェースでは, 実行毎初期化処理は 2 通り（pre- と post-）実装可能です. 
+	 * こちらの処理（pre-）は, この名前空間に属する全ての変数/関数の初期化処理よりも前に実行されます.
+	 * </span>
+	 * </p>
 	 *
-	 * 引数には、スクリプトエンジンに依存するやり取りを行うためのオブジェクトが渡されます。
-	 * このオブジェクトは、恐らく {@link EngineConnectorInterface1 EngineConnectorInterface1}
-	 * もしくはその後継の、抽象化されたインターフェースでラップされた形で渡されます。
+	 * <p>
+	 * <span class="lang-en">
+	 * As an argument "engineConnector", an object for communicating with the script engine will be passed.
+	 * The type of the object is specified by {@link getEngineConnectorClass()} method.
+	 * At least, {@link EngineConnectorInterface1 ECI 1} is guaranteed to be available by the specification of XNCI 1.
+	 * </span>
+	 * <span class="lang-ja">
+	 * 引数 engineConnector には, スクリプトエンジンと情報をやり取りする際に使用するオブジェクトが渡されます. 
+	 * そのオブジェクトの型は, {@link getEngineConnectorClass()} メソッドの戻り値として指定します.
+	 * 少なくとも {@link EngineConnectorInterface1 ECI 1} は利用可能である事が, XNCI 1 の仕様上保証されます.
+	 * </span>
+	 * </p>
 	 *
-	 * @param engineConnector エンジンに依存するやり取りを行うためのオブジェクト
-	 * @throws ConnectorException 初期化処理に失敗した場合にスローされます。
+	 * @param engineConnector
+	 *     <span class="lang-en">An object for communicating with the script engine</span>
+	 *     <span class="lang-ja">スクリプトエンジンと情報をやり取りする際に使用するオブジェクト</span>
+	 * 
+	 * @throws ConnectorException
+	 *     <span class="lang-en">Thrown when the initialization has failed</span>
+	 *     <span class="lang-ja">初期化処理に失敗した場合にスローされます</span>
 	 */
 	public abstract void preInitializeForExecution(Object engineConnector) throws ConnectorException;
 
 
 	/**
-	 * スクリプト実行毎の初期化処理を行います。
-	 * この処理は、この名前空間に属する全ての変数/関数の初期化処理よりも後に呼び出されます。
+	 * <p>
+	 * <span class="lang-en">Performs the initialization process necessary for each execution of a script</span>
+	 * <span class="lang-ja">スクリプトの実行毎に必要な初期化処理を実行します</span>
+	 * .
+	 * </p>
+	 * 
+	 * <p>
+	 * <span class="lang-en">
+	 * On this interface, two execution-initialization (pre- and post-) processes can be implemented.
+	 * This process (post-) will be performed after when all member variables/functions are initialized.
+	 * </span>
+	 * <span class="lang-ja">
+	 * このインターフェースでは, 実行毎初期化処理は 2 通り（pre- と post-）実装可能です. 
+	 * こちらの処理（post-）は, この名前空間に属する全ての変数/関数の初期化処理よりも後に実行されます.
+	 * </span>
+	 * </p>
 	 *
-	 * 引数には、スクリプトエンジンに依存するやり取りを行うためのオブジェクトが渡されます。
-	 * このオブジェクトは、恐らく {@link EngineConnectorInterface1 EngineConnectorInterface1}
-	 * もしくはその後継の、抽象化されたインターフェースでラップされた形で渡されます。
+	 * <p>
+	 * <span class="lang-en">
+	 * As an argument "engineConnector", an object for communicating with the script engine will be passed.
+	 * The type of the object is specified by {@link getEngineConnectorClass()} method.
+	 * At least, {@link EngineConnectorInterface1 ECI 1} is guaranteed to be available by the specification of XNCI 1.
+	 * </span>
+	 * <span class="lang-ja">
+	 * 引数 engineConnector には, スクリプトエンジンと情報をやり取りする際に使用するオブジェクトが渡されます. 
+	 * そのオブジェクトの型は, {@link getEngineConnectorClass()} メソッドの戻り値として指定します.
+	 * 少なくとも {@link EngineConnectorInterface1 ECI 1} は利用可能である事が, XNCI 1 の仕様上保証されます.
+	 * </span>
+	 * </p>
 	 *
-	 * @param engineConnector エンジンに依存するやり取りを行うためのオブジェクト
-	 * @throws ConnectorException 初期化処理に失敗した場合にスローされます。
+	 * @param engineConnector
+	 *     <span class="lang-en">An object for communicating with the script engine</span>
+	 *     <span class="lang-ja">スクリプトエンジンと情報をやり取りする際に使用するオブジェクト</span>
+	 * 
+	 * @throws ConnectorException
+	 *     <span class="lang-en">Thrown when the initialization has failed</span>
+	 *     <span class="lang-ja">初期化処理に失敗した場合にスローされます</span>
 	 */
 	public abstract void postInitializeForExecution(Object engineConnector) throws ConnectorException;
 
 
 	/**
-	 * スクリプト実行毎の終了時処理を行います。
-	 * この処理は、この名前空間に属する全ての変数/関数の終了時処理よりも前に呼び出されます。
+	 * <p>
+	 * <span class="lang-en">Performs the finalization process necessary for each execution of a script</span>
+	 * <span class="lang-ja">スクリプトの実行毎に必要な終了時処理を実行します</span>
+	 * .
+	 * </p>
+	 * 
+	 * <p>
+	 * <span class="lang-en">
+	 * On this interface, two execution-finalization (pre- and post-) processes can be implemented.
+	 * This process (pre-) will be performed before when all member variables/functions are finalized.
+	 * </span>
+	 * <span class="lang-ja">
+	 * このインターフェースでは, 実行毎終了時処理は 2 通り（pre- と post-）実装可能です. 
+	 * こちらの処理（pre-）は, この名前空間に属する全ての変数/関数の終了時処理よりも前に実行されます.
+	 * </span>
+	 * </p>
 	 *
-	 * 引数には、スクリプトエンジンに依存するやり取りを行うためのオブジェクトが渡されます。
-	 * このオブジェクトは、恐らく {@link EngineConnectorInterface1 EngineConnectorInterface1}
-	 * もしくはその後継の、抽象化されたインターフェースでラップされた形で渡されます。
+	 * <p>
+	 * <span class="lang-en">
+	 * As an argument "engineConnector", an object for communicating with the script engine will be passed.
+	 * The type of the object is specified by {@link getEngineConnectorClass()} method.
+	 * At least, {@link EngineConnectorInterface1 ECI 1} is guaranteed to be available by the specification of XNCI 1.
+	 * </span>
+	 * <span class="lang-ja">
+	 * 引数 engineConnector には, スクリプトエンジンと情報をやり取りする際に使用するオブジェクトが渡されます. 
+	 * そのオブジェクトの型は, {@link getEngineConnectorClass()} メソッドの戻り値として指定します.
+	 * 少なくとも {@link EngineConnectorInterface1 ECI 1} は利用可能である事が, XNCI 1 の仕様上保証されます.
+	 * </span>
+	 * </p>
 	 *
-	 * @param engineConnector エンジンに依存するやり取りを行うためのオブジェクト
-	 * @throws ConnectorException 終了時処理に失敗した場合にスローされます。
+	 * @param engineConnector
+	 *     <span class="lang-en">An object for communicating with the script engine</span>
+	 *     <span class="lang-ja">スクリプトエンジンと情報をやり取りする際に使用するオブジェクト</span>
+	 * 
+	 * @throws ConnectorException
+	 *     <span class="lang-en">Thrown when the finalization has failed</span>
+	 *     <span class="lang-ja">終了時処理に失敗した場合にスローされます</span>
 	 */
 	public abstract void preFinalizeForTermination(Object engineConnector) throws ConnectorException;
 
 
 	/**
-	 * スクリプト実行毎の終了時処理を行います。
-	 * この処理は、この名前空間に属する全ての変数/関数の終了時処理よりも後に呼び出されます。
+	 * <p>
+	 * <span class="lang-en">Performs the finalization process necessary for each execution of a script</span>
+	 * <span class="lang-ja">スクリプトの実行毎に必要な終了時処理を実行します</span>
+	 * .
+	 * </p>
+	 * 
+	 * <p>
+	 * <span class="lang-en">
+	 * On this interface, two execution-finalization (pre- and post-) processes can be implemented.
+	 * This process (post-) will be performed after when all member variables/functions are finalized.
+	 * </span>
+	 * <span class="lang-ja">
+	 * このインターフェースでは, 実行毎終了時処理は 2 通り（pre- と post-）実装可能です. 
+	 * こちらの処理（post-）は, この名前空間に属する全ての変数/関数の終了時処理よりも後に実行されます.
+	 * </span>
+	 * </p>
 	 *
-	 * 引数には、スクリプトエンジンに依存するやり取りを行うためのオブジェクトが渡されます。
-	 * このオブジェクトは、恐らく {@link EngineConnectorInterface1 EngineConnectorInterface1}
-	 * もしくはその後継の、抽象化されたインターフェースでラップされた形で渡されます。
+	 * <p>
+	 * <span class="lang-en">
+	 * As an argument "engineConnector", an object for communicating with the script engine will be passed.
+	 * The type of the object is specified by {@link getEngineConnectorClass()} method.
+	 * At least, {@link EngineConnectorInterface1 ECI 1} is guaranteed to be available by the specification of XNCI 1.
+	 * </span>
+	 * <span class="lang-ja">
+	 * 引数 engineConnector には, スクリプトエンジンと情報をやり取りする際に使用するオブジェクトが渡されます. 
+	 * そのオブジェクトの型は, {@link getEngineConnectorClass()} メソッドの戻り値として指定します.
+	 * 少なくとも {@link EngineConnectorInterface1 ECI 1} は利用可能である事が, XNCI 1 の仕様上保証されます.
+	 * </span>
+	 * </p>
 	 *
-	 * @param engineConnector エンジンに依存するやり取りを行うためのオブジェクト
-	 * @throws ConnectorException 終了時処理に失敗した場合にスローされます。
+	 * @param engineConnector
+	 *     <span class="lang-en">An object for communicating with the script engine</span>
+	 *     <span class="lang-ja">スクリプトエンジンと情報をやり取りする際に使用するオブジェクト</span>
+	 * 
+	 * @throws ConnectorException
+	 *     <span class="lang-en">Thrown when the finalization has failed</span>
+	 *     <span class="lang-ja">終了時処理に失敗した場合にスローされます</span>
 	 */
 	public abstract void postFinalizeForTermination(Object engineConnector) throws ConnectorException;
 

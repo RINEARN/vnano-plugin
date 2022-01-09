@@ -19,6 +19,12 @@ public class AssertXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 
 	Locale locale = Locale.getDefault();
 
+	// 初期化/終了時処理の引数に渡される、スクリプトエンジンと情報をやり取りするインターフェースの指定
+	@Override
+	public Class<?> getEngineConnectorClass() {
+		return EngineConnectorInterface1.class;
+	}
+
 	// 接続時の初期化
 	@Override
 	public void initializeForConnection(Object engineConnector) throws ConnectorException { }

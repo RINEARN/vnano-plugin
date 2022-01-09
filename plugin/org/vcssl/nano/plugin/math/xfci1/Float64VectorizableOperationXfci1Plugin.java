@@ -2,6 +2,7 @@ package org.vcssl.nano.plugin.math.xfci1;
 
 import org.vcssl.connect.ExternalFunctionConnectorInterface1;
 
+import org.vcssl.connect.EngineConnectorInterface1;
 import org.vcssl.connect.ArrayDataAccessorInterface1;
 import org.vcssl.connect.ConnectorException;
 
@@ -137,13 +138,15 @@ public class Float64VectorizableOperationXfci1Plugin implements ExternalFunction
 		return null;
 	}
 
-
 	// Overridden on subclasses
 	public void operate(double[] outputData, double[] inputData, int outputDataOffset, int inputDataOffset, int dataSize) {
 
 	}
 
-
+	@Override
+	public Class<?> getEngineConnectorClass() {
+		return EngineConnectorInterface1.class;
+	}
 	@Override
 	public void initializeForConnection(Object engineConnector) throws ConnectorException { }
 	@Override

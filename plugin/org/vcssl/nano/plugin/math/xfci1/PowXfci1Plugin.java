@@ -1,7 +1,7 @@
 package org.vcssl.nano.plugin.math.xfci1;
 
+import org.vcssl.connect.EngineConnectorInterface1;
 import org.vcssl.connect.ExternalFunctionConnectorInterface1;
-
 import org.vcssl.connect.ArrayDataAccessorInterface1;
 import org.vcssl.connect.ConnectorException;
 
@@ -145,6 +145,10 @@ public class PowXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 
 	}
 
+	@Override
+	public Class<?> getEngineConnectorClass() {
+		return EngineConnectorInterface1.class;
+	}
 	@Override
 	public final void initializeForConnection(Object engineConnector) throws ConnectorException { }
 	@Override

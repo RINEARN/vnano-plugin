@@ -23,6 +23,8 @@ public class EolXvci1Plugin implements ExternalVariableConnectorInterface1 {
 	@Override
 	public boolean isReference() { return false; }
 	@Override
+	public Class<?> getEngineConnectorClass() { return EngineConnectorInterface1.class; }
+	@Override
 	public void initializeForConnection(Object engineConnector) { }
 	@Override
 	public void finalizeForDisconnection(Object engineConnector) { }

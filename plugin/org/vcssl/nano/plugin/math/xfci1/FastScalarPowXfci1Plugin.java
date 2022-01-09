@@ -1,5 +1,6 @@
 package org.vcssl.nano.plugin.math.xfci1;
 
+import org.vcssl.connect.EngineConnectorInterface1;
 import org.vcssl.connect.ExternalFunctionConnectorInterface1;
 import org.vcssl.connect.Float64ScalarDataAccessorInterface1;
 import org.vcssl.connect.ConnectorException;
@@ -101,6 +102,10 @@ public class FastScalarPowXfci1Plugin implements ExternalFunctionConnectorInterf
 		return null;
 	}
 
+	@Override
+	public Class<?> getEngineConnectorClass() {
+		return EngineConnectorInterface1.class;
+	}
 	@Override
 	public void initializeForConnection(Object engineConnector) throws ConnectorException { }
 	@Override

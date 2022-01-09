@@ -159,6 +159,17 @@ public class SecurityPermissionAuthorizerPaci1Plugin implements PermissionAuthor
 
 
 	/**
+	 * 初期化/終了時処理の引数に渡される、スクリプトエンジンとの情報のやり取りに使用するインターフェースを指定します。
+	 * 
+	 * @return スクリプトエンジンとの情報のやり取りに使用するインターフェース
+	 */
+	@Override
+	public Class<?> getEngineConnectorClass() {
+		return EngineConnectorInterface1.class;
+	}
+
+
+	/**
 	 * 処理系への接続時に必要な初期化処理を行います。
 	 *
 	 * 引数には、スクリプトエンジンに依存するやり取りを行うためのオブジェクトが渡されます。

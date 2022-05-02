@@ -1,6 +1,9 @@
 /*
  * ==================================================
  * Engine Connector Interface 1
+ * 
+ * Online Reference: https://www.vcssl.org/en-us/plugin/jimpl/ref/org/vcssl/connect/EngineConnectorInterface1.html
+ * オンライン仕様書: https://www.vcssl.org/ja-jp/plugin/jimpl/ref/org/vcssl/connect/EngineConnectorInterface1.html
  * --------------------------------------------------
  * This file is released under CC0.
  * Written in 2018-2022 by RINEARN (Fumihiro Matsui)
@@ -105,4 +108,34 @@ public interface EngineConnectorInterface1 {
 	 */
 	public abstract void requestPermission(String permissionName, Object requester, Object metaInformation)
 			throws ConnectorException;
+
+
+	/**
+	 * <span class="lang-en">Returns whether the other type of engine connector is available or not</span>
+	 * <span class="lang-en">他種のエンジンコネクターが利用可能かどうかを返します</span>
+	 * .
+	 * @param engineConnectorClass
+	 *     <span class="lang-en">The class of the engine connector you want to use</span>
+	 *     <span class="lang-ja">使用したいエンジンコネクターのクラス</span>
+	 * 
+	 * @return
+	 *     <span class="lang-en">Returns "true" if the specified engine connector is available</span>
+	 *     <span class="lang-ja">指定されたエンジンコネクターが利用可能な場合に true が返されます</span>
+	 */
+	public abstract boolean isOtherEngineConnectorAvailable(Class<?> engineConnectorClass);
+
+
+	/**
+	 * <span class="lang-en">Returns the other type of engine connector</span>
+	 * <span class="lang-en">他種のエンジンコネクターを返します</span>
+	 * .
+	 * @param engineConnectorClass
+	 *     <span class="lang-en">The class of the engine connector you want to use</span>
+	 *     <span class="lang-ja">使用したいエンジンコネクターのクラス</span>
+	 * 
+	 * @return
+	 *     <span class="lang-en">The specified type of engine connector</span>
+	 *     <span class="lang-ja">指定された種類のエンジンコネクター</span>
+	 */
+	public abstract <T> T getOtherEngineConnector(Class<T> engineConnectorClass);
 }

@@ -3,7 +3,7 @@
  * Method to XFCI Plug-in Adapter
  * --------------------------------------------------
  * This file is released under CC0.
- * Written in 2017-2022 by RINEARN (Fumihiro Matsui)
+ * Written in 2017-2022 by RINEARN
  * ==================================================
  */
 
@@ -15,45 +15,24 @@ import java.util.Arrays;
 
 
 /**
- * <span class="lang-en">
  * An adapter class converting a host-language-side method to a 
  * {@link org.vcssl.connect.ExternalFunctionConnectorInterface1 XFCI 1} plug-in, 
- * to call it from scripts
- * </span>
- * <span class="lang-ja">
- * ホスト言語側のメソッドを, {@link org.vcssl.connect.ExternalFunctionConnectorInterface1 XFCI 1}
- * 形式の外部関数プラグイン仕様に変換し, スクリプト内から呼び出すためのアダプタです
- * </span>
- * .
+ * to call it from scripts.
  */
 public class MethodToXfci1Adapter implements ExternalFunctionConnectorInterface1 {
 
-	/**
-	 * <span class="lang-en">The method to be called from scripts</span>
-	 * <span class="lang-ja">スクリプト内から呼び出したいメソッドです</span>
-	 * .
-	 */
+	/** The method to be called from scripts. */
 	private Method method = null;
 
-	/**
-	 * <span class="lang-en">The object instance to which the method belongs to</span>
-	 * <span class="lang-ja">メソッドが属するオブジェクトのインスタンスです</span>
-	 * .
-	 */
+	/** The object instance to which the method belongs to. */
 	private Object objectInstance = null;
 
 
 	/**
-	 * <span class="lang-en">Creates a new adapter to access to a non-static method</span>
-	 * <span class="lang-ja">非 static なメソッドにアクセスする, 新しいアダプタを生成します</span>
-	 * .
-	 * @param method
-	 *     <span class="lang-en">The non-static method to be accessed in scripts</span>
-	 *     <span class="lang-ja">スクリプト内でアクセスしたい非 static メソッド</span>
+	 * Creates a new adapter to access to a non-static method.
 	 * 
-	 * @param objectInstance
-	 *     <span class="lang-en">The object instance to which the method belongs to</span>
-	 *     <span class="lang-ja">メソッドが属するオブジェクトのインスタンス</span>
+	 * @param method The non-static method to be accessed in scripts.
+	 * @param objectInstance The object instance to which the method belongs to.
 	 */
 	public MethodToXfci1Adapter(Method method, Object objectInstance) {
 		this.method = method;
@@ -62,12 +41,9 @@ public class MethodToXfci1Adapter implements ExternalFunctionConnectorInterface1
 
 
 	/**
-	 * <span class="lang-en">Creates a new adapter to access to a static method</span>
-	 * <span class="lang-ja">static なメソッドにアクセスする, 新しいアダプタを生成します</span>
-	 * .
-	 * @param method
-	 *     <span class="lang-en">The static method to be accessed in scripts</span>
-	 *     <span class="lang-ja">スクリプト内でアクセスしたい static メソッド</span>
+	 * Creates a new adapter to access to a static method.
+	 * 
+	 * @param method The static method to be accessed in scripts.
 	 */
 	public MethodToXfci1Adapter(Method method) {
 		this.method = method;

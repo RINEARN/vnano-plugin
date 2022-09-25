@@ -3,56 +3,33 @@
  * Connector Implementation Container
  * --------------------------------------------------
  * This file is released under CC0.
- * Written in 2019-2022 by RINEARN (Fumihiro Matsui)
+ * Written in 2019-2022 by RINEARN
  * ==================================================
  */
 
 package org.vcssl.connect;
 
 /**
- * <span class="lang-en">An object for storing the loaded result of {@link ConnectorImplementationLoader}</span>
- * <span class="lang-ja">{@link ConnectorImplementationLoader} によるロード結果を格納するためのオブジェクトです</span>
- * .
+ * An object for storing the loaded result of {@link ConnectorImplementationLoader}.
  */
 public class ConnectorImplementationContainer {
 
-	/**
-	 * <span class="lang-en">Stores the loaded object implementing plug-in connector interfaces</span>
-	 * <span class="lang-ja">読み込まれたプラグイン接続インターフェース実装オブジェクトを保持します</span>
-	 * .
-	 */
+	/** Stores the loaded object implementing plug-in connector interfaces. */
 	private Object connectorImplementation = null;
 
-	/**
-	 * <span class="lang-en">Stores the type ID (abbreviated name) of the interface, implemented by the loaded plug-in</span>
-	 * <span class="lang-ja">読み込まれたプラグインが実装している, インターフェースの形式ID（略称）を保持します</span>
-	 * .
-	 */
+	/** Stores the type ID (abbreviated name) of the interface, implemented by the loaded plug-in. */
 	private String interfaceTypeId = null;
 
-	/**
-	 * <span class="lang-en">Stores the generation of the interface, implemented by the loaded plug-in</span>
-	 * <span class="lang-ja">読み込まれたプラグインが実装している, インターフェースの世代を保持します</span>
-	 * .
-	 */
+	/** Stores the generation of the interface, implemented by the loaded plug-in. */
 	private String interfacaGeneration = null;
 
 
 	/**
-	 * <span class="lang-en">Creates an instance storing specified loaded results</span>
-	 * <span class="lang-ja">指定されたロード結果を格納するインスタンスを生成します</span>
-	 * .
-	 * @param connectorImplementation
-	 *     <span class="lang-en">The loaded object implementing plug-in connector interfaces</span>
-	 *     <span class="lang-ja">読み込まれたプラグイン接続インターフェース実装オブジェクト</span>
+	 * Creates an instance storing specified loaded results.
 	 * 
-	 * @param interfaceTypeId
-	 *     <span class="lang-en">The type ID (abbreviated name) of the interface</span>
-	 *     <span class="lang-ja">インターフェースの形式ID（略称）</span>
-	 * 
-	 * @param interfaceGeneration
-	 *     <span class="lang-en">The generation of the interface</span>
-	 *     <span class="lang-ja">インターフェースの世代</span>
+	 * @param connectorImplementation The loaded object implementing plug-in connector interfaces.
+	 * @param interfaceTypeId The type ID (abbreviated name) of the interface.
+	 * @param interfaceGeneration The generation of the interface.
 	 */
 	public ConnectorImplementationContainer(
 			Object connectorImplementation, String interfaceTypeId, String interfaceGeneration) {
@@ -64,12 +41,9 @@ public class ConnectorImplementationContainer {
 
 
 	/**
-	 * <span class="lang-en">Returns the loaded object implementing plug-in connector interfaces</span>
-	 * <span class="lang-ja">読み込まれたプラグイン接続インターフェース実装オブジェクトを返します</span>
-	 * .
-	 * @return
-	 *     <span class="lang-en">The loaded object implementing plug-in connector interfaces</span>
-	 *     <span class="lang-ja">読み込まれたプラグイン接続インターフェース実装オブジェクト</span>
+	 * Returns the loaded object implementing plug-in connector interfaces.
+	 * 
+	 * @return The loaded object implementing plug-in connector interfaces.
 	 */
 	public Object getConnectorImplementation() {
 		return this.connectorImplementation;
@@ -77,12 +51,9 @@ public class ConnectorImplementationContainer {
 
 
 	/**
-	 * <span class="lang-en">Returns the type ID (abbreviated name) of the interface, implemented by the loaded plug-in</span>
-	 * <span class="lang-ja">読み込まれたプラグインが実装している, インターフェースの形式ID（略称）を返します</span>
-	 * .
-	 * @return
-	 *     <span class="lang-en">The type ID (abbreviated name) of the interface</span>
-	 *     <span class="lang-ja">インターフェースの形式ID（略称）</span>
+	 * Returns the type ID (abbreviated name) of the interface, implemented by the loaded plug-in.
+	 * 
+	 * @return The type ID (abbreviated name) of the interface.
 	 */
 	public String getInterfaceTypeId() {
 		return this.interfaceTypeId;
@@ -90,12 +61,9 @@ public class ConnectorImplementationContainer {
 
 
 	/**
-	 * <span class="lang-en">Returns the generation of the interface, implemented by the loaded plug-in</span>
-	 * <span class="lang-ja">読み込まれたプラグインが実装している, インターフェースの世代を返します</span>
-	 * .
-	 * @return
-	 *     <span class="lang-en">The generation of the interface</span>
-	 *     <span class="lang-ja">インターフェースの世代</span>
+	 * Returns the generation of the interface, implemented by the loaded plug-in.
+	 * 
+	 * @return The generation of the interface.
 	 */
 	public String getInterfaceGeneration() {
 		return this.interfacaGeneration;

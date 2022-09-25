@@ -3,7 +3,7 @@
  * Field to XVCI Plug-in Adapter
  * --------------------------------------------------
  * This file is released under CC0.
- * Written in 2017-2022 by RINEARN (Fumihiro Matsui)
+ * Written in 2017-2022 by RINEARN
  * ==================================================
  */
 
@@ -14,45 +14,24 @@ import java.lang.reflect.Modifier;
 
 
 /**
- * <span class="lang-en">
  * An adapter class converting a host-language-side field to a 
  * {@link org.vcssl.connect.ExternalVariableConnectorInterface1 XVCI 1} plug-in, 
- * to access to it in scripts
- * </span>
- * <span class="lang-ja">
- * ホスト言語側のフィールドを, {@link org.vcssl.connect.ExternalVariableConnectorInterface1 XVCI 1}
- * 形式の外部変数プラグイン仕様に変換し, スクリプト内でアクセスするためのアダプタです
- * </span>
- * .
+ * to access to it in scripts.
  */
 public class FieldToXvci1Adapter implements ExternalVariableConnectorInterface1 {
 
-	/**
-	 * <span class="lang-en">The field to be accessed in scripts</span>
-	 * <span class="lang-ja">スクリプト内でアクセスしたいフィールドです</span>
-	 * .
-	 */
+	/** The field to be accessed in scripts. */
 	private Field field = null;
 
-	/**
-	 * <span class="lang-en">The object instance to which the field belongs to</span>
-	 * <span class="lang-ja">フィールドが属するオブジェクトのインスタンスです</span>
-	 * .
-	 */
+	/** The object instance to which the field belongs to.  */
 	private Object objectInstance = null;
 
 
 	/**
-	 * <span class="lang-en">Creates a new adapter to access to a non-static field</span>
-	 * <span class="lang-ja">非 static なフィールドにアクセスする, 新しいアダプタを生成します</span>
-	 * .
-	 * @param field
-	 *     <span class="lang-en">The non-static field to be accessed in scripts</span>
-	 *     <span class="lang-ja">スクリプト内でアクセスしたい非 static フィールド</span>
+	 * Creates a new adapter to access to a non-static field.
 	 * 
-	 * @param objectInstance
-	 *     <span class="lang-en">The object instance to which the field belongs to</span>
-	 *     <span class="lang-ja">フィールドが属するオブジェクトのインスタンス</span>
+	 * @param field The non-static field to be accessed in scripts.
+	 * @param objectInstance The object instance to which the field belongs to.
 	 */
 	public FieldToXvci1Adapter (Field field, Object objectInstance) {
 		this.field = field;
@@ -61,12 +40,9 @@ public class FieldToXvci1Adapter implements ExternalVariableConnectorInterface1 
 
 
 	/**
-	 * <span class="lang-en">Creates a new adapter to access to a static field</span>
-	 * <span class="lang-ja">static なフィールドにアクセスする, 新しいアダプタを生成します</span>
-	 * .
-	 * @param field
-	 *     <span class="lang-en">The static field to be accessed in scripts</span>
-	 *     <span class="lang-ja">スクリプト内でアクセスしたい static フィールド</span>
+	 * Creates a new adapter to access to a static field.
+	 * 
+	 * @param field The static field to be accessed in scripts.
 	 */
 	public FieldToXvci1Adapter (Field field) {
 		this.field = field;

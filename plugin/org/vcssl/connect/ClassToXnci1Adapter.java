@@ -3,7 +3,7 @@
  * Class to XLCI Plug-in Adapter
  * --------------------------------------------------
  * This file is released under CC0.
- * Written in 2019-2022 by RINEARN (Fumihiro Matsui)
+ * Written in 2019-2022 by RINEARN
  * ==================================================
  */
 
@@ -16,49 +16,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * <span class="lang-en">
  * An adapter class converting a host-language-side class to a 
  * {@link org.vcssl.connect.ExternalNamespaceConnectorInterface1 XNCI 1} plug-in, 
- * to access to its fields and methods from scripts
- * </span>
- * <span class="lang-ja">
- * ホスト言語側のクラスを, {@link org.vcssl.connect.ExternalNamespaceConnectorInterface1 XNCI 1}
- * 形式の名前空間プラグイン仕様に変換し, 所属フィールドやメソッドにスクリプト内からアクセスするためのアダプタです
- * </span>
- * .
+ * to access to its fields and methods from scripts.
  */
 public class ClassToXnci1Adapter implements ExternalNamespaceConnectorInterface1 {
 
-	/**
-	 * <span class="lang-en">The class to be accessed from scripts</span>
-	 * <span class="lang-ja">スクリプトからアクセスしたいクラス</span>
-	 * .
-	 */
+	/** The class to be accessed from scripts. */
 	private Class<?> pluginClass = null;
 
-	/**
-	 * <span class="lang-en">The instance of "pluginClass" class</span>
-	 * <span class="lang-ja">pluginClass クラスのインスタンス</span>
-	 * .
-	 */
+	/** The instance of "pluginClass" class. */
 	private Object pluginInstance = null;
 
 
-	/**
-	 * <span class="lang-en">
-	 * Creates a new adapter to access to all static and non-static fields/methods of the class 
-	 * </span>
-	 * <span class="lang-ja">
-	 * クラスの全ての static および非 static なフィールド/メソッドにアクセスする, 新しいアダプタを生成します
-	 * </span>
-	 * .
-	 * @param pluginClass
-	 *     <span class="lang-en">The class to which fields/methods to be accessed belongs to</span>
-	 *     <span class="lang-ja">アクセスしたいフィールド/メソッドが属するクラス</span>
+	/** Creates a new adapter to access to all static and non-static fields/methods of the class.
 	 * 
-	 * @param pluginInstance
-	 *     <span class="lang-en">The instance of the class specified to the argument "pluginClass"</span>
-	 *     <span class="lang-ja">引数 pluginClass に指定したクラスのインスタンス</span>
+	 * @param pluginClass The class to which fields/methods to be accessed belongs to.
+	 * @param pluginInstance The instance of the class specified to the argument "pluginClass".
 	 */
 	public ClassToXnci1Adapter(Class<?> pluginClass, Object pluginInstance) {
 		this.pluginClass = pluginClass;
@@ -67,16 +41,9 @@ public class ClassToXnci1Adapter implements ExternalNamespaceConnectorInterface1
 
 
 	/**
-	 * <span class="lang-en">
-	 * Creates a new adapter to access to all static fields/methods of the class 
-	 * </span>
-	 * <span class="lang-ja">
-	 * クラスの全ての static なフィールド/メソッドにアクセスする, 新しいアダプタを生成します
-	 * </span>
-	 * .
-	 * @param pluginClass
-	 *     <span class="lang-en">The class to which fields/methods to be accessed belongs to</span>
-	 *     <span class="lang-ja">アクセスしたいフィールド/メソッドが属するクラス</span>
+	 * Creates a new adapter to access to all static fields/methods of the class.
+	 * 
+	 * @param pluginClass The class to which fields/methods to be accessed belongs to.
 	 */
 	public ClassToXnci1Adapter(Class<?> pluginClass) {
 		this.pluginClass = pluginClass;

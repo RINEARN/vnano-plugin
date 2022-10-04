@@ -9,7 +9,7 @@ jobs:
     - name: Set-up environment
       uses: actions/setup-java@v1
       with:
-        java-version: 15
+        java-version: 19
     - name: Clone and build the Vnano Engine
       run: |
         git clone https://github.com/RINEARN/vnano
@@ -30,7 +30,7 @@ jobs:
     - name: Set-up environment
       uses: actions/setup-java@v1
       with:
-        java-version: 15
+        java-version: 19
     - name: Download the Vnano Engine
       uses: actions/download-artifact@v1
       with:

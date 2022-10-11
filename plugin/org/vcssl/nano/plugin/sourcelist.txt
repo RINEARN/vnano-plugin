@@ -75,3 +75,4 @@ org/vcssl/nano/plugin/system/xvci1/IntMaxXvci1Plugin.java
 org/vcssl/nano/plugin/system/xvci1/IntMinXvci1Plugin.java
 org/vcssl/nano/plugin/system/xvci1/LfXvci1Plugin.java
 org/vcssl/nano/plugin/system/xvci1/NanXvci1Plugin.java
+org/vcssl/nano/plugin/system/xvci1/WriteXvci1Plugin.java

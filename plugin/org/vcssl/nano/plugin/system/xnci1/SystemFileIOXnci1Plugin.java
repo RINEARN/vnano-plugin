@@ -18,6 +18,7 @@ import org.vcssl.connect.ExternalStructConnectorInterface1;
 import org.vcssl.connect.ExternalVariableConnectorInterface1;
 import org.vcssl.nano.plugin.system.xvci1.WriteXvci1Plugin;
 import org.vcssl.nano.plugin.system.xvci1.ReadXvci1Plugin;
+import org.vcssl.nano.plugin.system.xvci1.AppendXvci1Plugin;
 
 
 public class SystemFileIOXnci1Plugin implements ExternalNamespaceConnectorInterface1 {
@@ -44,6 +45,7 @@ public class SystemFileIOXnci1Plugin implements ExternalNamespaceConnectorInterf
 		List<ExternalVariableConnectorInterface1> variableList = new LinkedList<ExternalVariableConnectorInterface1>();
 		variableList.add(new WriteXvci1Plugin());
 		variableList.add(new ReadXvci1Plugin());
+		variableList.add(new AppendXvci1Plugin());
 		return variableList.toArray(new ExternalVariableConnectorInterface1[0]);
 	}
 

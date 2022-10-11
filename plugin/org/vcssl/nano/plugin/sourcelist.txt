@@ -79,5 +79,6 @@ org/vcssl/nano/plugin/system/xvci1/LfXvci1Plugin.java
 org/vcssl/nano/plugin/system/xvci1/NanXvci1Plugin.java
 org/vcssl/nano/plugin/system/xvci1/ReadTsvXvci1Plugin.java
 org/vcssl/nano/plugin/system/xvci1/ReadXvci1Plugin.java
+org/vcssl/nano/plugin/system/xvci1/WriteCsvXvci1Plugin.java
 org/vcssl/nano/plugin/system/xvci1/WriteTsvXvci1Plugin.java
 org/vcssl/nano/plugin/system/xvci1/WriteXvci1Plugin.java

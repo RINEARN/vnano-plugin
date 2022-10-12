@@ -7,6 +7,8 @@ package org.vcssl.nano.plugin.system.file;
 
 import java.util.Set;
 import java.util.HashSet;
+import java.util.Map;
+import java.util.HashMap;
 
 /**
  * An enum representing modes of file I/O.
@@ -41,7 +43,10 @@ public enum FileIOMode {
 	APPEND_CSV,
 
 	/** Represents the mode for reading contents from a numerical "Tabs or Spaces Separated Values" file. */
-	READ_STSV;
+	READ_STSV,
+
+	/** Represents the file has not been opened yet, or had already closed. */
+	UNOPEND_OR_CLOSED;
 	
 	/** The Set containing all modes for reading contents from files. */
 	public static final Set<FileIOMode> READ_MODE_SET= new HashSet<FileIOMode>() {{
@@ -63,5 +68,19 @@ public enum FileIOMode {
 		add(APPEND);
 		add(APPEND_TSV);
 		add(APPEND_CSV);
+	}};
+
+	/** The Map for converting a mode-specifier string ("w" for WRITE, and so on) to the corresponding element of this enum. */
+	public static final Map<String, FileIOMode> SPECIFIER_ENUM_MAP = new HashMap<String, FileIOMode>() {{
+		put("r", READ);
+		put("w", WRITE);
+		put("a", APPEND);
+		put("rcsv", READ_CSV);
+		put("wcsv", WRITE_CSV);
+		put("acsv", APPEND_CSV);
+		put("rtsv", READ_TSV);
+		put("wtsv", WRITE_TSV);
+		put("atsv", APPEND_TSV);
+		put("rstsv", READ_STSV);
 	}};
 }

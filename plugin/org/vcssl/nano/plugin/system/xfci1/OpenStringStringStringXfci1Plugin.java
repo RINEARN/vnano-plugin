@@ -27,10 +27,10 @@ import java.util.Locale;
 public class OpenStringStringStringXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 
 	/** An object managing file I/O from/to (multiple) files. */
-	private FileIOHub fileIOHub = null;
+	protected FileIOHub fileIOHub = null;
 
 	/** Stores the engine connector for requesting permissions. */
-	private EngineConnectorInterface1 engineConnector = null;
+	protected EngineConnectorInterface1 engineConnector = null;
 
 	/**
 	 * Create a new instance of this plug-in.

@@ -33,6 +33,7 @@ import org.vcssl.nano.plugin.system.xvci1.ReadStsvXvci1Plugin;
 
 import org.vcssl.nano.plugin.system.xfci1.OpenStringStringXfci1Plugin;
 import org.vcssl.nano.plugin.system.xfci1.OpenStringStringStringXfci1Plugin;
+import org.vcssl.nano.plugin.system.xfci1.CloseXfci1Plugin;
 
 
 /**
@@ -69,6 +70,7 @@ public class SystemFileIOXnci1Plugin implements ExternalNamespaceConnectorInterf
 		List<ExternalFunctionConnectorInterface1> functionList = new LinkedList<ExternalFunctionConnectorInterface1>();
 		functionList.add(new OpenStringStringXfci1Plugin(this.fileIOHub));
 		functionList.add(new OpenStringStringStringXfci1Plugin(this.fileIOHub));
+		functionList.add(new CloseXfci1Plugin(this.fileIOHub));
 		return functionList.toArray(new ExternalFunctionConnectorInterface1[0]);
 	}
 

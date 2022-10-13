@@ -102,16 +102,18 @@ public class FileIOHub {
 		StringBuilder closeFailedFilePathBuilder = new StringBuilder();
 
 		// Close all files.
-		for (FileIOUnit unit: this.fileIOUnitList) {
-			if (unit.getFileIOMode() != FileIOMode.UNOPEND_OR_CLOSED) {
-				try {
-					unit.close();
-				} catch (ConnectorException e) {
-					if (closeFailedFileExists) {
-						closeFailedFilePathBuilder.append(", ");
+		if (this.fileIOUnitList != null) {
+			for (FileIOUnit unit: this.fileIOUnitList) {
+				if (unit.getFileIOMode() != FileIOMode.UNOPEND_OR_CLOSED) {
+					try {
+						unit.close();
+					} catch (ConnectorException e) {
+						if (closeFailedFileExists) {
+							closeFailedFilePathBuilder.append(", ");
+						}
+						closeFailedFileExists = true;
+						closeFailedFilePathBuilder.append(unit.getFile().getPath());
 					}
-					closeFailedFileExists = true;
-					closeFailedFilePathBuilder.append(unit.getFile().getPath());
 				}
 			}
 		}

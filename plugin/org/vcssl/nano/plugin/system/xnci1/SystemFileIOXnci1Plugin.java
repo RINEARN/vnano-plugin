@@ -9,6 +9,7 @@ package org.vcssl.nano.plugin.system.xnci1;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 
 import org.vcssl.connect.ConnectorException;
 import org.vcssl.connect.EngineConnectorInterface1;
@@ -16,6 +17,9 @@ import org.vcssl.connect.ExternalFunctionConnectorInterface1;
 import org.vcssl.connect.ExternalNamespaceConnectorInterface1;
 import org.vcssl.connect.ExternalStructConnectorInterface1;
 import org.vcssl.connect.ExternalVariableConnectorInterface1;
+
+import org.vcssl.nano.plugin.system.file.FileIOHub;
+
 import org.vcssl.nano.plugin.system.xvci1.WriteXvci1Plugin;
 import org.vcssl.nano.plugin.system.xvci1.ReadXvci1Plugin;
 import org.vcssl.nano.plugin.system.xvci1.AppendXvci1Plugin;
@@ -27,8 +31,27 @@ import org.vcssl.nano.plugin.system.xvci1.ReadCsvXvci1Plugin;
 import org.vcssl.nano.plugin.system.xvci1.AppendCsvXvci1Plugin;
 import org.vcssl.nano.plugin.system.xvci1.ReadStsvXvci1Plugin;
 
+import org.vcssl.nano.plugin.system.xfci1.OpenStringStringStringXfci1Plugin;
 
+
+/**
+ * A namespace plug-in providing file I/O functions, and parameter variables related to file I/O.
+ */
 public class SystemFileIOXnci1Plugin implements ExternalNamespaceConnectorInterface1 {
+
+	/** An object managing file I/O from/to (multiple) files. */
+	private FileIOHub fileIOHub = null;
+
+
+	/**
+	 * Create a new instance of this plug-in.
+	 */
+	public SystemFileIOXnci1Plugin() {
+		
+		// Create an object managing file I/O from/to (multiple) files: File I/O hub.
+		this.fileIOHub = new FileIOHub();
+	}
+
 
 	@Override
 	public String getNamespaceName() {
@@ -43,7 +66,7 @@ public class SystemFileIOXnci1Plugin implements ExternalNamespaceConnectorInterf
 	@Override
 	public ExternalFunctionConnectorInterface1[] getFunctions() {
 		List<ExternalFunctionConnectorInterface1> functionList = new LinkedList<ExternalFunctionConnectorInterface1>();
-		// functionList.add( ... );
+		functionList.add(new OpenStringStringStringXfci1Plugin(this.fileIOHub));
 		return functionList.toArray(new ExternalFunctionConnectorInterface1[0]);
 	}
 
@@ -83,6 +106,16 @@ public class SystemFileIOXnci1Plugin implements ExternalNamespaceConnectorInterf
 
 	@Override
 	public void preInitializeForExecution(Object engineConnector) throws ConnectorException {
+		
+		// Set the language of error messages.
+		EngineConnectorInterface1 eci1EngineConnector = EngineConnectorInterface1.class.cast(engineConnector);
+		if (eci1EngineConnector.hasOptionValue("LOCALE")) {
+			Locale locale = Locale.class.cast(eci1EngineConnector.getOptionValue("LOCALE"));
+			this.fileIOHub.setLocale(locale);
+		}
+
+		// Initialize resources for performing file I/O.
+		this.fileIOHub.initializeResources();
 	}
 
 	@Override
@@ -95,6 +128,9 @@ public class SystemFileIOXnci1Plugin implements ExternalNamespaceConnectorInterf
 
 	@Override
 	public void postFinalizeForTermination(Object engineConnector) throws ConnectorException {
+
+		// Dispose resources for performing file I/O.
+		this.fileIOHub.disposeResources();
 	}
 
 	@Override

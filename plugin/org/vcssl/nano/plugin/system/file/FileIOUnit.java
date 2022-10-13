@@ -126,16 +126,16 @@ public class FileIOUnit {
 		// (Writing modes create a new file if it does not exist.)
 		if (!file.exists() && !FileIOMode.WRITE_MODE_SET.contains(mode)) {
 			if (this.isJapanese) {
-				throw new ConnectorException("指定されたファイルが見つかりません： " + modeSpecifier);
+				throw new ConnectorException("指定されたファイルが見つかりません： " + filePath);
 			} else {
-				throw new ConnectorException("The specified file is not found: " + modeSpecifier);
+				throw new ConnectorException("The specified file is not found: " + filePath);
 			}
 		}
 
 		// We can't perform file I/O from/to a directory.
 		if (file.isDirectory()) {
 			if (this.isJapanese) {
-				throw new ConnectorException("ファイルを指定する必要がある引数に、フォルダが指定されました： " + modeSpecifier);
+				throw new ConnectorException("ファイルを指定する必要がある引数に、フォルダが指定されました： " + filePath);
 			} else {
 				throw new ConnectorException("A file must be specified, but a directory (folder) is specified: " + filePath);
 			}

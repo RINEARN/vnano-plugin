@@ -238,4 +238,21 @@ public class FileIOHub {
 		FileIOUnit unit = this.checkAndGetUnit(fileId);
 		unit.write(contents);
 	}
+
+
+	/**
+	 * Writes the specified contents to the file, and go to the next line.
+	 * 
+	 * If the mode of this instance is WRITE, all elements in "contents" array will be written in the file without being delimited.
+	 * If the mode is WRITE_CSV, the elements will be written with delimited by "," (comma).
+	 * If the mode is WRITE_TSV, the elements will be written with delimited by "\t" (tab space).
+	 * 
+	 * @param fileId The file ID of the file to be closed.
+	 * @param contents The contents to be written to the file.
+	 * @throws ConnectorException Thrown when any I/O error occurred, or when the file is opened by unwritable modes.
+	 */
+	public synchronized void writeln(int fileId, String[] contents) throws ConnectorException {
+		FileIOUnit unit = this.checkAndGetUnit(fileId);
+		unit.writeln(contents);
+	}
 }

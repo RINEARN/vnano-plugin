@@ -351,4 +351,29 @@ public class FileIOUnit {
 			}
 		}
 	}
+
+
+	/**
+	 * Writes the specified contents to the file, and go to the next line.
+	 * 
+	 * If the mode of this instance is WRITE, all elements in "contents" array will be written in the file without being delimited.
+	 * If the mode is WRITE_CSV, the elements will be written with delimited by "," (comma).
+	 * If the mode is WRITE_TSV, the elements will be written with delimited by "\t" (tab space).
+	 * 
+	 * @param contents The contents to be written to the file.
+	 * @throws ConnectorException Thrown when any I/O error occurred, or when the file is opened by unwritable modes.
+	 */
+	public synchronized void writeln(String[] contents) throws ConnectorException {
+		this.write(contents);
+		
+		try {
+			this.bufferedWriter.write(this.lineFeedCode);
+		} catch (IOException ioe) {
+			if (this.isJapanese) {
+				throw new ConnectorException("指定されたファイルへの書き込み処理で、I/Oエラーが発生しました: " + this.file.getPath(), ioe);
+			} else {
+				throw new ConnectorException("An I/O error occurred for writing contents to the specified file: " + this.file.getPath(), ioe);
+			}
+		}
+	}
 }

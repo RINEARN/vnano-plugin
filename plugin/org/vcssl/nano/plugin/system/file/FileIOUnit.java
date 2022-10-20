@@ -281,11 +281,74 @@ public class FileIOUnit {
 				}
 			}
 		} else {
-			throw new ConnectorFatalException("Unexpected file I/O mode: " + mode);
+			throw new ConnectorFatalException("Unexpected file I/O mode: " + this.mode);
 		}
 	}
 
 
-	// TODO: implement I/O methods
+	/**
+	 * Writes the specified contents to the file.
+	 * 
+	 * If the mode of this instance is WRITE, all elements in "contents" array will be written in the file without being delimited.
+	 * If the mode is WRITE_CSV, the elements will be written with delimited by "," (comma).
+	 * If the mode is WRITE_TSV, the elements will be written with delimited by "\t" (tab space).
+	 * 
+	 * @param contents The contents to be written to the file.
+	 * @throws ConnectorException Thrown when any I/O error occurred, or when the file is opened by unwritable modes.
+	 */
+	public synchronized void write(String[] contents) throws ConnectorException {
+		if (this.mode == null || this.mode == FileIOMode.UNOPEND_OR_CLOSED) {
+			if (this.isJapanese) {
+				throw new ConnectorException("指定されたファイルは、まだ開かれていないか、既に閉じられた状態です。");
+			} else {
+				throw new ConnectorException("The specified file has not been not opened yet, or already closed. Please open the file by \"open\" function.");
+			}
+		}
+		if (!FileIOMode.APPEND_MODE_SET.contains(this.mode) && !FileIOMode.WRITE_MODE_SET.contains(this.mode)) {
+			if (this.isJapanese) {
+				throw new ConnectorException("指定されたファイルは、書き込み可能なモード（WRITE, APPEND, WRITE_CSV, ...等）で開かれていません： " + this.file.getPath());
+			} else {
+				throw new ConnectorException("The specified file is not opened in \"writable\" modes (WRITE, APPEND, WRITE_CSV, ... etc.): " + this.file.getPath());
+			}
+		}
 
+		try {
+			switch (this.mode) {
+				case WRITE: {
+					for (String content: contents) {
+						this.bufferedWriter.write(content);
+					}
+					return;
+				}
+				case WRITE_TSV: {
+					for (int icontent=0; icontent<contents.length; icontent++) {
+						this.bufferedWriter.write(contents[icontent]);
+						if (icontent != contents.length - 1) {
+							this.bufferedWriter.write('\t');
+						}
+					}
+					return;
+				}
+				case WRITE_CSV: {
+					for (int icontent=0; icontent<contents.length; icontent++) {
+						this.bufferedWriter.write(contents[icontent]);
+						if (icontent != contents.length - 1) {
+							this.bufferedWriter.write(',');
+						}
+					}
+					return;
+				}
+				default: {
+					throw new ConnectorFatalException("Unexpected file I/O mode: " + mode);
+				}
+			}
+
+		} catch (IOException ioe) {
+			if (this.isJapanese) {
+				throw new ConnectorException("指定されたファイルへの書き込み処理で、I/Oエラーが発生しました: " + this.file.getPath(), ioe);
+			} else {
+				throw new ConnectorException("An I/O error occurred for writing contents to the specified file: " + this.file.getPath(), ioe);
+			}
+		}
+	}
 }

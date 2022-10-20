@@ -72,6 +72,7 @@ public class SystemFileIOXnci1Plugin implements ExternalNamespaceConnectorInterf
 		functionList.add(new OpenStringStringXfci1Plugin(this.fileIOHub));
 		functionList.add(new OpenStringStringStringXfci1Plugin(this.fileIOHub));
 		functionList.add(new CloseXfci1Plugin(this.fileIOHub));
+		functionList.add(new WriteXfci1Plugin(this.fileIOHub));
 		return functionList.toArray(new ExternalFunctionConnectorInterface1[0]);
 	}
 

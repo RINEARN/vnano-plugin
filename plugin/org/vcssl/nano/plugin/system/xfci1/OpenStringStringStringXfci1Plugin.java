@@ -188,6 +188,12 @@ public class OpenStringStringStringXfci1Plugin implements ExternalFunctionConnec
 			}
 		}
 
+		// Get the line-feed code from the option.
+		String lineFeedCode = System.getProperty("line.separator");
+		if (this.engineConnector.hasOptionValue("FILE_IO_EOL")) {
+			lineFeedCode = String.class.cast(this.engineConnector.getOptionValue("FILE_IO_EOL"));
+		}
+
 		// Get the path of the file.
 		File file = new File(fileName);
 		String filePath = null;
@@ -231,7 +237,7 @@ public class OpenStringStringStringXfci1Plugin implements ExternalFunctionConnec
 		}
 
 		// Open the file, and return the file ID assigned to it.
-		int fileId = this.fileIOHub.open(filePath, fileIOModeSpecifier, encodingName);
+		int fileId = this.fileIOHub.open(filePath, fileIOModeSpecifier, encodingName, lineFeedCode);
 		return fileId;
 	}
 }

@@ -184,15 +184,16 @@ public class FileIOHub {
 	 * @param filePath The file to be opened.
 	 * @param modeSpecifier The string for specifying the file I/O mode (e.g.: "w" for WRITE, "r" for READ, and so on).
 	 * @param encodingName The name of the character encoding of the file.
+	 * @param lineFeedCode The line-feed code of the file.
 	 * @return The file index assigned to the opened file.
 	 * @throws ConnectorException Thrown when it has failed to open the file.
 	 */
-	public synchronized int open(String filePath, String modeSpecifier, String encoding) throws ConnectorException {
+	public synchronized int open(String filePath, String modeSpecifier, String encoding, String lineFeedCode) throws ConnectorException {
 
 		// Create a new File I/O unit, and open the specified file.
 		FileIOUnit unit = new FileIOUnit();
 		unit.setLocale(this.locale);
-		unit.open(filePath, modeSpecifier, encoding);
+		unit.open(filePath, modeSpecifier, encoding, lineFeedCode);
 
 		// Store the file I/O unit in the list as an element, and return its index.
 		if (1 <= this.closedFileIdQueue.size()) {

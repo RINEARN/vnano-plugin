@@ -34,6 +34,7 @@ import org.vcssl.nano.plugin.system.xvci1.ReadStsvXvci1Plugin;
 import org.vcssl.nano.plugin.system.xfci1.OpenStringStringXfci1Plugin;
 import org.vcssl.nano.plugin.system.xfci1.OpenStringStringStringXfci1Plugin;
 import org.vcssl.nano.plugin.system.xfci1.CloseXfci1Plugin;
+import org.vcssl.nano.plugin.system.xfci1.WriteXfci1Plugin;
 
 
 /**

@@ -35,6 +35,9 @@ public class FileIOUnit {
 	/** The name of the character encoding of the file. */
 	String encodingName = null;
 
+	/** The line-feed code. */
+	private String lineFeedCode = null;
+
 	/** The input stream for inputting the content of the file. */
 	private FileInputStream fileInputStream = null;
 
@@ -108,9 +111,12 @@ public class FileIOUnit {
 	 * @param filePath The file to be opened.
 	 * @param modeSpecifier The string for specifying the file I/O mode (e.g.: "w" for WRITE, "r" for READ, and so on).
 	 * @param encodingName The name of the character encoding of the file.
+	 * @param lineFeedCode The line-feed code of the file.
 	 * @throws ConnectorException Thrown when it has failed to open the file.
 	 */
-	public synchronized void open(String filePath, String modeSpecifier, String encodingName) throws ConnectorException {
+	public synchronized void open(String filePath, String modeSpecifier, String encodingName, String lineFeedCode)
+			throws ConnectorException {
+
 		if (!FileIOMode.SPECIFIER_ENUM_MAP.containsKey(modeSpecifier)) {
 			if (this.isJapanese) {
 				throw new ConnectorException("指定されたファイルI/Oモードはサポートされていません： " + modeSpecifier);
@@ -121,6 +127,7 @@ public class FileIOUnit {
 		this.mode = FileIOMode.SPECIFIER_ENUM_MAP.get(modeSpecifier);
 		this.file = new File(filePath);
 		this.encodingName = encodingName;
+		this.lineFeedCode = lineFeedCode;
 
 		// The file must already exists, excluding when writing modes are specified.
 		// (Writing modes create a new file if it does not exist.)

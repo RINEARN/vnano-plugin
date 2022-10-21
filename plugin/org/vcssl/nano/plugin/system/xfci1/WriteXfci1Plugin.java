@@ -176,7 +176,7 @@ public class WriteXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 	 * 
 	 * @param fileId The ID of the file.
 	 * @param contents The contents to be written to the file.
-	 * @throws ConnectorException Thrown when any error has occurred when it writing the contents to file.
+	 * @throws ConnectorException Thrown when any error has occurred when it is writing the contents to file.
 	 */
 	protected void performIO(int fileId, String[] contents) throws ConnectorException{
 		this.fileIOHub.write(fileId, contents);

@@ -44,6 +44,7 @@ public class WritelnXfci1Plugin extends WriteXfci1Plugin {
 	 * @param contents The contents to be written to the file.
 	 * @throws ConnectorException Thrown when any error has occurred when it writing the contents to file.
 	 */
+	@Override
 	protected void performIO(int fileId, String[] contents) throws ConnectorException{
 		this.fileIOHub.writeln(fileId, contents);
 	}

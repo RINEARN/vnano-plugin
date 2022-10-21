@@ -255,4 +255,16 @@ public class FileIOHub {
 		FileIOUnit unit = this.checkAndGetUnit(fileId);
 		unit.writeln(contents);
 	}
+
+
+	/**
+	 * Flushes the currently stored contents in the writing buffer.
+	 * 
+	 * @param fileId The file ID of the file to be flushed.
+	 * @throws ConnectorException Thrown when any I/O error occurred, or when the file is opened by unwritable modes.
+	 */
+	public synchronized void flush(int fileId) throws ConnectorException {
+		FileIOUnit unit = this.checkAndGetUnit(fileId);
+		unit.flush();
+	}
 }

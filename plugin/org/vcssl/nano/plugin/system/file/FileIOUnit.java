@@ -376,4 +376,37 @@ public class FileIOUnit {
 			}
 		}
 	}
+
+	
+	/**
+	 * Flushes the currently stored contents in the writing buffer.
+	 * 
+	 * @throws ConnectorException Thrown when any I/O error occurred, or when the file is opened by unwritable modes.
+	 */
+	public synchronized void flush() throws ConnectorException {
+		if (this.mode == null || this.mode == FileIOMode.UNOPEND_OR_CLOSED) {
+			if (this.isJapanese) {
+				throw new ConnectorException("指定されたファイルは、まだ開かれていないか、既に閉じられた状態です。");
+			} else {
+				throw new ConnectorException("The specified file has not been not opened yet, or already closed. Please open the file by \"open\" function.");
+			}
+		}
+		if (!FileIOMode.APPEND_MODE_SET.contains(this.mode) && !FileIOMode.WRITE_MODE_SET.contains(this.mode)) {
+			if (this.isJapanese) {
+				throw new ConnectorException("指定されたファイルは、書き込み可能なモード（WRITE, APPEND, WRITE_CSV, ...等）で開かれていません： " + this.file.getPath());
+			} else {
+				throw new ConnectorException("The specified file is not opened in \"writable\" modes (WRITE, APPEND, WRITE_CSV, ... etc.): " + this.file.getPath());
+			}
+		}
+		
+		try {
+			this.bufferedWriter.flush();
+		} catch (IOException ioe) {
+			if (this.isJapanese) {
+				throw new ConnectorException("指定されたファイルへの書き込み処理で、I/Oエラーが発生しました: " + this.file.getPath(), ioe);
+			} else {
+				throw new ConnectorException("An I/O error occurred for writing contents to the specified file: " + this.file.getPath(), ioe);
+			}
+		}
+	}
 }

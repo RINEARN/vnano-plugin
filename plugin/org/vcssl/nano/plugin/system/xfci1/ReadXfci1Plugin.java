@@ -155,12 +155,13 @@ public class ReadXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 		String[] contents = this.performIO(fileId);
 
 		// Get the container for storing the return value.
-		ArrayDataAccessorInterface1 returnContainer = ArrayDataAccessorInterface1.class.cast(arguments[0]);
+		@SuppressWarnings("unchecked")
+		ArrayDataAccessorInterface1<String[]> returnContainer = (ArrayDataAccessorInterface1<String[]>)arguments[0];
 
 		// Store the read contents to the above container.
 		int offset = 0;
 		int[] lengths = new int[]{ contents.length };
-		returnContainer.setArrayData(contents, offset, lengths);
+		returnContainer.setArrayData((String[])contents, offset, lengths);
 		return null;
 	}
 

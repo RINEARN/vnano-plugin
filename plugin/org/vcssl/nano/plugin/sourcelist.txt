@@ -51,6 +51,7 @@ org/vcssl/nano/plugin/system/xfci1/ConfirmXfci1Plugin.java
 org/vcssl/nano/plugin/system/xfci1/ErrorXfci1Plugin.java
 org/vcssl/nano/plugin/system/xfci1/ExitIntXfci1Plugin.java
 org/vcssl/nano/plugin/system/xfci1/ExitVoidXfci1Plugin.java
+org/vcssl/nano/plugin/system/xfci1/FlushXfci1Plugin.java
 org/vcssl/nano/plugin/system/xfci1/InfXfci1Plugin.java
 org/vcssl/nano/plugin/system/xfci1/InputDefaultXfci1Plugin.java
 org/vcssl/nano/plugin/system/xfci1/InputXfci1Plugin.java
@@ -61,6 +62,7 @@ org/vcssl/nano/plugin/system/xfci1/OpenStringStringXfci1Plugin.java
 org/vcssl/nano/plugin/system/xfci1/PopupXfci1Plugin.java
 org/vcssl/nano/plugin/system/xfci1/PrintlnXfci1Plugin.java
 org/vcssl/nano/plugin/system/xfci1/PrintXfci1Plugin.java
+org/vcssl/nano/plugin/system/xfci1/ReadlnXfci1Plugin.java
 org/vcssl/nano/plugin/system/xfci1/SleepXfci1Plugin.java
 org/vcssl/nano/plugin/system/xfci1/TimeXfci1Plugin.java
 org/vcssl/nano/plugin/system/xfci1/WritelnXfci1Plugin.java

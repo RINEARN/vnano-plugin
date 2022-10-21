@@ -358,7 +358,7 @@ public class FileIOUnit {
 	 * 
 	 * If the mode of this instance is WRITE, all elements in "contents" array will be written in the file without being delimited.
 	 * If the mode is WRITE_CSV, the elements will be written with delimited by "," (comma).
-	 * If the mode is WRITE_TSV, the elements will be written with delimited by "\t" (tab space).
+	 * If the mode is WRITE_TSV, the elements will be written with delimited by "\t" (tab).
 	 * 
 	 * @param contents The contents to be written to the file.
 	 * @throws ConnectorException Thrown when any I/O error occurred, or when the file is opened by unwritable modes.
@@ -406,6 +406,74 @@ public class FileIOUnit {
 				throw new ConnectorException("指定されたファイルへの書き込み処理で、I/Oエラーが発生しました: " + this.file.getPath(), ioe);
 			} else {
 				throw new ConnectorException("An I/O error occurred for writing contents to the specified file: " + this.file.getPath(), ioe);
+			}
+		}
+	}
+
+
+	/**
+	 * Reads contents of one line from to the file.
+	 * 
+	 * If the mode of this instance is READ, whole the read line will be returned as an array of which length is 1.
+	 * If the mode is READ_CSV, text of a line will be splitted by "," (comma), and they will be returned as an array.
+	 * If the mode is READ_TSV, text of a line will be splitted by "\t" (tab), and they will be returned as an array.
+	 * If the mode is READ_STSV, text of a line will be splitted by (may be sequential) tabs or spaces, 
+	 * and they will be returned as an array.
+	 * 
+	 * @return The (delimited) contents of a line read from the file.
+	 * @throws ConnectorException Thrown when any I/O error occurred, or when the file is opened by unwritable modes.
+	 */
+	public synchronized String[] readln() throws ConnectorException {
+		if (this.mode == null || this.mode == FileIOMode.UNOPEND_OR_CLOSED) {
+			if (this.isJapanese) {
+				throw new ConnectorException("指定されたファイルは、まだ開かれていないか、既に閉じられた状態です。");
+			} else {
+				throw new ConnectorException("The specified file has not been not opened yet, or already closed. Please open the file by \"open\" function.");
+			}
+		}
+		if (!FileIOMode.READ_MODE_SET.contains(this.mode)) {
+			if (this.isJapanese) {
+				throw new ConnectorException("指定されたファイルは、読み込み可能なモード（READ, READ_CSV, ...等）で開かれていません： " + this.file.getPath());
+			} else {
+				throw new ConnectorException("The specified file is not opened in \"readable\" modes (READ, READ_CSV, ... etc.): " + this.file.getPath());
+			}
+		}
+
+		// Read one line from the file.
+		String line = null;
+		try {
+			line = this.bufferedReader.readLine();
+			if (line == null) {
+				if (this.isJapanese) {
+					throw new ConnectorException("指定されたファイルから次の一行を読み込もうとしましたが、残りの行がもうありません： " + this.file.getPath());
+				} else {
+					throw new ConnectorException("Tried to read the next line from the specified file, but no lines are remained: " + this.file.getPath());
+				}
+			}
+		} catch (IOException ioe) {
+			if (this.isJapanese) {
+				throw new ConnectorException("指定されたファイルからの読み込み処理で、I/Oエラーが発生しました: " + this.file.getPath(), ioe);
+			} else {
+				throw new ConnectorException("An I/O error occurred for reading contents from the specified file: " + this.file.getPath(), ioe);
+			}
+		}
+
+		// Split the line by the delimiter, and return them.
+		switch (this.mode) {
+			case READ: {
+				return new String[] { line };
+			}
+			case READ_CSV: {
+				return line.split(",", -1);
+			}
+			case READ_TSV: {
+				return line.split("\\t", -1);
+			}
+			case READ_STSV: {
+				return line.split("\\s+", -1);
+			}
+			default: {
+				throw new ConnectorFatalException("Unexpected file I/O mode: " + mode);
 			}
 		}
 	}

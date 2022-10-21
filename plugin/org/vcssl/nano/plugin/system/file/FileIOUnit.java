@@ -11,7 +11,6 @@ import org.vcssl.connect.ConnectorFatalException;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.Locale;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.io.BufferedReader;
@@ -19,6 +18,10 @@ import java.io.BufferedReader;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.io.BufferedWriter;
+
+import java.util.Locale;
+import java.util.List;
+import java.util.ArrayList;
 
 
 /**
@@ -61,6 +64,9 @@ public class FileIOUnit {
 
 	/** The flag for switching the language of error messages to Japanese. */
 	private boolean isJapanese = false;
+
+	/** The length of the reading buffer array. */
+	private static final int READ_BUFFER_LENGTH = 4096;
 
 
 	/**
@@ -474,6 +480,103 @@ public class FileIOUnit {
 			}
 			default: {
 				throw new ConnectorFatalException("Unexpected file I/O mode: " + mode);
+			}
+		}
+	}
+
+	
+	/**
+	 * Reads all contents from to the file.
+	 * 
+	 * If the mode of this instance is READ, whole the contnts in the file will be returned as an array of which length is 1.
+	 * If the mode is READ_CSV, text of all lines will be splitted by "," (comma), and they will be returned as an array.
+	 * If the mode is READ_TSV, text of all lines line will be splitted by "\t" (tab), and they will be returned as an array.
+	 * If the mode is READ_STSV, text of all lines line will be splitted by (may be sequential) tabs or spaces, 
+	 * and they will be returned as an array.
+	 * 
+	 * @return The (delimited) contents of all contents read from the file.
+	 * @throws ConnectorException Thrown when any I/O error occurred, or when the file is opened by unwritable modes.
+	 */
+	public synchronized String[] read() throws ConnectorException {
+		if (this.mode == null || this.mode == FileIOMode.UNOPEND_OR_CLOSED) {
+			if (this.isJapanese) {
+				throw new ConnectorException("指定されたファイルは、まだ開かれていないか、既に閉じられた状態です。");
+			} else {
+				throw new ConnectorException("The specified file has not been not opened yet, or already closed. Please open the file by \"open\" function.");
+			}
+		}
+		if (!FileIOMode.READ_MODE_SET.contains(this.mode)) {
+			if (this.isJapanese) {
+				throw new ConnectorException("指定されたファイルは、読み込み可能なモード（READ, READ_CSV, ...等）で開かれていません： " + this.file.getPath());
+			} else {
+				throw new ConnectorException("The specified file is not opened in \"readable\" modes (READ, READ_CSV, ... etc.): " + this.file.getPath());
+			}
+		}
+
+		// If the mode is READ, simply read all contents, and return it as an array of which length is 1.
+		try {
+			if (this.mode == FileIOMode.READ) {
+				StringBuilder resultBuilder = new StringBuilder();
+				int readBufferLength = READ_BUFFER_LENGTH;
+				char[] readBuffer = new char[readBufferLength];
+				int readSucceededLength = 0;
+				while ( (readSucceededLength = this.bufferedReader.read(readBuffer, 0, readBufferLength)) != -1 ) {
+					for (int ichar=0; ichar<readSucceededLength; ichar++) {
+						resultBuilder.append(readBuffer[ichar]);
+					}
+				}
+				return new String[]{ resultBuilder.toString() };
+			}
+		} catch (IOException ioe) {
+			if (this.isJapanese) {
+				throw new ConnectorException("指定されたファイルからの読み込み処理で、I/Oエラーが発生しました: " + this.file.getPath(), ioe);
+			} else {
+				throw new ConnectorException("An I/O error occurred for reading contents from the specified file: " + this.file.getPath(), ioe);
+			}
+		}
+
+		// For other modes, split each lines by the delimiter, 
+		// and store all splitted values in all lines in an array to be returned.
+		try {
+			List<String> resultList = new ArrayList<String>();
+			String line = null;
+
+			// Read each line:
+			while ((line = this.bufferedReader.readLine()) != null) {
+
+				String values[] = null;
+				switch (this.mode) {
+					case READ_CSV: {
+						values = line.split(",", -1);
+						break;
+					}
+					case READ_TSV: {
+						values = line.split("\\t", -1);
+						break;
+					}
+					case READ_STSV: {
+						values = line.split("\\s+", -1);
+						break;
+					}
+					default: {
+						throw new ConnectorFatalException("Unexpected file I/O mode: " + mode);
+					}
+				}
+				for (String value: values) {
+					resultList.add(value);
+				}
+			}
+
+			// Extract all values in all lines, and return them.
+			String[] resultArray = new String[ resultList.size() ];
+			resultArray = resultList.toArray(resultArray);
+			return resultArray;
+
+		} catch (IOException ioe) {
+			if (this.isJapanese) {
+				throw new ConnectorException("指定されたファイルからの読み込み処理で、I/Oエラーが発生しました: " + this.file.getPath(), ioe);
+			} else {
+				throw new ConnectorException("An I/O error occurred for reading contents from the specified file: " + this.file.getPath(), ioe);
 			}
 		}
 	}

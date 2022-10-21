@@ -63,6 +63,7 @@ org/vcssl/nano/plugin/system/xfci1/PopupXfci1Plugin.java
 org/vcssl/nano/plugin/system/xfci1/PrintlnXfci1Plugin.java
 org/vcssl/nano/plugin/system/xfci1/PrintXfci1Plugin.java
 org/vcssl/nano/plugin/system/xfci1/ReadlnXfci1Plugin.java
+org/vcssl/nano/plugin/system/xfci1/ReadXfci1Plugin.java
 org/vcssl/nano/plugin/system/xfci1/SleepXfci1Plugin.java
 org/vcssl/nano/plugin/system/xfci1/TimeXfci1Plugin.java
 org/vcssl/nano/plugin/system/xfci1/WritelnXfci1Plugin.java

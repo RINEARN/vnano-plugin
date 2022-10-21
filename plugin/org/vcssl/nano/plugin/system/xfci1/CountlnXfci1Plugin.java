@@ -22,9 +22,9 @@ import java.util.Locale;
 
 
 /**
- * A function plug-in providing "System.read(int fileId)" function.
+ * A function plug-in providing "System.countln(int fileId)" function.
  */
-public class ReadXfci1Plugin implements ExternalFunctionConnectorInterface1 {
+public class CountlnXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 
 	/** An object managing file I/O from/to (multiple) files. */
 	protected FileIOHub fileIOHub = null;
@@ -37,7 +37,7 @@ public class ReadXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 	 * 
 	 * @param fileIOHub The file I/O hub, through which the file I/O will be performed.
 	 */
-	public ReadXfci1Plugin(FileIOHub fileIOHub) {
+	public CountlnXfci1Plugin(FileIOHub fileIOHub) {
 		this.fileIOHub = fileIOHub;
 	}
 
@@ -62,7 +62,7 @@ public class ReadXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 
 	@Override
 	public String getFunctionName() {
-		return "read";
+		return "countln";
 	}
 
 	@Override
@@ -117,12 +117,12 @@ public class ReadXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 
 	@Override
 	public Class<?> getReturnClass(Class<?>[] parameterClasses) {
-		return String[].class;
+		return long.class;
 	}
 
 	@Override
 	public Class<?> getReturnUnconvertedClass(Class<?>[] parameterClasses) {
-		return ArrayDataAccessorInterface1.class;
+		return Int64ScalarDataAccessorInterface1.class;
 	}
 
 	@Override
@@ -146,34 +146,19 @@ public class ReadXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 
 		// Note:
 		//    arguments[0] is the container for storing the return value, 
-		//    argument[1] is the "fileId" arg.
+		//    argument[1] is the "fileId" arg,
 
 		// Get the value of the specified fileId.
 		int fileId = (int)Int64ScalarDataAccessorInterface1.class.cast(arguments[1]).getInt64ScalarData();
 
-		// Read the contents of one line, from the file.
-		String[] contents = this.performIO(fileId);
+		// Count up the total number of lines in the file, and reopen the file.
+		int totalNumberOfLines = this.fileIOHub.countln(fileId);
 
 		// Get the container for storing the return value.
-		ArrayDataAccessorInterface1 returnContainer = ArrayDataAccessorInterface1.class.cast(arguments[0]);
+		Int64ScalarDataAccessorInterface1 returnContainer = Int64ScalarDataAccessorInterface1.class.cast(arguments[0]);
 
-		// Store the read contents to the above container.
-		int offset = 0;
-		int[] lengths = new int[]{ contents.length };
-		returnContainer.setArrayData(contents, offset, lengths);
+		// Store the total number of lines to the above container.
+		returnContainer.setInt64ScalarData(totalNumberOfLines);
 		return null;
-	}
-
-
-	/**
-	 * Read the specified contents to the specified file.
-	 * (In ReadlnXfci1Plugin, this method is overridden for modifying behaviour.)
-	 * 
-	 * @param fileId The ID of the file.
-	 * @return The contents read from the file.
-	 * @throws ConnectorException Thrown when any error has occurred when it is reading the contents to file.
-	 */
-	protected String[] performIO(int fileId) throws ConnectorException{
-		return this.fileIOHub.read(fileId);
 	}
 }

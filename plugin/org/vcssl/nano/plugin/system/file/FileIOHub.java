@@ -305,4 +305,23 @@ public class FileIOHub {
 		FileIOUnit unit = this.checkAndGetUnit(fileId);
 		return unit.read();
 	}
+
+
+	/**
+	 * Reads all contents from to the file.
+	 * 
+	 * If the mode of this instance is READ, whole the contnts in the file will be returned as an array of which length is 1.
+	 * If the mode is READ_CSV, text of all lines will be splitted by "," (comma), and they will be returned as an array.
+	 * If the mode is READ_TSV, text of all lines line will be splitted by "\t" (tab), and they will be returned as an array.
+	 * If the mode is READ_STSV, text of all lines line will be splitted by (may be sequential) tabs or spaces, 
+	 * and they will be returned as an array.
+	 * 
+	 * @param fileId The file ID of the file to be flushed.
+	 * @return The (delimited) contents of all contents read from the file.
+	 * @throws ConnectorException Thrown when any I/O error occurred, or when the file is opened by unwritable modes.
+	 */
+	public synchronized int countln(int fileId) throws ConnectorException {
+		FileIOUnit unit = this.checkAndGetUnit(fileId);
+		return unit.countln();
+	}
 }

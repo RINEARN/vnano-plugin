@@ -32,11 +32,14 @@ public class FileIOUnit {
 	/** The file I/O mode. */
 	private FileIOMode mode = FileIOMode.UNOPEND_OR_CLOSED;
 
+	/** The string representing the mode (e.g.: "r" for READ). */
+	private String modeSpecifier = null;
+
 	/** The file from/to which this unit performs file I/O. */
-	File file = null;
+	private File file = null;
 
 	/** The name of the character encoding of the file. */
-	String encodingName = null;
+	private String encodingName = null;
 
 	/** The line-feed code. */
 	private String lineFeedCode = null;
@@ -131,6 +134,7 @@ public class FileIOUnit {
 			}
 		}
 		this.mode = FileIOMode.SPECIFIER_ENUM_MAP.get(modeSpecifier);
+		this.modeSpecifier = modeSpecifier;
 		this.file = new File(filePath);
 		this.encodingName = encodingName;
 		this.lineFeedCode = lineFeedCode;
@@ -579,5 +583,53 @@ public class FileIOUnit {
 				throw new ConnectorException("An I/O error occurred for reading contents from the specified file: " + this.file.getPath(), ioe);
 			}
 		}
+	}
+
+
+	/**
+	 * Counts up the total number of lines in the file, and reopens the file.
+	 * 
+	 * @return The total number of lines in the file.
+	 * @throws ConnectorException Thrown when any I/O error occurred, or when the file is opened by unwritable modes.
+	 */
+	public synchronized int countln() throws ConnectorException {
+		if (this.mode == null || this.mode == FileIOMode.UNOPEND_OR_CLOSED) {
+			if (this.isJapanese) {
+				throw new ConnectorException("指定されたファイルは、まだ開かれていないか、既に閉じられた状態です。");
+			} else {
+				throw new ConnectorException("The specified file has not been not opened yet, or already closed. Please open the file by \"open\" function.");
+			}
+		}
+		if (!FileIOMode.READ_MODE_SET.contains(this.mode)) {
+			if (this.isJapanese) {
+				throw new ConnectorException("指定されたファイルは、読み込み可能なモード（READ, READ_CSV, ...等）で開かれていません： " + this.file.getPath());
+			} else {
+				throw new ConnectorException("The specified file is not opened in \"readable\" modes (READ, READ_CSV, ... etc.): " + this.file.getPath());
+			}
+		}
+
+		// Read all lines from the file, and count up them.
+		int totalNumberOfLines = 0;
+		try {
+			while (this.bufferedReader.readLine() != null) {
+				totalNumberOfLines++;
+			}
+		} catch (IOException ioe) {
+			if (this.isJapanese) {
+				throw new ConnectorException("指定されたファイルからの読み込み処理で、I/Oエラーが発生しました: " + this.file.getPath(), ioe);
+			} else {
+				throw new ConnectorException("An I/O error occurred for reading contents from the specified file: " + this.file.getPath(), ioe);
+			}
+		}
+
+		// Reopen the file.
+		String filePathStock = this.file.getPath();
+		String modeSpecStock = this.modeSpecifier;
+		String encodingStock = this.encodingName;
+		String lineFeedStock = this.lineFeedCode;
+		this.close();
+		this.open(filePathStock, modeSpecStock, encodingStock, lineFeedStock);
+
+		return totalNumberOfLines;
 	}
 }

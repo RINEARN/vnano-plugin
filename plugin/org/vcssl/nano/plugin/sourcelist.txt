@@ -48,6 +48,7 @@ org/vcssl/nano/plugin/system/xfci1/ArrayrankXfci1Plugin.java
 org/vcssl/nano/plugin/system/xfci1/AssertXfci1Plugin.java
 org/vcssl/nano/plugin/system/xfci1/CloseXfci1Plugin.java
 org/vcssl/nano/plugin/system/xfci1/ConfirmXfci1Plugin.java
+org/vcssl/nano/plugin/system/xfci1/CountlnXfci1Plugin.java
 org/vcssl/nano/plugin/system/xfci1/ErrorXfci1Plugin.java
 org/vcssl/nano/plugin/system/xfci1/ExitIntXfci1Plugin.java
 org/vcssl/nano/plugin/system/xfci1/ExitVoidXfci1Plugin.java

@@ -57,6 +57,7 @@ org/vcssl/nano/plugin/system/xfci1/FlushXfci1Plugin.java
 org/vcssl/nano/plugin/system/xfci1/InfXfci1Plugin.java
 org/vcssl/nano/plugin/system/xfci1/InputDefaultXfci1Plugin.java
 org/vcssl/nano/plugin/system/xfci1/InputXfci1Plugin.java
+org/vcssl/nano/plugin/system/xfci1/IsdirXfci1Plugin.java
 org/vcssl/nano/plugin/system/xfci1/LengthXfci1Plugin.java
 org/vcssl/nano/plugin/system/xfci1/NanXfci1Plugin.java
 org/vcssl/nano/plugin/system/xfci1/OpenStringStringStringXfci1Plugin.java

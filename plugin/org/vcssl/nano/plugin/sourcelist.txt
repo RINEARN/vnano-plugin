@@ -50,6 +50,7 @@ org/vcssl/nano/plugin/system/xfci1/CloseXfci1Plugin.java
 org/vcssl/nano/plugin/system/xfci1/ConfirmXfci1Plugin.java
 org/vcssl/nano/plugin/system/xfci1/CountlnXfci1Plugin.java
 org/vcssl/nano/plugin/system/xfci1/ErrorXfci1Plugin.java
+org/vcssl/nano/plugin/system/xfci1/ExistsXfci1Plugin.java
 org/vcssl/nano/plugin/system/xfci1/ExitIntXfci1Plugin.java
 org/vcssl/nano/plugin/system/xfci1/ExitVoidXfci1Plugin.java
 org/vcssl/nano/plugin/system/xfci1/FlushXfci1Plugin.java

@@ -50,13 +50,17 @@ org/vcssl/nano/plugin/system/xfci1/CloseXfci1Plugin.java
 org/vcssl/nano/plugin/system/xfci1/ConfirmXfci1Plugin.java
 org/vcssl/nano/plugin/system/xfci1/CountlnXfci1Plugin.java
 org/vcssl/nano/plugin/system/xfci1/ErrorXfci1Plugin.java
+org/vcssl/nano/plugin/system/xfci1/ExistsXfci1Plugin.java
 org/vcssl/nano/plugin/system/xfci1/ExitIntXfci1Plugin.java
 org/vcssl/nano/plugin/system/xfci1/ExitVoidXfci1Plugin.java
 org/vcssl/nano/plugin/system/xfci1/FlushXfci1Plugin.java
 org/vcssl/nano/plugin/system/xfci1/InfXfci1Plugin.java
 org/vcssl/nano/plugin/system/xfci1/InputDefaultXfci1Plugin.java
 org/vcssl/nano/plugin/system/xfci1/InputXfci1Plugin.java
+org/vcssl/nano/plugin/system/xfci1/IsdirXfci1Plugin.java
 org/vcssl/nano/plugin/system/xfci1/LengthXfci1Plugin.java
+org/vcssl/nano/plugin/system/xfci1/ListdirXfci1Plugin.java
+org/vcssl/nano/plugin/system/xfci1/MkdirXfci1Plugin.java
 org/vcssl/nano/plugin/system/xfci1/NanXfci1Plugin.java
 org/vcssl/nano/plugin/system/xfci1/OpenStringStringStringXfci1Plugin.java
 org/vcssl/nano/plugin/system/xfci1/OpenStringStringXfci1Plugin.java

@@ -26,10 +26,14 @@ import java.util.Locale;
  */
 public class OpenStringStringXfci1Plugin extends OpenStringStringStringXfci1Plugin {
 
+	/** Stores the name of the default encoding. */
+	private String defaultEncodingName = null;
+
 	/**
 	 * Create a new instance of this plug-in.
 	 * 
 	 * @param fileIOHub The file I/O hub, through which the file I/O will be performed.
+	 * @param defaultEncodingName The name of the default encoding.
 	 */
 	public OpenStringStringXfci1Plugin(FileIOHub fileIOHub) {
 		super(fileIOHub);
@@ -70,10 +74,25 @@ public class OpenStringStringXfci1Plugin extends OpenStringStringStringXfci1Plug
 	public Object invoke(Object[] arguments) throws ConnectorException {
 		String fileName = String.class.cast(arguments[0]);
 		String fileIOModeSpecifier = String.class.cast(arguments[1]);
-		String encodingName = "UTF-8";
 
 		// Open the file, and return the file ID assigned to it.
-		int fileId = this.open(fileName, fileIOModeSpecifier, encodingName);
+		int fileId = this.open(fileName, fileIOModeSpecifier, this.defaultEncodingName);
 		return Long.valueOf(fileId);
+	}
+	
+	@Override
+	public void initializeForExecution(Object engineConnector) throws ConnectorException {
+		super.initializeForExecution(engineConnector);
+		
+		// Set the language of error messages.
+		EngineConnectorInterface1 eci1EngineConnector = EngineConnectorInterface1.class.cast(engineConnector);
+		if (eci1EngineConnector.hasOptionValue("FILE_IO_ENCODING")) {
+			this.defaultEncodingName = String.class.cast(eci1EngineConnector.getOptionValue("FILE_IO_ENCODING"));
+		} else {
+			this.defaultEncodingName = "UTF-8";
+		}
+
+		// Initialize resources for performing file I/O.
+		this.fileIOHub.initializeResources();
 	}
 }

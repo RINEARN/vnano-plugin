@@ -912,7 +912,10 @@ Provides I/O functions from/to files.
 	</tr>
 	<tr>
 		<td class="lcol">Feature</td>
-		<td class="rcol">Opens the specified file in the specified mode, and returns the file ID assigned to it. The character encoding will be set to UTF-8 automatically.</td>
+		<td class="rcol">
+			Opens the specified file in the specified mode, and returns the file ID assigned to it. 
+			The character encoding will be set to UTF-8 by default. If "FILE_IO_ENCODING" option exists, the encoding will be set to its value.
+		</td>
 	</tr>
 	<tr>
 		<td class="lcol">Signature</td>
@@ -1271,6 +1274,7 @@ Provides I/O functions from/to files.
 		<td class="lcol">Feature</td>
 		<td class="rcol">
 			Opens the specified file, and writes the specified value, and closes the file.
+			The character encoding will be set to UTF-8 by default. If "FILE_IO_ENCODING" option exists, the encoding will be set to its value.
 		</td>
 	</tr>
 	<tr>
@@ -1307,6 +1311,7 @@ Provides I/O functions from/to files.
 		<td class="lcol">Feature</td>
 		<td class="rcol">
 			Opens the specified file, and reads the whole content, and closes the file.
+			The character encoding for the reading will be set to UTF-8 by default. If "FILE_IO_ENCODING" option exists, the encoding will be set to its value.
 		</td>
 	</tr>
 	<tr>

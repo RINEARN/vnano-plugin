@@ -84,7 +84,7 @@ public class OpenStringStringXfci1Plugin extends OpenStringStringStringXfci1Plug
 	public void initializeForExecution(Object engineConnector) throws ConnectorException {
 		super.initializeForExecution(engineConnector);
 		
-		// Set the language of error messages.
+		// Get the character encoding from the option settings.
 		EngineConnectorInterface1 eci1EngineConnector = EngineConnectorInterface1.class.cast(engineConnector);
 		if (eci1EngineConnector.hasOptionValue("FILE_IO_ENCODING")) {
 			this.defaultEncodingName = String.class.cast(eci1EngineConnector.getOptionValue("FILE_IO_ENCODING"));

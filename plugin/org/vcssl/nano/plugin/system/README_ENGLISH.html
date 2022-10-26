@@ -74,6 +74,7 @@ so same features are also available in scripts of the VCSSL by default.
 			<br />
 			Functions: <a href="#open">open(fileName, mode)</a> / <a href="#open3arg">open(fileName, mode, encoding)</a> / <a href="#close">close(fileId)</a> / <a href="#flush">flush(fileId)</a> / 
 			<a href="#write">write(fileId, ...)</a> / <a href="#writeln">writeln(fileId, ...)</a> / <a href="#read">read(fileId)</a> / <a href="#readln">readln(fileId)</a> / <a href="#countln">countln(fileId)</a> / 
+			<a href="#save">save(filePath, value)</a> / <a href="#load">load(filePath)</a> / 
 			<a href="#exists">exists(filePath)</a> / <a href="#isdir">isdir(directoryPath)</a> / <a href="#listdir">listdir(directoryPath)</a> / <a href="#mkdir">mkdir(directoryPath)</a> / 
 		</dd>
 	<dt><a href="#SystemTimeXnci1Plugin">SystemTimeXnci1Plugin</a></dt>
@@ -1256,6 +1257,78 @@ Provides I/O functions from/to files.
 			int fileId = open("example.txt", READ);
 			<br />
 			int lineN = countln(fileId);
+		</td>
+	</tr>
+</table>
+
+
+<table id="save" class="spec-table">
+	<tr>
+		<th class="lcol">Function</th>
+		<th class="rcol">save(filePath, value)</th>
+	</tr>
+	<tr>
+		<td class="lcol">Feature</td>
+		<td class="rcol">
+			Opens the specified file, and writes the specified value, and closes the file.
+		</td>
+	</tr>
+	<tr>
+		<td class="lcol">Signature</td>
+		<td class="rcol">void save(string filePath, any value)</td>
+	</tr>
+	<tr>
+		<td class="lcol">Params</td>
+		<td class="rcol">
+			(string type) filePath: The name or path of the file to which you write the value.
+			<br />
+			(any type) value: The value to be written.
+		</td>
+	</tr>
+	<tr>
+		<td class="lcol">Return</td>
+		<td class="rcol">なし</td>
+	</tr>
+	<tr>
+		<td class="lcol">Example</td>
+		<td class="rcol">
+			save("example.txt", 123);
+		</td>
+	</tr>
+</table>
+
+
+<table id="load" class="spec-table">
+	<tr>
+		<th class="lcol">Function</th>
+		<th class="rcol">load(filePath)</th>
+	</tr>
+	<tr>
+		<td class="lcol">Feature</td>
+		<td class="rcol">
+			Opens the specified file, and reads the whole content, and closes the file.
+		</td>
+	</tr>
+	<tr>
+		<td class="lcol">Signature</td>
+		<td class="rcol">string load(string filePath)</td>
+	</tr>
+	<tr>
+		<td class="lcol">Params</td>
+		<td class="rcol">
+			(string type) filePath: The name or path from which you read the content.
+		</td>
+	</tr>
+	<tr>
+		<td class="lcol">Return</td>
+		<td class="rcol">
+			(string type) The content read from the file.
+		</td>
+	</tr>
+	<tr>
+		<td class="lcol">Example</td>
+		<td class="rcol">
+			string content = read("example.txt");
 		</td>
 	</tr>
 </table>

@@ -45,6 +45,7 @@ import org.vcssl.nano.plugin.system.xfci1.IsdirXfci1Plugin;
 import org.vcssl.nano.plugin.system.xfci1.ListdirXfci1Plugin;
 import org.vcssl.nano.plugin.system.xfci1.MkdirXfci1Plugin;
 import org.vcssl.nano.plugin.system.xfci1.SaveXfci1Plugin;
+import org.vcssl.nano.plugin.system.xfci1.LoadXfci1Plugin;
 
 
 /**
@@ -93,6 +94,7 @@ public class SystemFileIOXnci1Plugin implements ExternalNamespaceConnectorInterf
 		functionList.add(new ListdirXfci1Plugin());
 		functionList.add(new MkdirXfci1Plugin());
 		functionList.add(new SaveXfci1Plugin());
+		functionList.add(new LoadXfci1Plugin());
 		return functionList.toArray(new ExternalFunctionConnectorInterface1[0]);
 	}
 

@@ -24,9 +24,9 @@ import java.util.Locale;
 
 
 /**
- * A function plug-in providing "System.save(string fileName, string value)" function.
+ * A function plug-in providing "System.load(string fileName)" function.
  */
-public class SaveXfci1Plugin implements ExternalFunctionConnectorInterface1 {
+public class LoadXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 
 	/** Stores the engine connector for requesting permissions. */
 	protected EngineConnectorInterface1 engineConnector = null;
@@ -40,7 +40,7 @@ public class SaveXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 	/**
 	 * Create a new instance of this plug-in.
 	 */
-	public SaveXfci1Plugin() {
+	public LoadXfci1Plugin() {
 	}
 
 	@Override
@@ -78,17 +78,17 @@ public class SaveXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 
 	@Override
 	public String getFunctionName() {
-		return "save";
+		return "load";
 	}
 
 	@Override
 	public Class<?>[] getParameterClasses() {
-		return new Class<?>[] { String.class, Object.class };
+		return new Class<?>[] { String.class };
 	}
 
 	@Override
 	public Class<?>[] getParameterUnconvertedClasses() {
-		return new Class<?>[]{ StringScalarDataAccessorInterface1.class, ArrayDataAccessorInterface1.class };
+		return new Class<?>[]{ StringScalarDataAccessorInterface1.class };
 	}
 
 	@Override
@@ -98,27 +98,27 @@ public class SaveXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 
 	@Override
 	public String[] getParameterNames() {
-		return new String[] { "fileName", "value" };
+		return new String[] { "fileName" };
 	}
 
 	@Override
 	public boolean[] getParameterDataTypeArbitrarinesses() {
-		return new boolean[]{ false, true };
+		return new boolean[]{ false };
 	}
 
 	@Override
 	public boolean[] getParameterArrayRankArbitrarinesses() {
-		return new boolean[]{ false, false };
+		return new boolean[]{ false };
 	}
 
 	@Override
 	public boolean[] getParameterReferencenesses() {
-		return new boolean[]{ false, false };
+		return new boolean[]{ false };
 	}
 
 	@Override
 	public boolean[] getParameterConstantnesses() {
-		return new boolean[]{ true, true };
+		return new boolean[]{ true };
 	}
 
 	@Override
@@ -133,12 +133,12 @@ public class SaveXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 
 	@Override
 	public Class<?> getReturnClass(Class<?>[] parameterClasses) {
-		return void.class;
+		return String.class;
 	}
 
 	@Override
 	public Class<?> getReturnUnconvertedClass(Class<?>[] parameterClasses) {
-		return null;
+		return StringScalarDataAccessorInterface1.class;
 	}
 
 	@Override
@@ -160,9 +160,8 @@ public class SaveXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 	public Object invoke(Object[] arguments) throws ConnectorException {
 		
 		// Note:
-		//    arguments[0] is the container for storing the return value (unused), 
-		//    argument[1] is the "fileName" arg,
-		//    argument[2] is the "value" arg.
+		//    arguments[0] is the container for storing the return value, 
+		//    argument[1] is the "fileName" arg.
 
 		// Get the value of the specified file name or path.
 		String fileName = StringScalarDataAccessorInterface1.class.cast(arguments[1]).getStringScalarData();
@@ -175,22 +174,16 @@ public class SaveXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 		File file = new File(filePath);
 
 		// Request permissions.
-		this.engineConnector.requestPermission(ConnectorPermissionName.FILE_WRITE, this, filePath);
-		if (file.exists()) {
-			this.engineConnector.requestPermission(ConnectorPermissionName.FILE_OVERWRITE, this, filePath);
-		} else {
-			this.engineConnector.requestPermission(ConnectorPermissionName.FILE_CREATE, this, filePath);
-		}
+		this.engineConnector.requestPermission(ConnectorPermissionName.FILE_READ, this, filePath);
 
-		// Convert the value of "value" arg to a String-type value.
-		ArrayDataAccessorInterface1 valueContainer = ArrayDataAccessorInterface1.class.cast(arguments[2]);
-		String valueString = this.convertContentArgToString(valueContainer);
-
-		// Write the value to the specified file.
+		// Read the value from the specified file.
 		FileIOUnit ioUnit = new FileIOUnit();
-		ioUnit.open(filePath, "w", this.defaultEncodingName, this.defaultLineFeedCode);
-		ioUnit.write(new String[]{ valueString });
+		ioUnit.open(filePath, "r", this.defaultEncodingName, this.defaultLineFeedCode);
+		String value = ioUnit.read()[0];
 		ioUnit.close();
+
+		// Store the read value to the container of the return value.
+		StringScalarDataAccessorInterface1.class.cast(arguments[0]).setStringScalarData(value);
 
 		return null;
 	}

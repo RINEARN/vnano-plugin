@@ -8,17 +8,13 @@
 package org.vcssl.nano.plugin.system.xfci1;
 
 import org.vcssl.nano.plugin.system.file.FileIOHub;
-import org.vcssl.nano.plugin.system.file.FileIOMode;
 
 import org.vcssl.connect.ConnectorException;
-import org.vcssl.connect.ConnectorPermissionName;
+import org.vcssl.connect.ConnectorFatalException;
 import org.vcssl.connect.EngineConnectorInterface1;
-import org.vcssl.connect.ExternalFunctionConnectorInterface1;
 
 import java.io.File;
 import java.io.IOException;
-import java.rmi.ConnectIOException;
-import java.util.Locale;
 
 
 /**
@@ -28,6 +24,10 @@ public class OpenStringStringXfci1Plugin extends OpenStringStringStringXfci1Plug
 
 	/** Stores the name of the default encoding. */
 	private String defaultEncodingName = null;
+
+	/** Stores the directory in which the main script is. */
+	private File mainDirectory;
+
 
 	/**
 	 * Create a new instance of this plug-in.
@@ -75,8 +75,21 @@ public class OpenStringStringXfci1Plugin extends OpenStringStringStringXfci1Plug
 		String fileName = String.class.cast(arguments[0]);
 		String fileIOModeSpecifier = String.class.cast(arguments[1]);
 
+		// Resolve the specified file name/path to the absolute path.
+		String filePath = fileName;
+		File file = new File(filePath);
+		if (!file.isAbsolute()) {
+			file = new File(this.mainDirectory, fileName);
+			try {
+				file = file.getCanonicalFile();
+			} catch (IOException ioe) {
+				throw new ConnectorFatalException(ioe);
+			}
+			filePath = file.getPath();
+		}
+
 		// Open the file, and return the file ID assigned to it.
-		int fileId = this.open(fileName, fileIOModeSpecifier, this.defaultEncodingName);
+		int fileId = this.open(filePath, fileIOModeSpecifier, this.defaultEncodingName);
 		return Long.valueOf(fileId);
 	}
 	
@@ -90,6 +103,17 @@ public class OpenStringStringXfci1Plugin extends OpenStringStringStringXfci1Plug
 			this.defaultEncodingName = String.class.cast(eci1EngineConnector.getOptionValue("FILE_IO_ENCODING"));
 		} else {
 			this.defaultEncodingName = "UTF-8";
+		}
+
+		// Get the main directory from the option settings.
+		String mainDirectoryPath = ".";
+		if (this.engineConnector.hasOptionValue("MAIN_SCRIPT_DIRECTORY")) {
+			mainDirectoryPath = String.class.cast(this.engineConnector.getOptionValue("MAIN_SCRIPT_DIRECTORY"));
+		}
+		this.mainDirectory = new File(mainDirectoryPath);
+		try {
+			this.mainDirectory = this.mainDirectory.getCanonicalFile();
+		} catch (IOException ioe) {
 		}
 
 		// Initialize resources for performing file I/O.

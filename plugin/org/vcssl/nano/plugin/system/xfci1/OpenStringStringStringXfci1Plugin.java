@@ -11,13 +11,13 @@ import org.vcssl.nano.plugin.system.file.FileIOHub;
 import org.vcssl.nano.plugin.system.file.FileIOMode;
 
 import org.vcssl.connect.ConnectorException;
+import org.vcssl.connect.ConnectorFatalException;
 import org.vcssl.connect.ConnectorPermissionName;
 import org.vcssl.connect.EngineConnectorInterface1;
 import org.vcssl.connect.ExternalFunctionConnectorInterface1;
 
 import java.io.File;
 import java.io.IOException;
-import java.rmi.ConnectIOException;
 import java.util.Locale;
 
 
@@ -31,6 +31,10 @@ public class OpenStringStringStringXfci1Plugin implements ExternalFunctionConnec
 
 	/** Stores the engine connector for requesting permissions. */
 	protected EngineConnectorInterface1 engineConnector = null;
+
+	/** Stores the directory in which the main script is. */
+	private File mainDirectory;
+
 
 	/**
 	 * Create a new instance of this plug-in.
@@ -52,6 +56,17 @@ public class OpenStringStringStringXfci1Plugin implements ExternalFunctionConnec
 	@Override
 	public void initializeForExecution(Object engineConnector) throws ConnectorException {
 		this.engineConnector = EngineConnectorInterface1.class.cast(engineConnector);
+
+		// Get the main directory from the option settings.
+		String mainDirectoryPath = ".";
+		if (this.engineConnector.hasOptionValue("MAIN_SCRIPT_DIRECTORY")) {
+			mainDirectoryPath = String.class.cast(this.engineConnector.getOptionValue("MAIN_SCRIPT_DIRECTORY"));
+		}
+		this.mainDirectory = new File(mainDirectoryPath);
+		try {
+			this.mainDirectory = this.mainDirectory.getCanonicalFile();
+		} catch (IOException ioe) {
+		}
 	}
 
 	@Override
@@ -146,8 +161,21 @@ public class OpenStringStringStringXfci1Plugin implements ExternalFunctionConnec
 		String fileIOModeSpecifier = String.class.cast(arguments[1]);
 		String encodingName = String.class.cast(arguments[2]);
 
+		// Resolve the specified file name/path to the absolute path.
+		String filePath = fileName;
+		File file = new File(filePath);
+		if (!file.isAbsolute()) {
+			file = new File(this.mainDirectory, fileName);
+			try {
+				file = file.getCanonicalFile();
+			} catch (IOException ioe) {
+				throw new ConnectorFatalException(ioe);
+			}
+			filePath = file.getPath();
+		}
+
 		// Open the file, and return the file ID assigned to it.
-		int fileId = this.open(fileName, fileIOModeSpecifier, encodingName);
+		int fileId = this.open(filePath, fileIOModeSpecifier, encodingName);
 		return Long.valueOf(fileId);
 	}
 
@@ -194,13 +222,17 @@ public class OpenStringStringStringXfci1Plugin implements ExternalFunctionConnec
 			lineFeedCode = String.class.cast(this.engineConnector.getOptionValue("FILE_IO_EOL"));
 		}
 
-		// Get the path of the file.
-		File file = new File(fileName);
-		String filePath = null;
-		try {
-			filePath = new File(fileName).getCanonicalPath();
-		} catch (IOException ioe) {
-			filePath = new File(fileName).getPath();
+		// Resolve the specified file name/path to the absolute path.
+		String filePath = fileName;
+		File file = new File(filePath);
+		if (!file.isAbsolute()) {
+			file = new File(this.mainDirectory, fileName);
+			try {
+				file = file.getCanonicalFile();
+			} catch (IOException ioe) {
+				throw new ConnectorFatalException(ioe);
+			}
+			filePath = file.getPath();
 		}
 
 		// Request permissions for reading contents from the file.

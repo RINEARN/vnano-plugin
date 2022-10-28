@@ -8,11 +8,8 @@
 package org.vcssl.nano.plugin.system.xfci1;
 
 import org.vcssl.nano.plugin.system.file.FileIOHub;
-import org.vcssl.nano.plugin.system.file.FileIOMode;
 
 import org.vcssl.connect.ConnectorException;
-import java.io.IOException;
-import java.util.Locale;
 
 
 /**

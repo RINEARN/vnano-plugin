@@ -37,6 +37,10 @@ public class LoadXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 	/** Stores the line feed code. */
 	private String defaultLineFeedCode = null;
 
+	/** Stores the directory in which the main script is. */
+	private File mainDirectory;
+
+
 	/**
 	 * Create a new instance of this plug-in.
 	 */
@@ -67,6 +71,17 @@ public class LoadXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 			this.defaultLineFeedCode = String.class.cast(this.engineConnector.getOptionValue("FILE_IO_EOL"));
 		} else {
 			this.defaultLineFeedCode = System.getProperty("line.separator");
+		}
+
+		// Get the main directory from the option settings.
+		String mainDirectoryPath = ".";
+		if (this.engineConnector.hasOptionValue("MAIN_SCRIPT_DIRECTORY")) {
+			mainDirectoryPath = String.class.cast(this.engineConnector.getOptionValue("MAIN_SCRIPT_DIRECTORY"));
+		}
+		this.mainDirectory = new File(mainDirectoryPath);
+		try {
+			this.mainDirectory = this.mainDirectory.getCanonicalFile();
+		} catch (IOException ioe) {
 		}
 	}
 
@@ -158,7 +173,7 @@ public class LoadXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 
 	@Override
 	public Object invoke(Object[] arguments) throws ConnectorException {
-		
+
 		// Note:
 		//    arguments[0] is the container for storing the return value, 
 		//    argument[1] is the "fileName" arg.
@@ -166,12 +181,16 @@ public class LoadXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 		// Get the value of the specified file name or path.
 		String fileName = StringScalarDataAccessorInterface1.class.cast(arguments[1]).getStringScalarData();
 		String filePath = fileName;
-		try {
-			filePath = new File(fileName).getCanonicalPath();
-		} catch (IOException ioe) {
-			throw new ConnectorFatalException(ioe);
-		}
 		File file = new File(filePath);
+		if (!file.isAbsolute()) {
+			file = new File(this.mainDirectory, fileName);
+			try {
+				file = file.getCanonicalFile();
+			} catch (IOException ioe) {
+				throw new ConnectorFatalException(ioe);
+			}
+			filePath = file.getPath();
+		}
 
 		// Request permissions.
 		this.engineConnector.requestPermission(ConnectorPermissionName.FILE_READ, this, filePath);

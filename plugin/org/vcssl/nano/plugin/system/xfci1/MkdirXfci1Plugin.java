@@ -13,6 +13,7 @@ import org.vcssl.nano.plugin.system.file.FileIOMode;
 import org.vcssl.connect.StringScalarDataAccessorInterface1;
 import org.vcssl.connect.BoolScalarDataAccessorInterface1;
 import org.vcssl.connect.ConnectorException;
+import org.vcssl.connect.ConnectorFatalException;
 import org.vcssl.connect.ConnectorPermissionName;
 import org.vcssl.connect.EngineConnectorInterface1;
 import org.vcssl.connect.ExternalFunctionConnectorInterface1;
@@ -31,6 +32,10 @@ public class MkdirXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 	/** Stores the engine connector for requesting permissions. */
 	protected EngineConnectorInterface1 engineConnector = null;
 
+	/** Stores the directory in which the main script is. */
+	private File mainDirectory;
+
+
 	/**
 	 * Create a new instance of this plug-in.
 	 */
@@ -48,6 +53,17 @@ public class MkdirXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 	@Override
 	public void initializeForExecution(Object engineConnector) throws ConnectorException {
 		this.engineConnector = EngineConnectorInterface1.class.cast(engineConnector);
+
+		// Get the main directory from the option settings.
+		String mainDirectoryPath = ".";
+		if (this.engineConnector.hasOptionValue("MAIN_SCRIPT_DIRECTORY")) {
+			mainDirectoryPath = String.class.cast(this.engineConnector.getOptionValue("MAIN_SCRIPT_DIRECTORY"));
+		}
+		this.mainDirectory = new File(mainDirectoryPath);
+		try {
+			this.mainDirectory = this.mainDirectory.getCanonicalFile();
+		} catch (IOException ioe) {
+		}
 	}
 
 	@Override
@@ -149,11 +165,16 @@ public class MkdirXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 		// Get the file specified as the argument, and its parent directory.
 		String directoryPath = directoryPathContainer.getStringScalarData();
 		File directoryFile = new File(directoryPath);
-		try  {
-			directoryFile = directoryFile.getCanonicalFile();
-		} catch (IOException ioe) {
-			throw new ConnectorException(ioe);
+		if (!directoryFile.isAbsolute()) {
+			directoryFile = new File(this.mainDirectory, directoryPath);
+			try {
+				directoryFile = directoryFile.getCanonicalFile();
+			} catch (IOException ioe) {
+				throw new ConnectorFatalException(ioe);
+			}
+			directoryPath = directoryFile.getPath();
 		}
+
 		File parentDir = directoryFile.getParentFile();
 
 		// If the directory already exists, do nothing.

@@ -31,6 +31,10 @@ public class ListdirXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 	/** Stores the engine connector for requesting permissions. */
 	protected EngineConnectorInterface1 engineConnector = null;
 
+	/** Stores the directory in which the main script is. */
+	private File mainDirectory;
+
+
 	/**
 	 * Create a new instance of this plug-in.
 	 */
@@ -48,6 +52,17 @@ public class ListdirXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 	@Override
 	public void initializeForExecution(Object engineConnector) throws ConnectorException {
 		this.engineConnector = EngineConnectorInterface1.class.cast(engineConnector);
+
+		// Get the main directory from the option settings.
+		String mainDirectoryPath = ".";
+		if (this.engineConnector.hasOptionValue("MAIN_SCRIPT_DIRECTORY")) {
+			mainDirectoryPath = String.class.cast(this.engineConnector.getOptionValue("MAIN_SCRIPT_DIRECTORY"));
+		}
+		this.mainDirectory = new File(mainDirectoryPath);
+		try {
+			this.mainDirectory = this.mainDirectory.getCanonicalFile();
+		} catch (IOException ioe) {
+		}
 	}
 
 	@Override
@@ -149,12 +164,17 @@ public class ListdirXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 		ArrayDataAccessorInterface1<String[]> returnContainer = (ArrayDataAccessorInterface1<String[]>)arguments[0];
 		StringScalarDataAccessorInterface1 directoryPathContainer = StringScalarDataAccessorInterface1.class.cast(arguments[1]);
 
-		// Get the value of the specified file path.
-		File directoryFile = new File(directoryPathContainer.getStringScalarData());
-		try  {
-			directoryFile = directoryFile.getCanonicalFile();
-		} catch (IOException ioe) {
-			throw new ConnectorException(ioe);
+		// Get the file specified as the argument, and its parent directory.
+		String directoryPath = directoryPathContainer.getStringScalarData();
+		File directoryFile = new File(directoryPath);
+		if (!directoryFile.isAbsolute()) {
+			directoryFile = new File(this.mainDirectory, directoryPath);
+			try {
+				directoryFile = directoryFile.getCanonicalFile();
+			} catch (IOException ioe) {
+				throw new ConnectorFatalException(ioe);
+			}
+			directoryPath = directoryFile.getPath();
 		}
 
 		// Request the permission for getting the list of files in the specified directory.

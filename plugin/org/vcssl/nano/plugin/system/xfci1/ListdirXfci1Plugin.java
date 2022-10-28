@@ -7,9 +7,6 @@
 
 package org.vcssl.nano.plugin.system.xfci1;
 
-import org.vcssl.nano.plugin.system.file.FileIOHub;
-import org.vcssl.nano.plugin.system.file.FileIOMode;
-
 import org.vcssl.connect.StringScalarDataAccessorInterface1;
 import org.vcssl.connect.ArrayDataAccessorInterface1;
 import org.vcssl.connect.EngineConnectorInterface1;
@@ -153,7 +150,6 @@ public class ListdirXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 
 	@Override
 	public Object invoke(Object[] arguments) throws ConnectorException {
-		int argLength = arguments.length;
 
 		// Note:
 		//    arguments[0] is the container for storing the return value, 

@@ -8,19 +8,13 @@
 package org.vcssl.nano.plugin.system.xfci1;
 
 import org.vcssl.nano.plugin.system.file.FileIOHub;
-import org.vcssl.nano.plugin.system.file.FileIOMode;
 
 import org.vcssl.connect.ConnectorException;
 import org.vcssl.connect.ConnectorFatalException;
-import org.vcssl.connect.ConnectorPermissionName;
 import org.vcssl.connect.EngineConnectorInterface1;
-import org.vcssl.connect.ExternalFunctionConnectorInterface1;
-import org.vcssl.connect.StringScalarDataAccessorInterface1;
 
 import java.io.File;
 import java.io.IOException;
-import java.rmi.ConnectIOException;
-import java.util.Locale;
 
 
 /**

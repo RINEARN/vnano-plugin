@@ -19,8 +19,6 @@ import org.vcssl.connect.StringScalarDataAccessorInterface1;
 
 import java.io.File;
 import java.io.IOException;
-import java.rmi.ConnectIOException;
-import java.util.Locale;
 
 
 /**
@@ -214,7 +212,7 @@ public class LoadXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 	 * @param container The data-container.
 	 * @return The converted String-type value.
 	 */
-	protected String convertContentArgToString(ArrayDataAccessorInterface1 container) {
+	protected String convertContentArgToString(ArrayDataAccessorInterface1<?> container) {
 		if (container.getArrayRank() != ArrayDataAccessorInterface1.ARRAY_RANK_OF_SCALAR) {
 			// The "contents" arg(s) is/are declared as a scalar(s) by getParameterClasses method,
 			// so the scripting engine must store a scalar value in the (each) data container.

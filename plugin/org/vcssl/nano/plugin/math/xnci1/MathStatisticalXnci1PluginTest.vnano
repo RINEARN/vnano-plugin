@@ -17,6 +17,18 @@ bool almostEquals(float a, float b) {
 }
 
 
+// Test of sum(float[])
+{
+	print("sum(float[]): ");
+	float args[3];
+	args[0] = 1.0;
+	args[1] = 2.5;
+	args[2] = 4.0;
+	assert( almostEquals( sum(args), 7.5 ) );
+	println("OK.");
+}
+
+
 // Test of mean(...)
 {
 	print("mean(...): ");

@@ -6,7 +6,7 @@ import org.vcssl.connect.EngineConnectorInterface1;
 import org.vcssl.connect.ArrayDataAccessorInterface1;
 import org.vcssl.connect.ConnectorException;
 
-public class Float64VectorToScalarOperationXfci1Plugin implements ExternalFunctionConnectorInterface1 {
+public class Float64VariadicScalarOperationXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 
 	@Override
 	public String getFunctionName() {

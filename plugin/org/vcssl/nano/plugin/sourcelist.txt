@@ -21,7 +21,7 @@ org/vcssl/nano/plugin/math/xfci1/FastScalarSqrtXfci1Plugin.java
 org/vcssl/nano/plugin/math/xfci1/FastScalarTanXfci1Plugin.java
 org/vcssl/nano/plugin/math/xfci1/Float64ScalarOperationXfci1Plugin.java
 org/vcssl/nano/plugin/math/xfci1/Float64VectorizableOperationXfci1Plugin.java
-org/vcssl/nano/plugin/math/xfci1/Float64VectorToScalarOperationXfci1Plugin.java
+org/vcssl/nano/plugin/math/xfci1/Float64VariadicScalarOperationXfci1Plugin.java
 org/vcssl/nano/plugin/math/xfci1/LnXfci1Plugin.java
 org/vcssl/nano/plugin/math/xfci1/Log10Xfci1Plugin.java
 org/vcssl/nano/plugin/math/xfci1/MeanXfci1Plugin.java

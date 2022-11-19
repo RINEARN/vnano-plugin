@@ -21,6 +21,7 @@ import org.vcssl.nano.plugin.math.xfci1.VectorSumXfci1Plugin;
 import org.vcssl.nano.plugin.math.xfci1.VectorMeanXfci1Plugin;
 import org.vcssl.nano.plugin.math.xfci1.VectorVanXfci1Plugin;
 import org.vcssl.nano.plugin.math.xfci1.VectorVan1Xfci1Plugin;
+import org.vcssl.nano.plugin.math.xfci1.VectorSdnXfci1Plugin;
 
 public class MathStatisticalXnci1Plugin implements ExternalNamespaceConnectorInterface1 {
 
@@ -49,6 +50,7 @@ public class MathStatisticalXnci1Plugin implements ExternalNamespaceConnectorInt
 		functionList.add(new VectorMeanXfci1Plugin());
 		functionList.add(new VectorVanXfci1Plugin());
 		functionList.add(new VectorVan1Xfci1Plugin());
+		functionList.add(new VectorSdnXfci1Plugin());
 
 		return functionList.toArray(new ExternalFunctionConnectorInterface1[0]);
 	}

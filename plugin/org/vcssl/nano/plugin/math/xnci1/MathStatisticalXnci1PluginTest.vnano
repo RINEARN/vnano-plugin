@@ -97,6 +97,18 @@ bool almostEquals(float a, float b) {
 }
 
 
+// Test of sdn(float[])
+{
+	print("sdn(float[]): ");
+	float args[3];
+	args[0] = 1.0;
+	args[1] = 2.5;
+	args[2] = 4.0;
+	assert( almostEquals( sdn(args), 1.224744871391589 ) );  // sqrt(1.5)
+	println("OK.");
+}
+
+
 // Test of sdn1(...)
 {
 	print("sdn1(...): ");

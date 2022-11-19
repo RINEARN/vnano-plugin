@@ -57,6 +57,18 @@ bool almostEquals(float a, float b) {
 }
 
 
+// Test of van(float[])
+{
+	print("van(float[]): ");
+	float args[3];
+	args[0] = 1.0;
+	args[1] = 2.5;
+	args[2] = 4.0;
+	assert( almostEquals( van(args), 1.5 ) );
+	println("OK.");
+}
+
+
 // Test of van1(...)
 {
 	print("van1(...): ");

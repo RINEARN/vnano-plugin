@@ -38,6 +38,7 @@ org/vcssl/nano/plugin/math/xfci1/Van1Xfci1Plugin.java
 org/vcssl/nano/plugin/math/xfci1/VanXfci1Plugin.java
 org/vcssl/nano/plugin/math/xfci1/VectorMeanXfci1Plugin.java
 org/vcssl/nano/plugin/math/xfci1/VectorSumXfci1Plugin.java
+org/vcssl/nano/plugin/math/xfci1/VectorVan1Xfci1Plugin.java
 org/vcssl/nano/plugin/math/xfci1/VectorVanXfci1Plugin.java
 org/vcssl/nano/plugin/math/xnci1/MathElementaryXnci1Plugin.java
 org/vcssl/nano/plugin/math/xnci1/MathStatisticalXnci1Plugin.java

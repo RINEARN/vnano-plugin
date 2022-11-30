@@ -80,6 +80,7 @@ org/vcssl/nano/plugin/system/xfci1/ReadlnXfci1Plugin.java
 org/vcssl/nano/plugin/system/xfci1/ReadXfci1Plugin.java
 org/vcssl/nano/plugin/system/xfci1/SaveXfci1Plugin.java
 org/vcssl/nano/plugin/system/xfci1/SleepXfci1Plugin.java
+org/vcssl/nano/plugin/system/xfci1/StringRoundXfci1Plugin.java
 org/vcssl/nano/plugin/system/xfci1/TimeXfci1Plugin.java
 org/vcssl/nano/plugin/system/xfci1/WritelnXfci1Plugin.java
 org/vcssl/nano/plugin/system/xfci1/WriteXfci1Plugin.java

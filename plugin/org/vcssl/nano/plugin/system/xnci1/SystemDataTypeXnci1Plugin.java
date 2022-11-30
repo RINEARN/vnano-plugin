@@ -18,6 +18,7 @@ import org.vcssl.nano.plugin.system.xfci1.InfXfci1Plugin;
 import org.vcssl.nano.plugin.system.xfci1.LengthXfci1Plugin;
 import org.vcssl.nano.plugin.system.xfci1.NanXfci1Plugin;
 import org.vcssl.nano.plugin.system.xfci1.ArrayrankXfci1Plugin;
+import org.vcssl.nano.plugin.system.xfci1.StringRoundXfci1Plugin;
 import org.vcssl.nano.plugin.system.xfci1.FloatRoundXfci1Plugin;
 import org.vcssl.nano.plugin.system.xvci1.FloatMaxXvci1Plugin;
 import org.vcssl.nano.plugin.system.xvci1.FloatMinAbsDenormalXvci1Plugin;
@@ -50,6 +51,7 @@ public class SystemDataTypeXnci1Plugin implements ExternalNamespaceConnectorInte
 		functionList.add(new LengthXfci1Plugin());
 		functionList.add(new ArrayrankXfci1Plugin());
 		functionList.add(new FloatRoundXfci1Plugin());
+		functionList.add(new StringRoundXfci1Plugin());
 		return functionList.toArray(new ExternalFunctionConnectorInterface1[0]);
 	}
 

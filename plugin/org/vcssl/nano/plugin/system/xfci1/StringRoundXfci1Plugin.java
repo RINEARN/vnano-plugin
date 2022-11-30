@@ -12,7 +12,7 @@ import org.vcssl.nano.plugin.system.file.FileIOHub;
 import org.vcssl.connect.ConnectorException;
 import org.vcssl.connect.ConnectorFatalException;
 import org.vcssl.connect.Int64ScalarDataAccessorInterface1;
-import org.vcssl.connect.Float64ScalarDataAccessorInterface1;
+import org.vcssl.connect.StringScalarDataAccessorInterface1;
 import org.vcssl.connect.ArrayDataAccessorInterface1;
 import org.vcssl.connect.EngineConnectorInterface1;
 import org.vcssl.connect.ExternalFunctionConnectorInterface1;
@@ -23,47 +23,47 @@ import java.math.MathContext;
 
 
 /**
- * A function plug-in providing "System.round(double value, int digit, int mode)" function.
+ * A function plug-in providing "System.round(string value, int digit, int mode)" function.
  */
-public class FloatRoundXfci1Plugin implements ExternalFunctionConnectorInterface1 {
+public class StringRoundXfci1Plugin implements ExternalFunctionConnectorInterface1 {
 
 	/** Represents the rounding mode "UP" */
-	public static final int UP = 21;
+	private static final int UP = FloatRoundXfci1Plugin.UP;
 
 	/** Represents the rounding mode "UP_SIGNIF" */
-	public static final int UP_SIGNIF = 1;
+	private static final int UP_SIGNIF = FloatRoundXfci1Plugin.UP_SIGNIF;
 
 	/** Represents the rounding mode "DOWN" */
-	public static final int DOWN = 22;
+	private static final int DOWN = FloatRoundXfci1Plugin.DOWN;
 
 	/** Represents the rounding mode "DOWN_SIGNIF" */
-	public static final int DOWN_SIGNIF = 2;
+	private static final int DOWN_SIGNIF = FloatRoundXfci1Plugin.DOWN_SIGNIF;
 
 	/** Represents the rounding mode "HALF_UP" */
-	public static final int HALF_UP = 23;
+	private static final int HALF_UP = FloatRoundXfci1Plugin.HALF_UP;
 
 	/** Represents the rounding mode "HALF_UP_SIGNIF" */
-	public static final int HALF_UP_SIGNIF = 3;
+	private static final int HALF_UP_SIGNIF = FloatRoundXfci1Plugin.HALF_UP_SIGNIF;
 
 	/** Represents the rounding mode "HALF_DOWN" */
-	public static final int HALF_DOWN = 24;
+	private static final int HALF_DOWN = FloatRoundXfci1Plugin.HALF_DOWN;
 
 	/** Represents the rounding mode "HALF_DOWN_SIGNIF" */
-	public static final int HALF_DOWN_SIGNIF = 4;
+	private static final int HALF_DOWN_SIGNIF = FloatRoundXfci1Plugin.HALF_DOWN_SIGNIF;
 
 	/** Represents the rounding mode "HALF_TO_EVEN" */
-	public static final int HALF_TO_EVEN = 25;
+	private static final int HALF_TO_EVEN = FloatRoundXfci1Plugin.HALF_TO_EVEN;
 
 	/** Represents the rounding mode "HALF_TO_EVEN_SIGNIF" */
-	public static final int HALF_TO_EVEN_SIGNIF = 5;
+	private static final int HALF_TO_EVEN_SIGNIF = FloatRoundXfci1Plugin.HALF_TO_EVEN_SIGNIF;
 
 	/** Stores the engine connector for requesting permissions. */
-	protected EngineConnectorInterface1 engineConnector = null;
+	private EngineConnectorInterface1 engineConnector = null;
 
 	/**
 	 * Create a new instance of this plug-in.
 	 */
-	public FloatRoundXfci1Plugin() {
+	public StringRoundXfci1Plugin() {
 	}
 
 	@Override
@@ -92,12 +92,12 @@ public class FloatRoundXfci1Plugin implements ExternalFunctionConnectorInterface
 
 	@Override
 	public Class<?>[] getParameterClasses() {
-		return new Class<?>[] { double.class, long.class, long.class };
+		return new Class<?>[] { String.class, long.class, long.class };
 	}
 
 	@Override
 	public Class<?>[] getParameterUnconvertedClasses() {
-		return new Class<?>[] { Float64ScalarDataAccessorInterface1.class, Int64ScalarDataAccessorInterface1.class, Int64ScalarDataAccessorInterface1.class };
+		return new Class<?>[] { StringScalarDataAccessorInterface1.class, Int64ScalarDataAccessorInterface1.class, Int64ScalarDataAccessorInterface1.class };
 	}
 
 	@Override
@@ -142,12 +142,12 @@ public class FloatRoundXfci1Plugin implements ExternalFunctionConnectorInterface
 
 	@Override
 	public Class<?> getReturnClass(Class<?>[] parameterClasses) {
-		return double.class;
+		return String.class;
 	}
 
 	@Override
 	public Class<?> getReturnUnconvertedClass(Class<?>[] parameterClasses) {
-		return Float64ScalarDataAccessorInterface1.class;
+		return StringScalarDataAccessorInterface1.class;
 	}
 
 	@Override
@@ -169,13 +169,13 @@ public class FloatRoundXfci1Plugin implements ExternalFunctionConnectorInterface
 	public Object invoke(Object[] arguments) throws ConnectorException {
 		int argLength = arguments.length;
 
-		Float64ScalarDataAccessorInterface1 returnContainer = Float64ScalarDataAccessorInterface1.class.cast(arguments[0]);
-		double value = (double)Float64ScalarDataAccessorInterface1.class.cast(arguments[1]).getFloat64ScalarData();
+		StringScalarDataAccessorInterface1 returnContainer = StringScalarDataAccessorInterface1.class.cast(arguments[0]);
+		String value = (String)StringScalarDataAccessorInterface1.class.cast(arguments[1]).getStringScalarData();
 		long numberOfDigits = (long)Int64ScalarDataAccessorInterface1.class.cast(arguments[2]).getInt64ScalarData();
 		long mode = (long)Int64ScalarDataAccessorInterface1.class.cast(arguments[3]).getInt64ScalarData();
 
-		double roundedValue = this.round(value, (int)numberOfDigits, (int)mode);
-		returnContainer.setFloat64ScalarData(roundedValue);
+		String roundedValue = this.round(value, (int)numberOfDigits, (int)mode);
+		returnContainer.setStringScalarData(roundedValue);
 		return null;
 	}
 
@@ -187,7 +187,7 @@ public class FloatRoundXfci1Plugin implements ExternalFunctionConnectorInterface
 	 * @param mode The rounding mode index.
 	 * @return The rounded value.
 	 */
-	private double round(double value, int numberOfDigits, int mode) {
+	private String round(String value, int numberOfDigits, int mode) {
 		BigDecimal rounder = new BigDecimal(value);
 		RoundingMode roundingMode = this.toRoundingMode(mode);
 
@@ -198,7 +198,7 @@ public class FloatRoundXfci1Plugin implements ExternalFunctionConnectorInterface
 			rounder = rounder.round(mathContext);
 		}
 
-		double roundedValue = rounder.doubleValue();
+		String roundedValue = rounder.toString();
 		return roundedValue;
 	}
 

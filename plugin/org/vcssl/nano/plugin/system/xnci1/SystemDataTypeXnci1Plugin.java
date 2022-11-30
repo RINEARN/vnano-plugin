@@ -31,6 +31,7 @@ import org.vcssl.nano.plugin.system.xvci1.UpXvci1Plugin;
 import org.vcssl.nano.plugin.system.xvci1.UpSignifXvci1Plugin;
 import org.vcssl.nano.plugin.system.xvci1.DownXvci1Plugin;
 import org.vcssl.nano.plugin.system.xvci1.DownSignifXvci1Plugin;
+import org.vcssl.nano.plugin.system.xvci1.HalfUpXvci1Plugin;
 import org.vcssl.nano.plugin.system.xvci1.HalfDownXvci1Plugin;
 import org.vcssl.nano.plugin.system.xvci1.HalfDownSignifXvci1Plugin;
 
@@ -75,6 +76,7 @@ public class SystemDataTypeXnci1Plugin implements ExternalNamespaceConnectorInte
 		variableList.add(new UpSignifXvci1Plugin());
 		variableList.add(new DownXvci1Plugin());
 		variableList.add(new DownSignifXvci1Plugin());
+		variableList.add(new HalfUpXvci1Plugin());
 		variableList.add(new HalfDownXvci1Plugin());
 		variableList.add(new HalfDownSignifXvci1Plugin());
 		return variableList.toArray(new ExternalVariableConnectorInterface1[0]);

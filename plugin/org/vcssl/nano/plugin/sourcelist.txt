@@ -96,6 +96,7 @@ org/vcssl/nano/plugin/system/xvci1/AppendCsvXvci1Plugin.java
 org/vcssl/nano/plugin/system/xvci1/AppendTsvXvci1Plugin.java
 org/vcssl/nano/plugin/system/xvci1/AppendXvci1Plugin.java
 org/vcssl/nano/plugin/system/xvci1/CrXvci1Plugin.java
+org/vcssl/nano/plugin/system/xvci1/DownSignifXvci1Plugin.java
 org/vcssl/nano/plugin/system/xvci1/DownXvci1Plugin.java
 org/vcssl/nano/plugin/system/xvci1/EolXvci1Plugin.java
 org/vcssl/nano/plugin/system/xvci1/FloatMaxXvci1Plugin.java

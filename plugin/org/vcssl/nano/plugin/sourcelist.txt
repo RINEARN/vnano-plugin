@@ -102,6 +102,7 @@ org/vcssl/nano/plugin/system/xvci1/EolXvci1Plugin.java
 org/vcssl/nano/plugin/system/xvci1/FloatMaxXvci1Plugin.java
 org/vcssl/nano/plugin/system/xvci1/FloatMinAbsDenormalXvci1Plugin.java
 org/vcssl/nano/plugin/system/xvci1/FloatMinAbsNormalXvci1Plugin.java
+org/vcssl/nano/plugin/system/xvci1/HalfDownXvci1Plugin.java
 org/vcssl/nano/plugin/system/xvci1/InfXvci1Plugin.java
 org/vcssl/nano/plugin/system/xvci1/IntMaxXvci1Plugin.java
 org/vcssl/nano/plugin/system/xvci1/IntMinXvci1Plugin.java

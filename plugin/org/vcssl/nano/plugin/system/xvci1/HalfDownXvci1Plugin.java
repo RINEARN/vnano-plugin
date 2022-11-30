@@ -5,10 +5,10 @@ import org.vcssl.connect.EngineConnectorInterface1;
 import org.vcssl.connect.ExternalVariableConnectorInterface1;
 import org.vcssl.nano.plugin.system.xfci1.FloatRoundXfci1Plugin;
 
-public class UpXvci1Plugin implements ExternalVariableConnectorInterface1 {
+public class HalfDownXvci1Plugin implements ExternalVariableConnectorInterface1 {
 
 	@Override
-	public String getVariableName() { return "UP"; }
+	public String getVariableName() { return "HALF_DOWN"; }
 	@Override
 	public Class<?> getDataClass() { return long.class; }
 	@Override
@@ -37,7 +37,7 @@ public class UpXvci1Plugin implements ExternalVariableConnectorInterface1 {
 
 	@Override
 	public Object getData() throws ConnectorException {
-		return Long.valueOf(FloatRoundXfci1Plugin.UP);
+		return Long.valueOf(FloatRoundXfci1Plugin.HALF_DOWN);
 	}
 
 	@Override

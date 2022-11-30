@@ -3,6 +3,7 @@ package org.vcssl.nano.plugin.system.xvci1;
 import org.vcssl.connect.ConnectorException;
 import org.vcssl.connect.EngineConnectorInterface1;
 import org.vcssl.connect.ExternalVariableConnectorInterface1;
+import org.vcssl.nano.plugin.system.xfci1.FloatRoundXfci1Plugin;
 
 public class DownXvci1Plugin implements ExternalVariableConnectorInterface1 {
 
@@ -36,7 +37,7 @@ public class DownXvci1Plugin implements ExternalVariableConnectorInterface1 {
 
 	@Override
 	public Object getData() throws ConnectorException {
-		return Long.valueOf(22L);
+		return Long.valueOf(FloatRoundXfci1Plugin.DOWN);
 	}
 
 	@Override

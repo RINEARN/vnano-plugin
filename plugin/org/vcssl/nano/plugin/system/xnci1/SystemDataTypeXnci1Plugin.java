@@ -27,6 +27,7 @@ import org.vcssl.nano.plugin.system.xvci1.InfXvci1Plugin;
 import org.vcssl.nano.plugin.system.xvci1.IntMaxXvci1Plugin;
 import org.vcssl.nano.plugin.system.xvci1.IntMinXvci1Plugin;
 import org.vcssl.nano.plugin.system.xvci1.NanXvci1Plugin;
+import org.vcssl.nano.plugin.system.xvci1.UpXvci1Plugin;
 
 //Interface Specification: https://www.vcssl.org/en-us/dev/code/main-jimpl/api/org/vcssl/connect/ExternalNamespaceConnectorInterface1.html
 //インターフェース仕様書:  https://www.vcssl.org/ja-jp/dev/code/main-jimpl/api/org/vcssl/connect/ExternalNamespaceConnectorInterface1.html
@@ -65,6 +66,7 @@ public class SystemDataTypeXnci1Plugin implements ExternalNamespaceConnectorInte
 		variableList.add(new FloatMaxXvci1Plugin());
 		variableList.add(new FloatMinAbsNormalXvci1Plugin());
 		variableList.add(new FloatMinAbsDenormalXvci1Plugin());
+		variableList.add(new UpXvci1Plugin());
 		return variableList.toArray(new ExternalVariableConnectorInterface1[0]);
 	}
 

@@ -109,6 +109,7 @@ org/vcssl/nano/plugin/system/xvci1/ReadCsvXvci1Plugin.java
 org/vcssl/nano/plugin/system/xvci1/ReadStsvXvci1Plugin.java
 org/vcssl/nano/plugin/system/xvci1/ReadTsvXvci1Plugin.java
 org/vcssl/nano/plugin/system/xvci1/ReadXvci1Plugin.java
+org/vcssl/nano/plugin/system/xvci1/UpXvci1Plugin.java
 org/vcssl/nano/plugin/system/xvci1/WriteCsvXvci1Plugin.java
 org/vcssl/nano/plugin/system/xvci1/WriteTsvXvci1Plugin.java
 org/vcssl/nano/plugin/system/xvci1/WriteXvci1Plugin.java

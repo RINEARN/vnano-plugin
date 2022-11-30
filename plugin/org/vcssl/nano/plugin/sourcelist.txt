@@ -104,6 +104,7 @@ org/vcssl/nano/plugin/system/xvci1/FloatMinAbsDenormalXvci1Plugin.java
 org/vcssl/nano/plugin/system/xvci1/FloatMinAbsNormalXvci1Plugin.java
 org/vcssl/nano/plugin/system/xvci1/HalfDownSignifXvci1Plugin.java
 org/vcssl/nano/plugin/system/xvci1/HalfDownXvci1Plugin.java
+org/vcssl/nano/plugin/system/xvci1/HalfToEvenSignifXvci1Plugin.java
 org/vcssl/nano/plugin/system/xvci1/HalfToEvenXvci1Plugin.java
 org/vcssl/nano/plugin/system/xvci1/HalfUpSignifXvci1Plugin.java
 org/vcssl/nano/plugin/system/xvci1/HalfUpXvci1Plugin.java

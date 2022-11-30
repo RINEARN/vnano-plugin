@@ -36,6 +36,7 @@ import org.vcssl.nano.plugin.system.xvci1.HalfUpSignifXvci1Plugin;
 import org.vcssl.nano.plugin.system.xvci1.HalfDownXvci1Plugin;
 import org.vcssl.nano.plugin.system.xvci1.HalfDownSignifXvci1Plugin;
 import org.vcssl.nano.plugin.system.xvci1.HalfToEvenXvci1Plugin;
+import org.vcssl.nano.plugin.system.xvci1.HalfToEvenSignifXvci1Plugin;
 
 public class SystemDataTypeXnci1Plugin implements ExternalNamespaceConnectorInterface1 {
 
@@ -80,6 +81,7 @@ public class SystemDataTypeXnci1Plugin implements ExternalNamespaceConnectorInte
 		variableList.add(new HalfDownXvci1Plugin());
 		variableList.add(new HalfDownSignifXvci1Plugin());
 		variableList.add(new HalfToEvenXvci1Plugin());
+		variableList.add(new HalfToEvenSignifXvci1Plugin());
 		return variableList.toArray(new ExternalVariableConnectorInterface1[0]);
 	}
 

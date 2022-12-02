@@ -199,6 +199,10 @@ public class StringRoundXfci1Plugin implements ExternalFunctionConnectorInterfac
 		}
 
 		String roundedValue = rounder.toString();
+		if (roundedValue.toUpperCase().contains("E+")) {
+			roundedValue = roundedValue.replace("E+", "E");
+			roundedValue = roundedValue.replace("e+", "e");
+		}
 		return roundedValue;
 	}
 

@@ -139,7 +139,7 @@ bool almostEquals(float a, float b, float minError) {
 
 // Test of round(floatValue, numberOfDigits, mode)
 {
-	print("round(floatValue, numberOfDigits, mode)");
+	println("round(floatValue, numberOfDigits, mode)");
 
 	// Note: for testing HALF_UP/HALF_DOWN/HALF_TO_EVEN mode for float type values, 
 	// be careful of the internal representation of float type values.
@@ -299,7 +299,7 @@ bool almostEquals(float a, float b, float minError) {
 
 // Test of round(stringValue, numberOfDigits, mode)
 {
-	print("round(stringValue, numberOfDigits, mode)");
+	println("round(stringValue, numberOfDigits, mode)");
 
 	// --------------------------------------------------------------------------------
 	// Tests for UP / DOWN/ HALF_UP / HALF_DOWN / HALF_TO_EVEN modes.

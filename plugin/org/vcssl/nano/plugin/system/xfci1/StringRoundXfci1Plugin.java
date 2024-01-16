@@ -213,19 +213,19 @@ public class StringRoundXfci1Plugin implements ExternalFunctionConnectorInterfac
 	 * @return The RoundingMode object.
 	 */
 	private RoundingMode toRoundingMode(int mode) {
-		if (mode == this.UP || mode == this.UP_SIGNIF) {
+		if (mode == StringRoundXfci1Plugin.UP || mode == StringRoundXfci1Plugin.UP_SIGNIF) {
 			return RoundingMode.UP;
 
-		} else if (mode == this.DOWN || mode == this.DOWN_SIGNIF) {
+		} else if (mode == StringRoundXfci1Plugin.DOWN || mode == StringRoundXfci1Plugin.DOWN_SIGNIF) {
 			return RoundingMode.DOWN;
 
-		} else if (mode == this.HALF_UP || mode == this.HALF_UP_SIGNIF) {
+		} else if (mode == StringRoundXfci1Plugin.HALF_UP || mode == StringRoundXfci1Plugin.HALF_UP_SIGNIF) {
 			return RoundingMode.HALF_UP;
 
-		} else if (mode == this.HALF_DOWN || mode == this.HALF_DOWN_SIGNIF) {
+		} else if (mode == StringRoundXfci1Plugin.HALF_DOWN || mode == StringRoundXfci1Plugin.HALF_DOWN_SIGNIF) {
 			return RoundingMode.HALF_DOWN;
 
-		} else if (mode == this.HALF_TO_EVEN || mode == this.HALF_TO_EVEN_SIGNIF) {
+		} else if (mode == StringRoundXfci1Plugin.HALF_TO_EVEN || mode == StringRoundXfci1Plugin.HALF_TO_EVEN_SIGNIF) {
 			return RoundingMode.HALF_EVEN;
 
 		} else {
@@ -241,18 +241,18 @@ public class StringRoundXfci1Plugin implements ExternalFunctionConnectorInterfac
 	 * @return Returns true if the specified mode is for rounding a part after the radix point.
 	 */
 	private boolean roundsAfterRadixPoint(int mode) {
-		if(mode == this.UP
-				|| mode == this.DOWN
-				|| mode == this.HALF_UP
-				|| mode == this.HALF_DOWN
-				|| mode == this.HALF_TO_EVEN) {
+		if(mode == StringRoundXfci1Plugin.UP
+				|| mode == StringRoundXfci1Plugin.DOWN
+				|| mode == StringRoundXfci1Plugin.HALF_UP
+				|| mode == StringRoundXfci1Plugin.HALF_DOWN
+				|| mode == StringRoundXfci1Plugin.HALF_TO_EVEN) {
 			return true;
 
-		} else if(mode == this.UP_SIGNIF
-				|| mode == this.DOWN_SIGNIF
-				|| mode == this.HALF_UP_SIGNIF
-				|| mode == this.HALF_DOWN_SIGNIF
-				|| mode == this.HALF_TO_EVEN_SIGNIF) {
+		} else if(mode == StringRoundXfci1Plugin.UP_SIGNIF
+				|| mode == StringRoundXfci1Plugin.DOWN_SIGNIF
+				|| mode == StringRoundXfci1Plugin.HALF_UP_SIGNIF
+				|| mode == StringRoundXfci1Plugin.HALF_DOWN_SIGNIF
+				|| mode == StringRoundXfci1Plugin.HALF_TO_EVEN_SIGNIF) {
 			return false;
 
 		} else {

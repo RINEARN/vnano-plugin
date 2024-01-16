@@ -170,9 +170,9 @@ public class StringRoundXfci1Plugin implements ExternalFunctionConnectorInterfac
 		int argLength = arguments.length;
 
 		StringScalarDataAccessorInterface1 returnContainer = StringScalarDataAccessorInterface1.class.cast(arguments[0]);
-		String value = (String)StringScalarDataAccessorInterface1.class.cast(arguments[1]).getStringScalarData();
-		long numberOfDigits = (long)Int64ScalarDataAccessorInterface1.class.cast(arguments[2]).getInt64ScalarData();
-		long mode = (long)Int64ScalarDataAccessorInterface1.class.cast(arguments[3]).getInt64ScalarData();
+		String value = StringScalarDataAccessorInterface1.class.cast(arguments[1]).getStringScalarData();
+		long numberOfDigits = Int64ScalarDataAccessorInterface1.class.cast(arguments[2]).getInt64ScalarData();
+		long mode = Int64ScalarDataAccessorInterface1.class.cast(arguments[3]).getInt64ScalarData();
 
 		String roundedValue = this.round(value, (int)numberOfDigits, (int)mode);
 		returnContainer.setStringScalarData(roundedValue);

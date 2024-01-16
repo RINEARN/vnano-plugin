@@ -170,9 +170,9 @@ public class FloatRoundXfci1Plugin implements ExternalFunctionConnectorInterface
 		int argLength = arguments.length;
 
 		Float64ScalarDataAccessorInterface1 returnContainer = Float64ScalarDataAccessorInterface1.class.cast(arguments[0]);
-		double value = (double)Float64ScalarDataAccessorInterface1.class.cast(arguments[1]).getFloat64ScalarData();
-		long numberOfDigits = (long)Int64ScalarDataAccessorInterface1.class.cast(arguments[2]).getInt64ScalarData();
-		long mode = (long)Int64ScalarDataAccessorInterface1.class.cast(arguments[3]).getInt64ScalarData();
+		double value = Float64ScalarDataAccessorInterface1.class.cast(arguments[1]).getFloat64ScalarData();
+		long numberOfDigits = Int64ScalarDataAccessorInterface1.class.cast(arguments[2]).getInt64ScalarData();
+		long mode = Int64ScalarDataAccessorInterface1.class.cast(arguments[3]).getInt64ScalarData();
 
 		double roundedValue = this.round(value, (int)numberOfDigits, (int)mode);
 		returnContainer.setFloat64ScalarData(roundedValue);

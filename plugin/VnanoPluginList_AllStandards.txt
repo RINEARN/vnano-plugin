@@ -33,3 +33,6 @@ org/vcssl/nano/plugin/math/xnci1/MathElementaryXnci1Plugin.class
 # Provides statistical functions - 統計関数を提供します
 org/vcssl/nano/plugin/math/xnci1/MathStatisticalXnci1Plugin.class
 
+# Provides basic text-processing functions - 基本的な文字列処理関数を提供します
+org/vcssl/nano/plugin/text/xnci1/TextBasicXnci1Plugin.class
+

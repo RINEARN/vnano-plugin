@@ -1,0 +1,10 @@
+coding UTF-8;
+
+
+// Test of <signature>
+{
+	//print("<signature>: ");
+	//assert( <result> );
+	//println("OK.");
+}
+
